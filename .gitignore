@@ -42,3 +42,4 @@ msbuild.wrn
 
 .docker/
 .idea/
+rabbitmq

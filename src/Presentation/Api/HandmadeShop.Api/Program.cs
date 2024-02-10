@@ -2,6 +2,7 @@ using HandmadeShop.Api;
 using HandmadeShop.Api.Configuration;
 using HandmadeShop.Common.Settings;
 using HandmadeShop.Context;
+using HandmadeShop.Context.Setup;
 using HandmadeShop.Services.Logger.Logger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +38,7 @@ app.UseAppSwagger();
 
 app.UseAppControllerAndViews();
 
-// DbInitializer.Execute(app.Services);
+DbInitializer.Execute(app.Services);
 //
 // DbSeeder.Execute(app.Services);
 

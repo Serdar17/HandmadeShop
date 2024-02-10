@@ -1,0 +1,52 @@
+version: '3.4'
+
+services:
+  handmade_shop_api:
+    ports:
+      - "10000:80"
+    networks:
+      - shared_handmade_shop
+    env_file:
+      - env.api
+
+  handmade_shop_identity:
+    ports:
+      - "10001:80"
+    networks:
+      - shared_handmade_shop
+    env_file:
+      - env.identity
+  
+  handmade_shop_porstgresql:
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=2g5N5I2XjY3tXdo
+    ports:
+      - "45432:5432"
+    networks:
+      - shared_handmade_shop
+    volumes:
+      - ~/.handmade_shop/postgresql/data/:/var/lib/postgresql/data
+  
+  handmade_shop_rabbitmq:
+    ports:
+      - "5672:5672"
+      - "5673:5673"
+      - "15672:15672"
+    networks:
+      - shared_handmade_shop
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+  
+  handmade_shop_redis:
+    ports:
+      - "6379:6379"
+    networks:
+      - shared_handmade_shop
+    volumes:
+      - ~/.docker-conf/handmade_shop/redis/data/:/data
+
+networks:
+  shared_handmade_shop:
+    driver: bridge

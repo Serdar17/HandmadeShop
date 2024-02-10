@@ -1,0 +1,25 @@
+version: '3.4'
+
+services: 
+  handmade_shop_porstgresql:
+    image: postgres:15-alpine
+    
+  handmade_shop_rabbitmq:
+    image: rabbitmq:management
+    
+  handmade_shop_redis:
+    image: redis
+    
+  handmade_shop_api:
+    image: ${DOCKER_REGISTRY-}handmade_shop_api
+    build:
+      context: .
+      dockerfile: src/Presentation/Api/HandmadeShop.Api/Dockerfile
+  
+  handmade_shop_identity:
+    image: ${DOCKER_REGISTRY-}handmade_shop_identity
+    build:
+      context: .
+      dockerfile: src/Presentation/Identity/HandmadeShop.Identity/Dockerfile
+  
+  
