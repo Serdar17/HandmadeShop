@@ -1,7 +1,6 @@
-﻿using HandmadeShop.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace HandmadeShop._Context.Factories;
+namespace HandmadeShop.Context.Factories;
 
 public class DbContextFactory
 {

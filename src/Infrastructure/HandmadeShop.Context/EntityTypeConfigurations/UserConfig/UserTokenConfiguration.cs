@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HandmadeShop._Context.EntityTypeConfigurations.UserConfig;
+namespace HandmadeShop.Context.EntityTypeConfigurations.UserConfig;
 
 public class UserTokenConfiguration : IEntityTypeConfiguration<IdentityUserToken<Guid>>
 {

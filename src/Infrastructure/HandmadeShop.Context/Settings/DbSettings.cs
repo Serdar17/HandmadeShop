@@ -1,5 +1,5 @@
 ﻿
-namespace HandmadeShop._Context.Settings;
+namespace HandmadeShop.Context.Settings;
 
 public class DbSettings
 {

@@ -6,4 +6,22 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
+      <ProjectReference Include="..\..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
+      <ProjectReference Include="..\..\HandmadeShop.Context\HandmadeShop.Context.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

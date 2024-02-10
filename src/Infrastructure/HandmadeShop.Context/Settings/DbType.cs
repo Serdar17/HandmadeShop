@@ -1,4 +1,4 @@
-﻿namespace HandmadeShop._Context.Settings;
+﻿namespace HandmadeShop.Context.Settings;
 
 public enum DbType
 {

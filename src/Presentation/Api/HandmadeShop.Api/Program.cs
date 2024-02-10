@@ -1,7 +1,7 @@
-using HandmadeShop._Context;
 using HandmadeShop.Api;
 using HandmadeShop.Api.Configuration;
 using HandmadeShop.Common.Settings;
+using HandmadeShop.Context;
 using HandmadeShop.Services.Logger.Logger;
 
 var builder = WebApplication.CreateBuilder(args);

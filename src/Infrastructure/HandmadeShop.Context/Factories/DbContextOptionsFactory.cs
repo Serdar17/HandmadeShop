@@ -1,9 +1,8 @@
-﻿using HandmadeShop._Context.Settings;
-using HandmadeShop.Context;
+﻿using HandmadeShop.Context.Settings;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-namespace HandmadeShop._Context.Factories;
+namespace HandmadeShop.Context.Factories;
 
 public class DbContextOptionsFactory
 {

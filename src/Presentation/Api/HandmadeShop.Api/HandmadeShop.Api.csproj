@@ -20,6 +20,14 @@
         <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
         <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
         <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
@@ -38,7 +46,6 @@
       <ProjectReference Include="..\..\..\Application\HandmadeShop.Application\HandmadeShop.Application.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context.Seeder\HandmadeShop.Context.Seeder.csproj" />
-      <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context\HandmadeShop.Context.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MySql\HandmadeShop.Context.Migrations.MySql.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.PgSql\HandmadeShop.Context.Migrations.PgSql.csproj" />

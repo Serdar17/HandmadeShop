@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HandmadeShop.Context.Factories;
+using HandmadeShop.Context.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HandmadeShop._Context;
+namespace HandmadeShop.Context;
 
 public static class DependencyInjection
 {
@@ -9,6 +11,12 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration? configuration = null)
     {
+        var settings = Common.Settings.Settings.Load<DbSettings>("Database", configuration);
+        services.AddSingleton(settings);
+
+        var dbInitOptionsDelegate = DbContextOptionsFactory.Configure(settings.ConnectionString, settings.Type, true);
+        services.AddDbContextFactory<AppDbContext>(dbInitOptionsDelegate);
+
         return services;
     }
 }

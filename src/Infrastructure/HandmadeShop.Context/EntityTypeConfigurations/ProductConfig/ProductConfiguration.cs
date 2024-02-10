@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace HandmadeShop._Context.EntityTypeConfigurations.ProductConfig;
+namespace HandmadeShop.Context.EntityTypeConfigurations.ProductConfig;
 
 public class ProductConfiguration : IEntityTypeConfiguration<Product>
 {

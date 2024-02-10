@@ -1,8 +1,7 @@
-﻿using HandmadeShop.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HandmadeShop._Context.Setup;
+namespace HandmadeShop.Context.Setup;
 
 public class DbInitializer
 {

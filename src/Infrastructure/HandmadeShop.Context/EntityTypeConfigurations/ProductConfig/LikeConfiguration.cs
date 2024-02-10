@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HandmadeShop._Context.EntityTypeConfigurations.ProductConfig;
+namespace HandmadeShop.Context.EntityTypeConfigurations.ProductConfig;
 
 public class LikeConfiguration : IEntityTypeConfiguration<Like>
 {

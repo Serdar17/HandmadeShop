@@ -16,7 +16,7 @@ public class Product : BaseEntity
     public virtual required Catalog Catalog { get; set; }
 
     public int LikeId { get; set; }
-    public Like? Like { get; set; }
+    public virtual Like? Like { get; set; }
 
     public Guid UserId { get; set; }
     public virtual User? User { get; set; }
