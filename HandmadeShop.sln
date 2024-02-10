@@ -48,6 +48,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Migrat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Migrations.MSSQL", "src\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj", "{D8053C5D-957A-4B5D-93EE-7893D005C01D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Seeder", "src\Infrastructure\HandmadeShop.Context.Seeder\HandmadeShop.Context.Seeder.csproj", "{099E5F72-A017-4D90-8C0E-972E2DB69E16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Common", "src\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj", "{1554183F-D3E6-4FF2-B7AA-693D4EB2B766}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -76,6 +80,8 @@ Global
 		{219B0A33-1294-4EB6-B235-60E8170191A6} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
 		{06A975DF-AEB2-47F4-92F0-25BC1D67F233} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
 		{D8053C5D-957A-4B5D-93EE-7893D005C01D} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
+		{099E5F72-A017-4D90-8C0E-972E2DB69E16} = {C3300D64-2FFA-430D-BD23-DC3459E625AE}
+		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766} = {A2419397-B1AB-4F42-9727-A95A519C777A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -118,5 +124,13 @@ Global
 		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{099E5F72-A017-4D90-8C0E-972E2DB69E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099E5F72-A017-4D90-8C0E-972E2DB69E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099E5F72-A017-4D90-8C0E-972E2DB69E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{099E5F72-A017-4D90-8C0E-972E2DB69E16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
