@@ -54,6 +54,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Common", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.Logger", "src\Services\HandmadeShop.Services.Logger\HandmadeShop.Services.Logger.csproj", "{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.RabbitMq", "src\Services\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj", "{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,7 @@ Global
 		{099E5F72-A017-4D90-8C0E-972E2DB69E16} = {C3300D64-2FFA-430D-BD23-DC3459E625AE}
 		{1554183F-D3E6-4FF2-B7AA-693D4EB2B766} = {A2419397-B1AB-4F42-9727-A95A519C777A}
 		{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
+		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -139,5 +142,9 @@ Global
 		{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
