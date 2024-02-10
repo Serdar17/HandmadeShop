@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Worker", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Web", "src\Presentation\Web\HandmadeShop.Web\HandmadeShop.Web.csproj", "{961959AB-7A84-4AC9-B972-845DA0D9697F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Domain", "src\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj", "{9E8CD35C-E925-470B-B094-119FA8194850}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,7 @@ Global
 		{97370645-2824-434F-9FD4-699C209E841B} = {CB2AFEA5-0A7B-49F8-B042-D7AF3C0A4002}
 		{E4C619DF-D9FE-4360-B876-129B98F5B088} = {30EB7188-3F30-4145-9AC4-67C8DB258298}
 		{961959AB-7A84-4AC9-B972-845DA0D9697F} = {BC4D3946-651E-44AA-98B3-83E15916F5EC}
+		{9E8CD35C-E925-470B-B094-119FA8194850} = {9D2895A3-20FE-4ADE-8412-E0BB5002C376}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -80,5 +83,9 @@ Global
 		{961959AB-7A84-4AC9-B972-845DA0D9697F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{961959AB-7A84-4AC9-B972-845DA0D9697F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{961959AB-7A84-4AC9-B972-845DA0D9697F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8CD35C-E925-470B-B094-119FA8194850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8CD35C-E925-470B-B094-119FA8194850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8CD35C-E925-470B-B094-119FA8194850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8CD35C-E925-470B-B094-119FA8194850}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
