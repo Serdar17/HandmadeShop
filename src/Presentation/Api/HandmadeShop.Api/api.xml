@@ -73,5 +73,34 @@
             </summary>
             <param name="services">Services collection</param>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.AuthController">
+            <summary>
+            Auth controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="sender"></param>
+        </member>
+        <member name="T:HandmadeShop.Api.DependencyInjection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.DependencyInjection.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

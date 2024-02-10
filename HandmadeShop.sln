@@ -58,6 +58,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.Rabbi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.Settings", "src\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj", "{76EAE556-9F75-474D-9E07-D206668A11AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Application", "src\Application\HandmadeShop.Application\HandmadeShop.Application.csproj", "{372842FD-F782-4B3C-997C-A2C49126F4B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.UseCase.Auth", "src\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj", "{71989A40-2712-429F-82CD-88783E71E216}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +95,8 @@ Global
 		{FBE1A54B-1AFD-4A42-8EEF-8C134D0CDB93} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 		{DE97DBF8-2BB1-4E8A-8D2D-91F926A11482} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 		{76EAE556-9F75-474D-9E07-D206668A11AC} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
+		{372842FD-F782-4B3C-997C-A2C49126F4B3} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
+		{71989A40-2712-429F-82CD-88783E71E216} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -153,5 +159,13 @@ Global
 		{76EAE556-9F75-474D-9E07-D206668A11AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76EAE556-9F75-474D-9E07-D206668A11AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76EAE556-9F75-474D-9E07-D206668A11AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{372842FD-F782-4B3C-997C-A2C49126F4B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{372842FD-F782-4B3C-997C-A2C49126F4B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{372842FD-F782-4B3C-997C-A2C49126F4B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{372842FD-F782-4B3C-997C-A2C49126F4B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71989A40-2712-429F-82CD-88783E71E216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71989A40-2712-429F-82CD-88783E71E216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71989A40-2712-429F-82CD-88783E71E216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71989A40-2712-429F-82CD-88783E71E216}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

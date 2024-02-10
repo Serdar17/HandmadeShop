@@ -35,6 +35,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Application\HandmadeShop.Application\HandmadeShop.Application.csproj" />
+      <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context.Seeder\HandmadeShop.Context.Seeder.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context\HandmadeShop.Context.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj" />
@@ -44,6 +46,10 @@
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
       <ProjectReference Include="..\..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\Auth\Models\" />
     </ItemGroup>
 
 </Project>
