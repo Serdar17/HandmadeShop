@@ -70,6 +70,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{73FA
 		env.identity = env.identity
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.UseCase.Account", "src\Application\HandmadeShop.UseCase.Account\HandmadeShop.UseCase.Account.csproj", "{2D580BAB-A057-429A-9759-674C24A018C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,7 @@ Global
 		{372842FD-F782-4B3C-997C-A2C49126F4B3} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 		{71989A40-2712-429F-82CD-88783E71E216} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 		{121328EB-B2A1-4010-8C71-707B93192595} = {C3300D64-2FFA-430D-BD23-DC3459E625AE}
+		{2D580BAB-A057-429A-9759-674C24A018C6} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -175,5 +178,9 @@ Global
 		{121328EB-B2A1-4010-8C71-707B93192595}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{121328EB-B2A1-4010-8C71-707B93192595}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{121328EB-B2A1-4010-8C71-707B93192595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D580BAB-A057-429A-9759-674C24A018C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D580BAB-A057-429A-9759-674C24A018C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D580BAB-A057-429A-9759-674C24A018C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D580BAB-A057-429A-9759-674C24A018C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

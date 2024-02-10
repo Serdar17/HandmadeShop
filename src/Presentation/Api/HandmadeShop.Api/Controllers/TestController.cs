@@ -7,7 +7,6 @@ namespace HandmadeShop.Api.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [ApiVersion("2.0")]
-[ApiExplorerSettings(GroupName = "Test")]
 [Route("v{version:apiVersion}/[controller]")]
 public class TestController : ControllerBase
 {

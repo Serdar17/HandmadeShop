@@ -25,7 +25,7 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUserCommand,
     
         if (existUser is not null)
         {
-            return UserError.SameUser;
+            return UserErrors.SameUser;
         }
     
         var user = new User

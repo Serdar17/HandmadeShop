@@ -3,6 +3,7 @@ using HandmadeShop.Application;
 using HandmadeShop.Services.Logger;
 using HandmadeShop.Services.RabbitMq;
 using HandmadeShop.Services.Settings;
+using HandmadeShop.UseCase.Account;
 using HandmadeShop.UseCase.Auth;
 
 namespace HandmadeShop.Api;
@@ -32,6 +33,7 @@ public static class DependencyInjection
             .AddAppLogger()
             .AddApplication()
             .AddAuthService()
+            .AddAccountService()
             ;
         
         return services;

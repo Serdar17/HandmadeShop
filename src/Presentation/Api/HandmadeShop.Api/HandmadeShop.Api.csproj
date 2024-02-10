@@ -38,6 +38,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Application\HandmadeShop.Application\HandmadeShop.Application.csproj" />
+      <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Account\HandmadeShop.UseCase.Account.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context.Seeder\HandmadeShop.Context.Seeder.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj" />
@@ -53,6 +54,10 @@
       <Content Include="..\..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\Account\Models\" />
     </ItemGroup>
 
 </Project>

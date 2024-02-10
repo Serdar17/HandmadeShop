@@ -73,6 +73,30 @@
             </summary>
             <param name="services">Services collection</param>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.AccountsController">
+            <summary>
+            Accounts controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="sender"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.GetUserInfoAsync(System.Guid)">
+            <summary>
+            Get user info by id
+            </summary>
+            <param name="userId">Unique user id</param>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.AuthController">
             <summary>
             Auth controller
@@ -81,6 +105,7 @@
             <response code="401">Unauthorized</response>;
             <response code="403">Forbidden</response>;
             <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
             <summary>
