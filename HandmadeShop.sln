@@ -38,6 +38,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Web", "src\Pre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Domain", "src\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj", "{9E8CD35C-E925-470B-B094-119FA8194850}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context", "src\Infrastructure\HandmadeShop.Context\HandmadeShop.Context.csproj", "{F0A89D04-584F-4D61-A618-747FE90AC51D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Migrations", "Migrations", "{AB5B61CF-1D74-4E14-9DB0-42CE49954459}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Migrations.PgSql", "src\Infrastructure\Migrations\HandmadeShop.Context.Migrations.PgSql\HandmadeShop.Context.Migrations.PgSql.csproj", "{219B0A33-1294-4EB6-B235-60E8170191A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Migrations.MySql", "src\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MySql\HandmadeShop.Context.Migrations.MySql.csproj", "{06A975DF-AEB2-47F4-92F0-25BC1D67F233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Context.Migrations.MSSQL", "src\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj", "{D8053C5D-957A-4B5D-93EE-7893D005C01D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +71,11 @@ Global
 		{E4C619DF-D9FE-4360-B876-129B98F5B088} = {30EB7188-3F30-4145-9AC4-67C8DB258298}
 		{961959AB-7A84-4AC9-B972-845DA0D9697F} = {BC4D3946-651E-44AA-98B3-83E15916F5EC}
 		{9E8CD35C-E925-470B-B094-119FA8194850} = {9D2895A3-20FE-4ADE-8412-E0BB5002C376}
+		{F0A89D04-584F-4D61-A618-747FE90AC51D} = {C3300D64-2FFA-430D-BD23-DC3459E625AE}
+		{AB5B61CF-1D74-4E14-9DB0-42CE49954459} = {C3300D64-2FFA-430D-BD23-DC3459E625AE}
+		{219B0A33-1294-4EB6-B235-60E8170191A6} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
+		{06A975DF-AEB2-47F4-92F0-25BC1D67F233} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
+		{D8053C5D-957A-4B5D-93EE-7893D005C01D} = {AB5B61CF-1D74-4E14-9DB0-42CE49954459}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -87,5 +102,21 @@ Global
 		{9E8CD35C-E925-470B-B094-119FA8194850}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8CD35C-E925-470B-B094-119FA8194850}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8CD35C-E925-470B-B094-119FA8194850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0A89D04-584F-4D61-A618-747FE90AC51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0A89D04-584F-4D61-A618-747FE90AC51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0A89D04-584F-4D61-A618-747FE90AC51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0A89D04-584F-4D61-A618-747FE90AC51D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{219B0A33-1294-4EB6-B235-60E8170191A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{219B0A33-1294-4EB6-B235-60E8170191A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{219B0A33-1294-4EB6-B235-60E8170191A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{219B0A33-1294-4EB6-B235-60E8170191A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06A975DF-AEB2-47F4-92F0-25BC1D67F233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06A975DF-AEB2-47F4-92F0-25BC1D67F233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06A975DF-AEB2-47F4-92F0-25BC1D67F233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06A975DF-AEB2-47F4-92F0-25BC1D67F233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8053C5D-957A-4B5D-93EE-7893D005C01D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -9,5 +9,5 @@ public class Like : BaseEntity
     public int ProductId { get; set; }
     public virtual Product? Product { get; set; }
 
-    public Guid UserId { get; set; }
+    public virtual ICollection<User> Users { get; set; } = new List<User>();
 }

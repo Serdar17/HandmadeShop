@@ -15,8 +15,13 @@ public class Product : BaseEntity
     public int CatalogId { get; set; }
     public virtual required Catalog Catalog { get; set; }
 
+    public int LikeId { get; set; }
+    public Like? Like { get; set; }
+
+    public Guid UserId { get; set; }
+    public virtual User? User { get; set; }
+
     public virtual ICollection<Specification> Specifications { get; set; } = new List<Specification>();
 
     public virtual ICollection<Review> Reviews { get; set; }= new List<Review>();
-    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
 }

@@ -11,4 +11,7 @@ public class User : IdentityUser<Guid>
     public DateTime BirthDate { get; set; }
     public Gender Gender { get; set; }
     public string? AvatarUrl { get; set; }
+
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
 }
