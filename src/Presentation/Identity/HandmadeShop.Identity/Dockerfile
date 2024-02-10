@@ -7,10 +7,14 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Systems/Identity/HandmadeShop.Identity/HandmadeShop.Identity.csproj", "src/Systems/Identity/HandmadeShop.Identity/"]
-RUN dotnet restore "src/Systems/Identity/HandmadeShop.Identity/HandmadeShop.Identity.csproj"
+COPY ["src/Presentation/Identity/HandmadeShop.Identity/HandmadeShop.Identity.csproj", "src/Presentation/Identity/HandmadeShop.Identity/"]
+COPY ["src/Shared/HandmadeShop.Common/HandmadeShop.Common.csproj", "src/Shared/HandmadeShop.Common/"]
+COPY ["src/Domain/HandmadeShop.Domain/HandmadeShop.Domain.csproj", "src/Domain/HandmadeShop.Domain/"]
+COPY ["src/Infrastructure/HandmadeShop.Context/HandmadeShop.Context.csproj", "src/Infrastructure/HandmadeShop.Context/"]
+COPY ["src/Services/HandmadeShop.Services.Settings/HandmadeShop.Services.Settings.csproj", "src/Services/HandmadeShop.Services.Settings/"]
+RUN dotnet restore "src/Presentation/Identity/HandmadeShop.Identity/HandmadeShop.Identity.csproj"
 COPY . .
-WORKDIR "/src/src/Systems/Identity/HandmadeShop.Identity"
+WORKDIR "/src/src/Presentation/Identity/HandmadeShop.Identity"
 RUN dotnet build "HandmadeShop.Identity.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
