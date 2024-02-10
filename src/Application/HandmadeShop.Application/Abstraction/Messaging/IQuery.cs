@@ -1,7 +1,8 @@
-﻿using MediatR;
+﻿using HandmadeShop.Domain.Common;
+using MediatR;
 
 namespace HandmadeShop.Application.Abstraction.Messaging;
 
-public interface IQuery<out TResponse> : IRequest<TResponse>
+public interface IQuery<TResponse> : IRequest<Result<TResponse>>
 {
 }

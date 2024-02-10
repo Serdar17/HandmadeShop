@@ -1,7 +1,13 @@
-﻿using Asp.Versioning;
+﻿using System.Diagnostics.CodeAnalysis;
+using Asp.Versioning;
 using AutoMapper;
+using HandmadeShop.Api.Controllers.Auth.Models;
+using HandmadeShop.Common.Extensions;
+using HandmadeShop.UseCase.Auth.Commands.RegisterUser;
+using HandmadeShop.UseCase.Auth.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace HandmadeShop.Api.Controllers.Auth;
 
@@ -31,5 +37,23 @@ public class AuthController : ControllerBase
     {
         _mapper = mapper;
         _sender = sender;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPost("register")]
+    [ProducesResponseType(typeof(UserAccountModel), 200)]
+    public async Task<IResult> RegisterAsync([FromBody] RegistrationUserRequest request)
+    {
+        var command = new RegisterUserCommand(_mapper.Map<RegisterUserModel>(request));
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
     }
 }

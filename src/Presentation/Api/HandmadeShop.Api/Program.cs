@@ -20,7 +20,7 @@ services.AddHttpContextAccessor()
     .AddAppCors()
     .AddAppSwagger(mainSettings, swaggerSettings, identitySettings)
     .AddAppValidator()
-    // .AddAppAuth(identitySettings)
+    .AddAppAuth(identitySettings)
     .AddAppControllerAndViews();
 
 services.RegisterServices(builder.Configuration);

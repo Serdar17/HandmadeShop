@@ -89,6 +89,53 @@
             <param name="mapper"></param>
             <param name="sender"></param>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.RegisterAsync(HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest">
+            <summary>
+            Model for User registration
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest.Name">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile">
+            <summary>
+            Map rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.DependencyInjection">
             <summary>
             
@@ -101,6 +148,23 @@
             <param name="services"></param>
             <param name="configuration"></param>
             <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Middlewares.ExceptionsMiddleware">
+            <summary>
+            Exception handling middleware
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Middlewares.ExceptionsMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            Constructor for Exception handling middleware
+            </summary>
+            <param name="next">RequestDelegate</param>
+        </member>
+        <member name="M:HandmadeShop.Api.Middlewares.ExceptionsMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
         </member>
     </members>
 </doc>

@@ -1,11 +1,12 @@
-﻿using MediatR;
+﻿using HandmadeShop.Domain.Common;
+using MediatR;
 
 namespace HandmadeShop.Application.Abstraction.Messaging;
 
-public interface ICommand : IRequest
+public interface ICommand : IRequest<Result>
 {
 }
 
-public interface ICommand<out TResponse> : IRequest<TResponse>
+public interface ICommand<TResponse> : IRequest<Result<TResponse>>
 {
 }
