@@ -1,44 +1,49 @@
-var builder = WebApplication.CreateBuilder(args);
+using HandmadeShop._Context;
+using HandmadeShop.Api;
+using HandmadeShop.Api.Configuration;
+using HandmadeShop.Common.Settings;
+using HandmadeShop.Services.Logger.Logger;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+
+var mainSettings = Settings.Load<MainSettings>(MainSettings.SectionName);
+var logSettings = Settings.Load<LogSettings>(LogSettings.SectionName);
+var swaggerSettings = Settings.Load<SwaggerSettings>(SwaggerSettings.SectionName);
+var identitySettings = Settings.Load<IdentitySettings>(IdentitySettings.SectionName);
+
+builder.AddAppLogger(mainSettings, logSettings);
+
+services.AddHttpContextAccessor()
+    .AddAppDbContext(builder.Configuration)
+    .AddAppCors()
+    .AddAppSwagger(mainSettings, swaggerSettings, identitySettings)
+    .AddAppValidator()
+    // .AddAppAuth(identitySettings)
+    .AddAppControllerAndViews();
+
+services.RegisterServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+var logger = app.Services.GetRequiredService<IAppLogger>();
+app.UseAppCors();
 
-app.UseHttpsRedirection();
+app.UseAppHealthChecks();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseAppSwagger();
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+// app.UseAppAuth();
+
+app.UseAppControllerAndViews();
+
+// DbInitializer.Execute(app.Services);
+//
+// DbSeeder.Execute(app.Services);
+
+logger.Information("The Hand.API has started");
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+logger.Information("The DSRNetSchool.API has stopped");
+

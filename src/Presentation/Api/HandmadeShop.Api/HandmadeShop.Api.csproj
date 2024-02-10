@@ -8,15 +8,42 @@
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>api.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>api.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
+        <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+        <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0"/>
+        <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
+        <PackageReference Include="Serilog.Enrichers.CorrelationId" Version="3.0.1" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\..\..\..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context.Seeder\HandmadeShop.Context.Seeder.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context\HandmadeShop.Context.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MySql\HandmadeShop.Context.Migrations.MySql.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.PgSql\HandmadeShop.Context.Migrations.PgSql.csproj" />
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Logger\HandmadeShop.Services.Logger.csproj" />
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj" />
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
+      <ProjectReference Include="..\..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
     </ItemGroup>
 
 </Project>

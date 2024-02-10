@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>HandmadeShop.Api</name>
+    </assembly>
+    <members>
+        <member name="T:HandmadeShop.Api.Configuration.AutoMapperConfiguration">
+            <summary>
+            AutoMapper configuration
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.AutoMapperConfiguration.AddAppAutoMappers(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add automappers
+            </summary>
+            <param name="services">Services collection</param>
+        </member>
+        <member name="T:HandmadeShop.Api.Configuration.CorsConfiguration">
+            <summary>
+            CORS configuration
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.CorsConfiguration.AddAppCors(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add CORS
+            </summary>
+            <param name="services">Services collection</param>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.CorsConfiguration.UseAppCors(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Use service
+            </summary>
+            <param name="app">Application</param>
+        </member>
+        <member name="T:HandmadeShop.Api.Configuration.LoggerConfiguration">
+            <summary>
+            Logger Configuration
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.LoggerConfiguration.AddAppLogger(Microsoft.AspNetCore.Builder.WebApplicationBuilder,MainSettings,LogSettings)">
+            <summary>
+            Add logger
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Configuration.SwaggerConfiguration">
+            <summary>
+            Swagger configuration
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.SwaggerConfiguration.AddAppSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection,MainSettings,SwaggerSettings,IdentitySettings)">
+            <summary>
+            Add OpenAPI to API
+            </summary>
+            <param name="services">Services collection</param>
+            <param name="mainSettings"></param>
+            <param name="swaggerSettings"></param>
+            <param name="identitySettings"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.SwaggerConfiguration.UseAppSwagger(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Start OpenAPI UI
+            </summary>
+            <param name="app">Web application</param>
+        </member>
+        <member name="T:HandmadeShop.Api.Configuration.VersioningConfiguration">
+            <summary>
+            Versioning configuration
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.VersioningConfiguration.AddAppVersioning(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Add version support for API
+            </summary>
+            <param name="services">Services collection</param>
+        </member>
+    </members>
+</doc>
