@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HandmadeShop.Services.Settings.Settings;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HandmadeShop.Services.Settings;
@@ -34,6 +35,22 @@ public static class Bootstrapper
         var settings = Common.Settings.Settings.Load<IdentitySettings>(IdentitySettings.SectionName, configuration);
         services.AddSingleton(settings);
 
+        return services;
+    }
+
+    public static IServiceCollection AddEmailSettings(this IServiceCollection services,
+        IConfiguration configuration = null)
+    {
+        var settings = Common.Settings.Settings.Load<EmailSettings>(EmailSettings.SectionName, configuration);
+        
+        return services;
+    }
+    
+    public static IServiceCollection AddFileStorageSettings(this IServiceCollection services,
+        IConfiguration configuration = null)
+    {
+        var settings = Common.Settings.Settings.Load<FileStorageSettings>(FileStorageSettings.SectionName, configuration);
+        
         return services;
     }
 }

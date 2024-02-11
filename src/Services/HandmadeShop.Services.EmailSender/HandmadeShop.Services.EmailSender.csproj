@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AspNetCore.MailKitMailer" Version="1.2.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Application\HandmadeShop.Application\HandmadeShop.Application.csproj" />
+      <ProjectReference Include="..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
+      <ProjectReference Include="..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
+    </ItemGroup>
+
+</Project>

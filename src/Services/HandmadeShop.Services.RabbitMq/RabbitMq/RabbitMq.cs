@@ -1,6 +1,6 @@
 using System.Text;
 using System.Text.Json;
-using NetSchool.Services.RabbitMq;
+using HandmadeShop.Services.RabbitMq.Settings;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;

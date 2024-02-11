@@ -1,44 +1,46 @@
-var builder = WebApplication.CreateBuilder(args);
+using HandmadeShop.Common.Settings;
+using HandmadeShop.Services.Logger.Logger;
+using HandmadeShop.Worker;
+using HandmadeShop.Worker.Configuration;
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+
+var logSettings = Settings.Load<LogSettings>(LogSettings.SectionName);
+builder.AddAppLogger(logSettings);
+
+services.AddHttpContextAccessor();
+
+services.AddAppHealthChecks();
+
+services.RegisterAppServices();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
-app.UseHttpsRedirection();
+var logger = app.Services.GetRequiredService<IAppLogger>();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-    {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
+app.UseAppHealthChecks();
+
+
+logger.Information("Worker has started");
+
+
+// Start task executor
+
+logger.Information("Try to connect to RabbitMq");
+
+app.Services.GetRequiredService<ITaskExecutor>().Start();
+
+logger.Information("RabbitMq connected");
+
+
+// Run app
+
+logger.Information("Worker started");
 
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+logger.Information("Worker has stopped");

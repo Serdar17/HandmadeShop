@@ -7,9 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
-      <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.1" />
+      <ProjectReference Include="..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
+      <ProjectReference Include="..\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj" />
     </ItemGroup>
 
 </Project>

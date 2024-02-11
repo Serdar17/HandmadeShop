@@ -1,6 +1,4 @@
-﻿namespace NetSchool.Services.RabbitMq;
-
-using System.Threading.Tasks;
+﻿namespace HandmadeShop.Services.RabbitMq.RabbitMq;
 
 public delegate Task OnDataReceiveEvent<T>(T data);
 

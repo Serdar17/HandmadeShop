@@ -26,6 +26,7 @@ public static class DependencyInjection
             .AddSwaggerSettings()
             .AddLogSettings()
             .AddIdentitySettings()
+            .AddEmailSettings()
             .AddRabbitMq()
             .AddAppHealthChecks()
             .AddAppVersioning()
