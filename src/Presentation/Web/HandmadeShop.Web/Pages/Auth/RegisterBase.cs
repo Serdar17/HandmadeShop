@@ -5,7 +5,7 @@ using MudBlazor;
 
 namespace HandmadeShop.Web.Pages.Auth;
 
-public class LoginBase : ComponentBase
+public class RegisterBase : ComponentBase
 {
     [Inject] 
     private  IAuthService AuthService { get; set; }
@@ -15,8 +15,9 @@ public class LoginBase : ComponentBase
     protected bool Success;
     protected MudForm Form;
 
-    protected LoginModel Model = new()
+    protected RegisterModel Model = new()
     {
+        Name = "Serdar",
         Email = "useinovserdar23@gmail.com",
         Password = "12345"
     };
@@ -28,7 +29,7 @@ public class LoginBase : ComponentBase
     protected bool ShowErrors;
     protected string Error = string.Empty;
     protected string ErrorDetail = string.Empty;
-
+    
     protected void TogglePasswordVisibility()
     {
         if (PasswordVisibility)
@@ -48,17 +49,19 @@ public class LoginBase : ComponentBase
     protected async Task OnValidSubmit()
     {
         ShowErrors = false;
+        Error = "";
+        ErrorDetail = "";
 
-        var result = await AuthService.LoginAsync(Model);
+        var result = await AuthService.RegisterAsync(Model);
 
-        if (result.Successful)
+        if (result.IsSuccess)
         {
             NavigationManager.NavigateTo("/");
         }
         else
         {
-            Error = result.Error;
-            ErrorDetail = result.ErrorDescription;
+            Error = result.Error.Code;
+            ErrorDetail = result.Error.Message;
             ShowErrors = true;
         }
     }

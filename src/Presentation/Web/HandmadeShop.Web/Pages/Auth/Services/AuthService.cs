@@ -1,6 +1,8 @@
 ﻿using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 using Blazored.LocalStorage;
+using HandmadeShop.Web.Common;
 using HandmadeShop.Web.Pages.Auth.Models;
 using HandmadeShop.Web.Providers;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -25,7 +27,7 @@ public class AuthService : IAuthService
         _localStorage = localStorage;
     }
 
-    public async Task<LoginResult> Login(LoginModel loginModel)
+    public async Task<LoginResult> LoginAsync(LoginModel loginModel)
     {
         var url = $"{Settings.IdentityRoot}/connect/token";
 
@@ -34,8 +36,8 @@ public class AuthService : IAuthService
             new KeyValuePair<string, string>("grant_type", "password"),
             new KeyValuePair<string, string>("client_id", Settings.ClientId),
             new KeyValuePair<string, string>("client_secret", Settings.ClientSecret),
-            new KeyValuePair<string, string>("username", loginModel.Email!),
-            new KeyValuePair<string, string>("password", loginModel.Password!)
+            new KeyValuePair<string, string>("username", loginModel.Email),
+            new KeyValuePair<string, string>("password", loginModel.Password)
         };
 
         var requestContent = new FormUrlEncodedContent(form);
@@ -55,11 +57,28 @@ public class AuthService : IAuthService
         await _localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
         await _localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
 
-        ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email!);
+        ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.AccessToken);
 
         return loginResult;
+    }
+
+    public async Task<Result> RegisterAsync(RegisterModel model)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/auth/register";
+        
+        var json = JsonSerializer.Serialize(model);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync(url, data);
+
+        if (response.IsSuccessStatusCode)
+            return Result.Success();
+
+        var error = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+        
+        return Result.Failure(result.Errors.First());
     }
 
     public async Task Logout()
