@@ -6,7 +6,7 @@ public static class EmailBody
     {
         return @$"
                 <p>Dear {name},</p>
-                <p>Congratulations and welcome to Template! This email serves as confirmation that your registration has been successfully completed.  We're thrilled to have you as a part of our community and look forward to providing you with a rewarding experience.</p>
+                <p>Congratulations and welcome to Handmade Shop! This email serves as confirmation that your registration has been successfully completed.  We're thrilled to have you as a part of our community and look forward to providing you with a rewarding experience.</p>
                 <a href={url}>Complete the Registration process by clicking the link</a>
                 <br/>
                 <p>Best Regards,</p>

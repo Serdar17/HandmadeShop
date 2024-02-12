@@ -55,4 +55,12 @@ public static class Bootstrapper
         services.AddSingleton(settings);
         return services;
     }
+    
+    public static IServiceCollection AddWebSettings(this IServiceCollection services,
+        IConfiguration configuration = null)
+    {
+        var settings = Common.Settings.Settings.Load<WebSettings>(WebSettings.SectionName, configuration);
+        services.AddSingleton(settings);
+        return services;
+    }
 }

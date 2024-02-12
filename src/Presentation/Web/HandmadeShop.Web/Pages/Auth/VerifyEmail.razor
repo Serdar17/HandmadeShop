@@ -1,0 +1,16 @@
+﻿@page "/verify-email"
+@inherits VerifyEmailBase;
+
+
+@if (IsSuccess)
+{
+    <div class="justify-content-center">
+        <MudText Typo="Typo.h3" Align="Align.Center">Почта успешно подтверждена!!!</MudText>
+        <MudText Typo="Typo.h3" Align="Align.Center">Пожалуйста, <MudLink Href="/login">войдите</MudLink> в систему </MudText>
+    </div>
+    
+}
+else
+{
+    <MudText>Подождите немного, пока система подтвердит Вашу почту!</MudText>
+}

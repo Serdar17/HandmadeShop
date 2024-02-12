@@ -3,8 +3,9 @@
 @inherits RegisterBase
 @layout SimpleLayout
 
-
-<MudGrid Justify="Justify.Center" Class="pa-8">
+@if (!Success)
+{
+    <MudGrid Justify="Justify.Center" Class="pa-8">
     <MudItem xs="5" sm="4">
         <MudPaper Class="pa-4">
             <EditForm Model="@Model" OnValidSubmit="OnValidSubmit">
@@ -56,4 +57,9 @@
         </MudPaper>
     </MudItem>
 </MudGrid>
+}
+else
+{
+    <SuccessRegister/>
+}
 

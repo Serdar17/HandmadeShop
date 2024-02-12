@@ -31,6 +31,7 @@ public static class DependencyInjection
             .AddIdentitySettings()
             .AddEmailSettings()
             .AddFileStorageSettings()
+            .AddWebSettings()
             .AddRabbitMq()
             .AddAppHealthChecks()
             .AddAppVersioning()

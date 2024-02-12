@@ -81,6 +81,24 @@ public class AuthService : IAuthService
         return Result.Failure(result.Errors.First());
     }
 
+    public async Task<Result> VerifyEmailAsync(VerifyEmailModel model)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/auth/verify-email";
+
+        var json = JsonSerializer.Serialize(model);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync(url, data);
+
+        if (response.IsSuccessStatusCode)
+            return Result.Success();
+        
+        var error = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+        
+        return Result.Failure(result.Errors.First());
+    }
+
     public async Task Logout()
     {
         await _localStorage.RemoveItemAsync(LocalStorageAuthTokenKey);

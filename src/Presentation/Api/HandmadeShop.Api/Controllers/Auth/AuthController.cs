@@ -62,8 +62,8 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    [HttpGet("verify")]
-    public async Task<IResult> VerifyEmailAsync([FromQuery] VerifyEmailRequest request)
+    [HttpPost("verify-email")]
+    public async Task<IResult> VerifyEmailAsync([FromBody] VerifyEmailRequest request)
     {
         var command = new VerifyEmailCommand(_mapper.Map<VerifyEmailModel>(request));
 

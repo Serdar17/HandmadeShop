@@ -56,7 +56,8 @@ public class RegisterBase : ComponentBase
 
         if (result.IsSuccess)
         {
-            NavigationManager.NavigateTo("/");
+            Success = true;
+            // NavigationManager.NavigateTo("/");
         }
         else
         {
