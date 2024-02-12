@@ -69,16 +69,8 @@ public class AuthService : IAuthService
         var url = $"{Settings.ApiRoot}/api/v1/auth/register";
         
         var json = JsonSerializer.Serialize(model);
-        var data = new StringContent(json, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync(url, data);
-
-        if (response.IsSuccessStatusCode)
-            return Result.Success();
-
-        var error = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
         
-        return Result.Failure(result.Errors.First());
+        return await SendAsync(url, json);
     }
 
     public async Task<Result> VerifyEmailAsync(VerifyEmailModel model)
@@ -86,17 +78,27 @@ public class AuthService : IAuthService
         var url = $"{Settings.ApiRoot}/api/v1/auth/verify-email";
 
         var json = JsonSerializer.Serialize(model);
-        var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-        var response = await _httpClient.PostAsync(url, data);
-
-        if (response.IsSuccessStatusCode)
-            return Result.Success();
         
-        var error = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+        return await SendAsync(url, json);
+    }
+
+    public async Task<Result> ForgotPasswordAsync(ForgotPasswordModel model)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/auth/password/forgot";
+
+        var json = JsonSerializer.Serialize(model);
+
+        return await SendAsync(url, json);
+    }
+
+    public async Task<Result> ResetPasswordAsync(ResetPasswordModel model)
+    {
+        Console.WriteLine(model);
+        var url = $"{Settings.ApiRoot}/api/v1/auth/password/reset";
+
+        var json = JsonSerializer.Serialize(model);
         
-        return Result.Failure(result.Errors.First());
+        return await SendAsync(url, json);
     }
 
     public async Task Logout()
@@ -107,5 +109,20 @@ public class AuthService : IAuthService
         ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
 
         _httpClient.DefaultRequestHeaders.Authorization = null;
+    }
+
+    private async Task<Result> SendAsync(string url, string json)
+    {
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync(url, data);
+
+        if (response.IsSuccessStatusCode)
+            return Result.Success();
+        
+        var error = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+        
+        return Result.Failure(result.Errors.First());
     }
 }

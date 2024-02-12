@@ -29,4 +29,17 @@ public class EmailService : IEmailService
             user.Email
         ));
     }
+
+    public Task<EmailModel> GetResetPasswordEmail(User user, string token)
+    {
+        var uri = new Uri($"{_webSettings.Url}/reset-password")
+            .AddParameter("email", user.Email)
+            .AddParameter("token", token);
+        
+        return Task.FromResult(new EmailModel(
+            EmailSubject.PasswordReset,
+            EmailBody.PasswordReset(user.Name, uri.ToString()),
+            user.Email
+            ));
+    }
 }

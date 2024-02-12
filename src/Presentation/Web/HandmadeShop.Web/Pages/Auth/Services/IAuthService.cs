@@ -9,5 +9,7 @@ public interface IAuthService
     Task<Result> RegisterAsync(RegisterModel model);
 
     Task<Result> VerifyEmailAsync(VerifyEmailModel model);
+    Task<Result> ForgotPasswordAsync(ForgotPasswordModel model);
+    Task<Result> ResetPasswordAsync(ResetPasswordModel model);
     Task Logout();
 }
