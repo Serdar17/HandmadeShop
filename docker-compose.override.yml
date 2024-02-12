@@ -3,7 +3,7 @@ version: '3.4'
 services:
   handmade_shop_api:
     ports:
-      - "10000:80"
+      - "10000:8080"
     networks:
       - shared_handmade_shop
     env_file:
@@ -11,7 +11,7 @@ services:
 
   handmade_shop_identity:
     ports:
-      - "10001:80"
+      - "10001:8080"
     networks:
       - shared_handmade_shop
     env_file:

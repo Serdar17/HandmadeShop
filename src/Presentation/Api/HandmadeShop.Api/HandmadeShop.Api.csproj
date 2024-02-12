@@ -54,13 +54,13 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+      <Folder Include="Controllers\Account\Models\" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\Account\Models\" />
+      <Content Include="..\..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

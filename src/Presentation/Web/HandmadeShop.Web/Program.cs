@@ -1,27 +1,27 @@
-using HandmadeShop.Web.Components;
+using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using HandmadeShop.Web;
+using HandmadeShop.Web.Pages.Auth.Services;
+using HandmadeShop.Web.Providers;
+using HandmadeShop.Web.Services;
+using Microsoft.AspNetCore.Components.Authorization;
+using MudBlazor.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-// Add services to the container.
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddMudServices();
+builder.Services.AddBlazoredLocalStorage();
 
-var app = builder.Build();
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 
-app.UseHttpsRedirection();
 
-app.UseStaticFiles();
-app.UseAntiforgery();
+builder.Services.AddScoped<AuthenticationStateProvider, ApiAuthenticationStateProvider>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
-
-app.Run();
+await builder.Build().RunAsync();

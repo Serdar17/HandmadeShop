@@ -15,17 +15,27 @@ services:
     build:
       context: .
       dockerfile: src/Presentation/Api/HandmadeShop.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - handmade_shop_porstgresql
+      - handmade_shop_rabbitmq
+      - handmade_shop_redis
   
   handmade_shop_identity:
     image: ${DOCKER_REGISTRY-}handmade_shop_identity
     build:
       context: .
       dockerfile: src/Presentation/Identity/HandmadeShop.Identity/Dockerfile
+    depends_on:
+      - handmade_shop_api
   
   handmade_shop_worker:
     image: ${DOCKER_REGISTRY-}handmade_shop_worker
     build:
       context: .
       dockerfile: src/Presentation/Worker/HandmadeShop.Worker/Dockerfile
+    depends_on:
+      - handmade_shop_api
   
   

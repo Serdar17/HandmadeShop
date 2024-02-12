@@ -1,8 +1,7 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -20,6 +19,10 @@ COPY ["src/Services/HandmadeShop.Services.Logger/HandmadeShop.Services.Logger.cs
 COPY ["src/Services/HandmadeShop.Services.RabbitMq/HandmadeShop.Services.RabbitMq.csproj", "src/Services/HandmadeShop.Services.RabbitMq/"]
 COPY ["src/Application/HandmadeShop.Application/HandmadeShop.Application.csproj", "src/Application/HandmadeShop.Application/"]
 COPY ["src/Application/HandmadeShop.UseCase.Auth/HandmadeShop.UseCase.Auth.csproj", "src/Application/HandmadeShop.UseCase.Auth/"]
+COPY ["src/Application/HandmadeShop.UseCase.Account/HandmadeShop.UseCase.Account.csproj", "src/Application/HandmadeShop.UseCase.Account/"]
+COPY ["src/Services/HandmadeShop.Services.Action/HandmadeShop.Services.Action.csproj", "src/Services/HandmadeShop.Services.Action/"]
+COPY ["src/Services/HandmadeShop.Services.EmailSender/HandmadeShop.Services.EmailSender.csproj", "src/Services/HandmadeShop.Services.EmailSender/"]
+COPY ["src/Services/HandmadeShop.Services.FileStorage/HandmadeShop.Services.FileStorage.csproj", "src/Services/HandmadeShop.Services.FileStorage/"]
 RUN dotnet restore "src/Presentation/Api/HandmadeShop.Api/HandmadeShop.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Presentation/Api/HandmadeShop.Api"

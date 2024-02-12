@@ -1,0 +1,32 @@
+﻿@using HandmadeShop.Web.Services
+@inherits LayoutComponentBase
+
+@inject IConfigurationService Configuration
+
+<MudThemeProvider @bind-IsDarkMode="@(_darkMode)" />
+
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudText Typo="Typo.h5">HandmadeShop</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@(_darkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" @onclick="@DarkModeSwitch" Color="Color.Inherit" Edge="Edge.End" />
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _darkMode;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _darkMode = await Configuration.GetDarkModeAsync();
+    }
+
+    async void DarkModeSwitch()
+    {
+        _darkMode = !_darkMode;
+        await Configuration.SetDarkModeAsync(_darkMode);
+    }
+}
