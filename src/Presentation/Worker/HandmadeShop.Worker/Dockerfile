@@ -7,10 +7,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Systems/Worker/HandmadeShop.Worker/HandmadeShop.Worker.csproj", "src/Systems/Worker/HandmadeShop.Worker/"]
-RUN dotnet restore "src/Systems/Worker/HandmadeShop.Worker/HandmadeShop.Worker.csproj"
+COPY ["src/Presentation/Worker/HandmadeShop.Worker/HandmadeShop.Worker.csproj", "src/Presentation/Worker/HandmadeShop.Worker/"]
+COPY ["src/Shared/HandmadeShop.Common/HandmadeShop.Common.csproj", "src/Shared/HandmadeShop.Common/"]
+COPY ["src/Domain/HandmadeShop.Domain/HandmadeShop.Domain.csproj", "src/Domain/HandmadeShop.Domain/"]
+COPY ["src/Services/HandmadeShop.Services.Settings/HandmadeShop.Services.Settings.csproj", "src/Services/HandmadeShop.Services.Settings/"]
+COPY ["src/Services/HandmadeShop.Services.Logger/HandmadeShop.Services.Logger.csproj", "src/Services/HandmadeShop.Services.Logger/"]
+COPY ["src/Services/HandmadeShop.Services.RabbitMq/HandmadeShop.Services.RabbitMq.csproj", "src/Services/HandmadeShop.Services.RabbitMq/"]
+RUN dotnet restore "src/Presentation/Worker/HandmadeShop.Worker/HandmadeShop.Worker.csproj"
 COPY . .
-WORKDIR "/src/src/Systems/Worker/HandmadeShop.Worker"
+WORKDIR "/src/src/Presentation/Worker/HandmadeShop.Worker"
 RUN dotnet build "HandmadeShop.Worker.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

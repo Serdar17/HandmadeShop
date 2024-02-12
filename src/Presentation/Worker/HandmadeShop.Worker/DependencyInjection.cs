@@ -1,5 +1,7 @@
-﻿using HandmadeShop.Services.Logger;
+﻿using HandmadeShop.Services.EmailSender;
+using HandmadeShop.Services.Logger;
 using HandmadeShop.Services.RabbitMq;
+using HandmadeShop.Services.Settings;
 
 namespace HandmadeShop.Worker;
 
@@ -9,7 +11,10 @@ public static class DependencyInjection
     {
         services
             .AddAppLogger()
-            .AddRabbitMq()            
+            .AddRabbitMq()   
+            .AddEmailSender()
+            .AddEmailSettings()
+            .AddMainSettings()
             ;
 
         services.AddSingleton<ITaskExecutor, TaskExecutor>();

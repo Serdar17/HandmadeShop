@@ -3,6 +3,7 @@ using AutoMapper;
 using HandmadeShop.Api.Controllers.Auth.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.UseCase.Auth.Commands.RegisterUser;
+using HandmadeShop.UseCase.Auth.Commands.VerifyEmail;
 using HandmadeShop.UseCase.Auth.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,26 @@ public class AuthController : ControllerBase
 
         if (result.IsSuccess)
             return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpGet("verify")]
+    public async Task<IResult> VerifyEmailAsync([FromQuery] VerifyEmailRequest request)
+    {
+        var command = new VerifyEmailCommand(_mapper.Map<VerifyEmailModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok();
+        }
 
         return result.ToProblemDetails();
     }

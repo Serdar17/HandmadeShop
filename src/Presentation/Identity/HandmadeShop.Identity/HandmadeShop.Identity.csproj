@@ -20,6 +20,9 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\HandmadeShop.Context\HandmadeShop.Context.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MSSQL\HandmadeShop.Context.Migrations.MSSQL.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MySql\HandmadeShop.Context.Migrations.MySql.csproj" />
+      <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.PgSql\HandmadeShop.Context.Migrations.PgSql.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
       <ProjectReference Include="..\..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
     </ItemGroup>

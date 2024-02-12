@@ -49,7 +49,7 @@ public class RegistrationUserRequestValidator : AbstractValidator<RegistrationUs
 }
 
 /// <summary>
-/// Map rules for <see cref="RegistrationUserRequest"/>
+/// Mapping rules for <see cref="RegistrationUserRequest"/>
 /// </summary>
 public class RegistrationUserRequestProfile : Profile
 {

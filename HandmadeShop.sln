@@ -68,6 +68,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_docker", "_docker", "{73FA
 		docker-compose.yml = docker-compose.yml
 		env.api = env.api
 		env.identity = env.identity
+		env.worker = env.worker
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.UseCase.Account", "src\Application\HandmadeShop.UseCase.Account\HandmadeShop.UseCase.Account.csproj", "{2D580BAB-A057-429A-9759-674C24A018C6}"

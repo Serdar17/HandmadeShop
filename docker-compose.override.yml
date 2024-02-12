@@ -46,6 +46,12 @@ services:
       - shared_handmade_shop
     volumes:
       - ~/.docker-conf/handmade_shop/redis/data/:/data
+  
+  handmade_shop_worker:
+    networks:
+      - shared_handmade_shop
+    env_file:
+      - env.worker
 
 networks:
   shared_handmade_shop:

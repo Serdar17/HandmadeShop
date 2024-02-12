@@ -11,7 +11,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration? configuration = null)
     {
-        var settings = Common.Settings.Settings.Load<DbSettings>("Database", configuration);
+        var settings = Common.Settings.Settings.Load<DbSettings>(DbSettings.SectionName, configuration);
         services.AddSingleton(settings);
 
         var dbInitOptionsDelegate = DbContextOptionsFactory.Configure(settings.ConnectionString, settings.Type, true);

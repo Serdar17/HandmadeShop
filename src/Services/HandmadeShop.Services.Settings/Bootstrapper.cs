@@ -42,6 +42,8 @@ public static class Bootstrapper
         IConfiguration configuration = null)
     {
         var settings = Common.Settings.Settings.Load<EmailSettings>(EmailSettings.SectionName, configuration);
+
+        services.AddSingleton(settings);
         
         return services;
     }
@@ -50,7 +52,7 @@ public static class Bootstrapper
         IConfiguration configuration = null)
     {
         var settings = Common.Settings.Settings.Load<FileStorageSettings>(FileStorageSettings.SectionName, configuration);
-        
+        services.AddSingleton(settings);
         return services;
     }
 }

@@ -17,16 +17,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\..\..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.EmailSender\HandmadeShop.Services.EmailSender.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Logger\HandmadeShop.Services.Logger.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
       <ProjectReference Include="..\..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

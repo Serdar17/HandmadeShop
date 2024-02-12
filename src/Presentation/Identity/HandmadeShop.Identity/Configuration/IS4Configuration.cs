@@ -19,6 +19,7 @@ public static class IS4Configuration
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.User.RequireUniqueEmail = true;
+                opt.SignIn.RequireConfirmedEmail = true;
                 // opt.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
             })
             .AddEntityFrameworkStores<AppDbContext>()

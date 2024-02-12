@@ -121,6 +121,13 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.VerifyEmailAsync(HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest">
             <summary>
             Model for User registration
@@ -153,7 +160,7 @@
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile">
             <summary>
-            Map rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest"/>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest"/>
             </summary>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile.#ctor">
@@ -161,17 +168,52 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile"/>
             </summary>
         </member>
-        <member name="T:HandmadeShop.Api.DependencyInjection">
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest">
             <summary>
             
             </summary>
         </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest.UserId">
+            <summary>
+            Unique user id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest.Token">
+            <summary>
+            Email verification token
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestValidator"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.DependencyInjection">
+            <summary>
+            Register all application services
+            </summary>
+        </member>
         <member name="M:HandmadeShop.Api.DependencyInjection.RegisterServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            
+            Extension for DI <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>
             </summary>
-            <param name="services"></param>
-            <param name="configuration"></param>
+            <param name="services">IServiceCollection</param>
+            <param name="configuration">IConfiguration</param>
             <returns></returns>
         </member>
         <member name="T:HandmadeShop.Api.Middlewares.ExceptionsMiddleware">

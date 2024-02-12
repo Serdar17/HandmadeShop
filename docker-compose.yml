@@ -22,4 +22,10 @@ services:
       context: .
       dockerfile: src/Presentation/Identity/HandmadeShop.Identity/Dockerfile
   
+  handmade_shop_worker:
+    image: ${DOCKER_REGISTRY-}handmade_shop_worker
+    build:
+      context: .
+      dockerfile: src/Presentation/Worker/HandmadeShop.Worker/Dockerfile
+  
   

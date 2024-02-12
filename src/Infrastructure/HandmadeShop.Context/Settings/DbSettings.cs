@@ -3,6 +3,7 @@ namespace HandmadeShop.Context.Settings;
 
 public class DbSettings
 {
+    public const string SectionName = "Database";
     public DbType Type { get; private set; }
     public string ConnectionString { get; private set; }
     public DbInitSettings Init { get; private set; }

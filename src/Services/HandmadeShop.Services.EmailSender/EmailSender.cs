@@ -1,6 +1,8 @@
 ﻿using HandmadeShop.Common.Exceptions;
 using HandmadeShop.Domain.Email;
 using HandmadeShop.Domain.EmailSender;
+using HandmadeShop.Services.Settings.Settings;
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 
@@ -28,12 +30,12 @@ public class EmailSender : IEmailSender
     private MimeMessage CreateEmailMessage(EmailModel email)
     {
         var emailMessage = new MimeMessage();
-        emailMessage.From.Add(new MailboxAddress(email.Name, _emailSettings.From));
-        emailMessage.To.Add(new MailboxAddress("", email.Email));
+        emailMessage.From.Add(new MailboxAddress(email.Subject, _emailSettings.From));
+        emailMessage.To.Add(new MailboxAddress("", email.DestinationEmail));
         emailMessage.Subject = email.Subject;
         emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
         {
-            Text = email.Message
+            Text = email.Body
         };
         
         return emailMessage;
@@ -56,7 +58,6 @@ public class EmailSender : IEmailSender
         finally
         {
             await client.DisconnectAsync(true);
-            client.Dispose();
         }
     }
 }
