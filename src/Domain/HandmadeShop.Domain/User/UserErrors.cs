@@ -20,4 +20,7 @@ public class UserErrors
 
     public static Error ResetPassword(string message) =>
         Error.Conflict("Users.ResetPassword", message);
+
+    public static Error InvalidPassword() =>
+        Error.Conflict("Users.InvalidPassword", "Invalid old password");
 }

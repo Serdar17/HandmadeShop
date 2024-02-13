@@ -128,6 +128,97 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.ForgotPasswordAsync(HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequest)">
+            <summary>
+            Forgot password endpoint
+            </summary>
+            <param name="request">ForgotPasswordRequest</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.ResetPasswordAsync(HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest)">
+            <summary>
+            Reset password
+            </summary>
+            <param name="request">Reset password request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.ChangePasswordAsync(HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest)">
+            <summary>
+            Change password from profile
+            </summary>
+            <param name="request">Change password request</param>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest">
+            <summary>
+            Change password request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest.OldPassword">
+            <summary>
+            Old password
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest.NewPassword">
+            <summary>
+            New password
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequest">
+            <summary>
+            Forgot password request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequest.Email">
+            <summary>
+            Email
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestProfile">
+            <summary>
+            Mapping rule for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ForgotPasswordRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest">
             <summary>
             Model for User registration
@@ -166,6 +257,46 @@
         <member name="M:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile.#ctor">
             <summary>
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest">
+            <summary>
+            Reset password request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest.Email">
+            <summary>
+            User email
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest.Password">
+            <summary>
+            New password
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestProfile"/>
             </summary>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest">

@@ -2,6 +2,7 @@
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Auth.Models;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.UseCase.Auth.Commands.ChangePassword;
 using HandmadeShop.UseCase.Auth.Commands.ForgotPassword;
 using HandmadeShop.UseCase.Auth.Commands.RegisterUser;
 using HandmadeShop.UseCase.Auth.Commands.ResetPassword;
@@ -122,5 +123,24 @@ public class AuthController : ControllerBase
 
         return result.ToProblemDetails();
     }
-    
+
+    /// <summary>
+    /// Change password from profile
+    /// </summary>
+    /// <param name="request">Change password request</param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpPut("password/change")]
+    [ProducesResponseType(200)]
+    public async Task<IResult> ChangePasswordAsync([FromBody] ChangePasswordRequest request)
+    {
+        var command = new ChangePasswordCommand(_mapper.Map<ChangePasswordModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok();
+
+        return result.ToProblemDetails();
+    }
 }
