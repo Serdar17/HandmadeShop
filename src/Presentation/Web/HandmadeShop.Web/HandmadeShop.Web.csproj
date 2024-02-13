@@ -23,4 +23,9 @@
       </Content>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Pages\Profile\Models\" />
+      <Folder Include="Pages\Profile\Services\" />
+    </ItemGroup>
+
 </Project>

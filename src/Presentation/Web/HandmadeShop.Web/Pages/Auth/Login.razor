@@ -3,7 +3,7 @@
 @layout SimpleLayout
 @inherits LoginBase
 
-<MudGrid Justify="Justify.Center" Class="pa-8">
+<MudStack Row="true" Justify="Justify.Center" Class="pa-6 mt-6">
     <MudItem xs="5" sm="4">
         <MudPaper Class="pa-4">
             <EditForm Model="@Model" OnValidSubmit="OnValidSubmit">
@@ -21,6 +21,7 @@
                                 Label="Email"
                                 HelperText="Input your email"
                                 Validation="@(new EmailAddressAttribute { ErrorMessage = "The email address is invalid" })"/>
+                
                 <MudTextField @bind-Value="Model.Password" For="@(() => Model.Password)"
                                 Label="Password"
                                 HelperText="Input your password"
@@ -34,6 +35,7 @@
                 <div>
                     <MudCheckBox For="@(() => Model.RememberMe)" @bind-Checked="Model.RememberMe" Label="Запомнить?" Color="Color.Primary" Class="ml-n1 my-3"></MudCheckBox>
                 </div>
+                
                 <div Class="d-flex justify-space-between align-center">
                     <MudButton Variant="Variant.Filled"
                                Color="Color.Primary"
@@ -45,9 +47,7 @@
                 <div class="mt-4 mb-4">
                     <MudText>Нет аккаунта? <MudLink Href="/register">Зарегистрируйтесь</MudLink></MudText>
                 </div>
-                
-                
             </EditForm>
         </MudPaper>
     </MudItem>
-</MudGrid>
+</MudStack>

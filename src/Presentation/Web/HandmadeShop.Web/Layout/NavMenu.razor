@@ -1,4 +1,23 @@
 ﻿<MudNavMenu>
-    <MudNavLink Href="/" Match="NavLinkMatch.All">Dashboard</MudNavLink>
-    <MudNavLink Href="/books" Match="NavLinkMatch.Prefix">Books</MudNavLink>
+    <MudList Clickable="true">
+        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
+        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
+        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
+    </MudList>
 </MudNavMenu>
+
+@code
+{
+    private Color _color = Color.Dark;
+    
+    private void OnFocus()
+    {
+        _color = Color.Error;
+        Console.WriteLine("change color");
+    }
+
+    private void OnFocusOut()
+    {
+        _color = Color.Dark;
+    }
+}

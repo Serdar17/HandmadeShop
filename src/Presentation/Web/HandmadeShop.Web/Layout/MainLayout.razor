@@ -8,14 +8,31 @@
             
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggleAsync" />
-        <MudSpacer />
-        <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" @onclick="@ToggleDarkModeAsync" Color="Color.Inherit" Edge="Edge.End" />
-        <HeaderMenu/>
+            <MudText Typo="Typo.h5" Class="mr-5">Handmade Shop</MudText>
+            <MudButton StartIcon="@(_drawerOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu)" Color="Color.Inherit" IconSize="Size.Large" OnClick="@DrawerToggleAsync">Каталог</MudButton>
+    
+            <MudItem Class="rounded-circle ml-5">
+                <MudTextField
+                    @bind-Value="TextValue"
+                    Label="Поиск"
+                    Class="rounded"
+                    Style="@(_isDarkMode ? _sizeStyles : _inputStyles + _sizeStyles)"
+                    Variant="Variant.Outlined"
+                    Adornment="Adornment.End"
+                    AdornmentIcon="@Icons.Material.Filled.Search"
+                    AdornmentColor="Color.Secondary"
+                    OnAdornmentClick="Search"/>
+            </MudItem>
+    
+            <MudSpacer/>
+            <HeaderMenu/>
+            <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" @onclick="@ToggleDarkModeAsync" Color="Color.Inherit" Edge="Edge.End"/>
+            
+
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
         <MudDrawerHeader>
-            <MudText Typo="Typo.h5" Class="mt-1">Handmade Shop</MudText>
+            <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-1">Категории</MudText>
         </MudDrawerHeader>
         <NavMenu/>
     </MudDrawer>
@@ -25,25 +42,68 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
 @code {
+
+    private string _inputStyles = $"background: {Colors.Blue.Lighten5};";
+    private string _sizeStyles = "width: 400px; height: 50px";
+    public string TextValue { get; set; }
+    private bool _resetValueOnEmptyText;
+    private bool _coerceText;
+    private bool _coerceValue;
+    private string value1, value2;
+    private string[] states =
+    {
+        "Alabama", "Alaska", "American Samoa", "Arizona",
+        "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "District of Columbia", "Federated States of Micronesia",
+        "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
+        "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
+        "Louisiana", "Maine", "Marshall Islands", "Maryland",
+        "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+        "Missouri", "Montana", "Nebraska", "Nevada",
+        "New Hampshire", "New Jersey", "New Mexico", "New York",
+        "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
+        "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
+        "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
+        "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
+        "Washington", "West Virginia", "Wisconsin", "Wyoming",
+    };
+
+    private async Task<IEnumerable<string>> Search2(string value)
+    {
+        // In real life use an asynchronous function for fetching data from an api.
+        await Task.Delay(5);
+
+        // if text is null or empty, don't return values (drop-down will not open)
+        if (string.IsNullOrEmpty(value))
+            return new string[0];
+        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
+    }
+    
     private bool _drawerOpen = true;
     private bool _isDarkMode;
-
+    
     protected override async Task OnInitializedAsync()
     {
         _drawerOpen = await ConfigurationService.GetNavigationMenuVisibleAsync();
         _isDarkMode = await ConfigurationService.GetDarkModeAsync();
     }
-
+    
     private async Task DrawerToggleAsync()
     {
         _drawerOpen = !_drawerOpen;
         await ConfigurationService.SetNavigationMenuVisibleAsync(_drawerOpen);
     }
-
+    
     private async Task ToggleDarkModeAsync()
     {
         _isDarkMode = !_isDarkMode;
         await ConfigurationService.SetDarkModeAsync(_isDarkMode);
+    }
+
+    private async Task Search()
+    {
+        Console.WriteLine("Search");
     }
 }
