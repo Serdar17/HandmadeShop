@@ -15,6 +15,6 @@ public class Result : Result<Result>
     }
 
     public static Result Success() => new();
-    
+    public new static Result Failure(Error error) => new(error);
     public static implicit operator Result (Error error) => new (error);
 }

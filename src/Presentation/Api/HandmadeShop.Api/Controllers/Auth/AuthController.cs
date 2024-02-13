@@ -1,11 +1,13 @@
 ﻿using Asp.Versioning;
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Auth.Models;
+using HandmadeShop.Api.Services;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.UseCase.Auth.Commands.ChangePassword;
 using HandmadeShop.UseCase.Auth.Commands.ForgotPassword;
 using HandmadeShop.UseCase.Auth.Commands.RegisterUser;
 using HandmadeShop.UseCase.Auth.Commands.ResetPassword;
+using HandmadeShop.UseCase.Auth.Commands.ResetProfilePassword;
 using HandmadeShop.UseCase.Auth.Commands.VerifyEmail;
 using HandmadeShop.UseCase.Auth.Models;
 using MediatR;
@@ -32,16 +34,19 @@ public class AuthController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly ISender _sender;
+    private readonly IIdentityService _identityService;
 
     /// <summary>
     /// 
     /// </summary>
     /// <param name="mapper"></param>
     /// <param name="sender"></param>
-    public AuthController(IMapper mapper, ISender sender)
+    /// <param name="identityService"></param>
+    public AuthController(IMapper mapper, ISender sender, IIdentityService identityService)
     {
         _mapper = mapper;
         _sender = sender;
+        _identityService = identityService;
     }
 
     /// <summary>
@@ -135,6 +140,30 @@ public class AuthController : ControllerBase
     public async Task<IResult> ChangePasswordAsync([FromBody] ChangePasswordRequest request)
     {
         var command = new ChangePasswordCommand(_mapper.Map<ChangePasswordModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok();
+
+        return result.ToProblemDetails();
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpPut("password/reset")]
+    public async Task<IResult> ResetPasswordFromProfileAsync([FromBody] ResetProfilePasswordRequest request)
+    {
+        var id = _identityService.GetUserIdentity();
+        var model = _mapper.Map<ResetProfilePasswordModel>(request);
+        model.UserId = id;
+        
+        var command = new ResetProfilePasswordCommand(model);
 
         var result = await _sender.Send(command);
 

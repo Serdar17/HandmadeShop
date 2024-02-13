@@ -1,4 +1,5 @@
 ﻿using HandmadeShop.Api.Configuration;
+using HandmadeShop.Api.Services;
 using HandmadeShop.Application;
 using HandmadeShop.Services.Action;
 using HandmadeShop.Services.EmailSender;
@@ -44,7 +45,8 @@ public static class DependencyInjection
             .AddAppFileStorage()
             .AddEmailSender()
             ;
-        
+
+        services.AddTransient<IIdentityService, IdentityService>();
         return services;
     }
 }

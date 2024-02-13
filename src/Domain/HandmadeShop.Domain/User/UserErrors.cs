@@ -23,4 +23,7 @@ public class UserErrors
 
     public static Error InvalidPassword() =>
         Error.Conflict("Users.InvalidPassword", "Invalid old password");
+
+    public static Error NotAuthorized() =>
+        Error.Conflict("Users.NotAuthorized", "User is not authorized");
 }

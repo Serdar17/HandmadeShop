@@ -40,7 +40,8 @@ public class ResetPasswordRequestValidator : AbstractValidator<ResetPasswordRequ
             .EmailAddress();
 
         RuleFor(x => x.Password)
-            .NotEmpty();
+            .NotEmpty()
+            .Length(1, 50);
 
         RuleFor(x => x.Token)
             .NotEmpty();

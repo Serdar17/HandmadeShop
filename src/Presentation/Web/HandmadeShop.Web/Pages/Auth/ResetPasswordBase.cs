@@ -56,12 +56,9 @@ public class ResetPasswordBase : ComponentBase
             return;
 
         var result = await _authService.ResetPasswordAsync(Model);
-
-        Console.WriteLine(Model);
         
         if (result.IsSuccess)
             _navigationManager.NavigateTo("/login");
-        Console.WriteLine("zapros proshel");
         ShowErrors = true;
         ErrorDetail = result.Error.Message;
 

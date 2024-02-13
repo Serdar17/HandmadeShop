@@ -107,12 +107,13 @@
             <response code="404">Not Found</response>;
             <response code="409">Conflict</response>;
         </member>
-        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender,HandmadeShop.Api.Services.IIdentityService)">
             <summary>
             
             </summary>
             <param name="mapper"></param>
             <param name="sender"></param>
+            <param name="identityService"></param>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.RegisterAsync(HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest)">
             <summary>
@@ -147,6 +148,13 @@
             Change password from profile
             </summary>
             <param name="request">Change password request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.ResetPasswordFromProfileAsync(HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
             <returns></returns>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ChangePasswordRequest">
@@ -299,6 +307,41 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetPasswordRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest.Password">
+            <summary>
+            Password
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest.ConfirmPassword">
+            <summary>
+            Confirm Password
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest">
             <summary>
             
@@ -363,6 +406,35 @@
             
             </summary>
             <param name="context"></param>
+        </member>
+        <member name="T:HandmadeShop.Api.Services.IdentityService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Services.IdentityService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:HandmadeShop.Api.Services.IdentityService.GetUserIdentity">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Services.IIdentityService">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Services.IIdentityService.GetUserIdentity">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

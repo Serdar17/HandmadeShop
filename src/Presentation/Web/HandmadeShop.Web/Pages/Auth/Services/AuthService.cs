@@ -2,8 +2,10 @@
 using System.Text;
 using System.Text.Json;
 using Blazored.LocalStorage;
+using HandmadeShop.Domain.Common;
 using HandmadeShop.Web.Common;
 using HandmadeShop.Web.Pages.Auth.Models;
+using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Providers;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -101,6 +103,15 @@ public class AuthService : IAuthService
         return await SendAsync(url, json);
     }
 
+    public async Task<Result> ResetProfilePasswordAsync(ResetProfilePasswordModel model)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/auth/password/reset";
+
+        var json = JsonSerializer.Serialize(model);
+
+        return await SendAsync(url, json);
+    }
+
     public async Task Logout()
     {
         await _localStorage.RemoveItemAsync(LocalStorageAuthTokenKey);
@@ -122,7 +133,7 @@ public class AuthService : IAuthService
         
         var error = await response.Content.ReadAsStringAsync();
         var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
-        
-        return Result.Failure(result.Errors.First());
+
+        return result.Errors.First();
     }
 }

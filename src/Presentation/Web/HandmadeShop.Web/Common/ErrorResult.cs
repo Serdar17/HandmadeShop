@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using HandmadeShop.Domain.Common;
 
 namespace HandmadeShop.Web.Common;
 

@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using HandmadeShop.Domain;
-using HandmadeShop.Domain.Enums;
+﻿using HandmadeShop.Domain.Enums;
 
-namespace HandmadeShop.UseCase.Account.Models;
+namespace HandmadeShop.Web.Pages.Profile.Models;
 
 public class AccountInfoModel
 {
@@ -13,12 +11,4 @@ public class AccountInfoModel
     public string? DownloadPath { get; set; }
     public string? AvatarUrl { get; set; }
     public DateTime? BirthDate { get; set; }
-}
-
-public class AccountInfoModelProfile : Profile
-{
-    public AccountInfoModelProfile()
-    {
-        CreateMap<User, AccountInfoModel>();
-    }
 }

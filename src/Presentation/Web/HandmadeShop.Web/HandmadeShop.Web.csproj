@@ -24,8 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\Profile\Models\" />
-      <Folder Include="Pages\Profile\Services\" />
+      <ProjectReference Include="..\..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
     </ItemGroup>
 
 </Project>
