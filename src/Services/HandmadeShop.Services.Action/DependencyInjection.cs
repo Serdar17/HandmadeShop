@@ -1,4 +1,4 @@
-﻿using HandmadeShop.Domain.Actions;
+﻿using HandmadeShop.Infrastructure.Abstractions.Actions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HandmadeShop.Services.Action;

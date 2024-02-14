@@ -1,4 +1,4 @@
-﻿using HandmadeShop.Domain.FileStorage;
+﻿using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 using HandmadeShop.Services.Settings.Settings;
 using Microsoft.AspNetCore.Http;
 using YandexDisk.Client;

@@ -95,7 +95,6 @@ public class AuthService : IAuthService
 
     public async Task<Result> ResetPasswordAsync(ResetPasswordModel model)
     {
-        Console.WriteLine(model);
         var url = $"{Settings.ApiRoot}/api/v1/auth/password/reset";
 
         var json = JsonSerializer.Serialize(model);
@@ -109,7 +108,17 @@ public class AuthService : IAuthService
 
         var json = JsonSerializer.Serialize(model);
 
-        return await SendAsync(url, json);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync(url, data);
+
+        if (response.IsSuccessStatusCode)
+            return Result.Success();
+        
+        var error = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+
+        return result.Errors.First();
     }
 
     public async Task Logout()

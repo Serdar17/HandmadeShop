@@ -1,6 +1,10 @@
 ﻿using Asp.Versioning;
 using AutoMapper;
+using HandmadeShop.Api.Controllers.Account.Models;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
+using HandmadeShop.UseCase.Account.Commands.UploadAvatar;
+using HandmadeShop.UseCase.Account.Models;
 using HandmadeShop.UseCase.Account.Queries.GetUserInfo;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -53,4 +57,42 @@ public class AccountsController : ControllerBase
         return result.ToProblemDetails();
     }
 
+    /// <summary>
+    /// Upload avatar image, max size of the uploaded file is 5MB.
+    /// </summary>
+    /// <param name="request">Upload avatar request</param>
+    /// <returns></returns>
+    [HttpPost("upload/avatar")]
+    [RequestFormLimits(MultipartBodyLengthLimit = 5_242_880)]
+    [ProducesResponseType(typeof(UploadAvatarModel), 200)]
+    public async Task<IResult> UploadAvatarAsync([FromForm] UploadAvatarRequest request)
+    {
+        var command = new UploadAvatarCommand(_mapper.Map<UploadAvatarModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPut("info")]
+    [ProducesResponseType(typeof(AccountInfoModel), 200)]
+    public async Task<IResult> UpdateAccountInfoAsync([FromBody] UpdateAccountInfoRequest request)
+    {
+        var command = new UpdateAccountInfoCommand(_mapper.Map<UpdateAccountInfoModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
 }

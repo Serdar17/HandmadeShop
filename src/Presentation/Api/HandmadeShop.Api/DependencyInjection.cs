@@ -1,6 +1,7 @@
 ﻿using HandmadeShop.Api.Configuration;
 using HandmadeShop.Api.Services;
 using HandmadeShop.Application;
+using HandmadeShop.Infrastructure.Abstractions.Identity;
 using HandmadeShop.Services.Action;
 using HandmadeShop.Services.EmailSender;
 using HandmadeShop.Services.FileStorage;

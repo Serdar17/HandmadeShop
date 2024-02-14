@@ -1,5 +1,5 @@
 ﻿using HandmadeShop.Domain.Email;
-using HandmadeShop.Domain.EmailSender;
+using HandmadeShop.Infrastructure.Abstractions.EmailSender;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HandmadeShop.Services.EmailSender;

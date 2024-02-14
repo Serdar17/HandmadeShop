@@ -1,6 +1,7 @@
 ﻿using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
+using HandmadeShop.Infrastructure.Abstractions.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Auth.Commands.ResetProfilePassword;
@@ -8,19 +9,22 @@ namespace HandmadeShop.UseCase.Auth.Commands.ResetProfilePassword;
 public class ResetProfilePasswordHandler : ICommandHandler<ResetProfilePasswordCommand>
 {
     private readonly UserManager<User> _userManager;
+    private readonly IIdentityService _identityService;
 
-    public ResetProfilePasswordHandler(UserManager<User> userManager)
+    public ResetProfilePasswordHandler(UserManager<User> userManager, IIdentityService identityService)
     {
         _userManager = userManager;
+        _identityService = identityService;
     }
 
     public async Task<Result> Handle(ResetProfilePasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(request.Model.UserId);
+        var userid = _identityService.GetUserIdentity();
+        var user = await _userManager.FindByIdAsync(userid.ToString());
 
         if (user is null)
         {
-            return UserErrors.NotFound(Guid.Parse(request.Model.UserId));
+            return UserErrors.NotFound(userid);
         }
 
         user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, request.Model.Password);

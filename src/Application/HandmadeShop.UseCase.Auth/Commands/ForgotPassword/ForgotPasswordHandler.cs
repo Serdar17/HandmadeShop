@@ -1,8 +1,8 @@
 ﻿using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
-using HandmadeShop.Domain.Actions;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Domain.Email;
+using HandmadeShop.Infrastructure.Abstractions.Actions;
 using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Auth.Commands.ForgotPassword;

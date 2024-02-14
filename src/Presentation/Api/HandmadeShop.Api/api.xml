@@ -97,6 +97,90 @@
             <param name="userId">Unique user id</param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.UploadAvatarAsync(HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequest)">
+            <summary>
+            Upload avatar image, max size of the uploaded file is 5MB.
+            </summary>
+            <param name="request">Upload avatar request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.UpdateAccountInfoAsync(HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest">
+            <summary>
+            Update Account info request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest.Name">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest.Gender">
+            <summary>
+            Gender
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest.BirthDate">
+            <summary>
+            Birth Date
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequest">
+            <summary>
+            Upload avatar request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequest.Avatar">
+            <summary>
+            Avatar
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestProfile"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.AuthController">
             <summary>
             Auth controller
@@ -107,7 +191,7 @@
             <response code="404">Not Found</response>;
             <response code="409">Conflict</response>;
         </member>
-        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender,HandmadeShop.Api.Services.IIdentityService)">
+        <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender,HandmadeShop.Infrastructure.Abstractions.Identity.IIdentityService)">
             <summary>
             
             </summary>
@@ -420,17 +504,6 @@
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
         <member name="M:HandmadeShop.Api.Services.IdentityService.GetUserIdentity">
-            <summary>
-            
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:HandmadeShop.Api.Services.IIdentityService">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:HandmadeShop.Api.Services.IIdentityService.GetUserIdentity">
             <summary>
             
             </summary>

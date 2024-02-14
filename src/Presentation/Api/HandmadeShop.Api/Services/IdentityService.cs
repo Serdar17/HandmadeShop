@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using HandmadeShop.Infrastructure.Abstractions.Identity;
 
 namespace HandmadeShop.Api.Services;
 
@@ -23,8 +24,8 @@ public class IdentityService : IIdentityService
     /// 
     /// </summary>
     /// <returns></returns>
-    public string GetUserIdentity()
+    public Guid GetUserIdentity()
     {
-        return _context.HttpContext.User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value;
+        return Guid.Parse(_context.HttpContext.User.Claims.First(x => x.Type.Equals(ClaimTypes.NameIdentifier)).Value);
     }
 }

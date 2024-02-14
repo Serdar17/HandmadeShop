@@ -79,6 +79,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.FileS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Web", "src\Presentation\Web\HandmadeShop.Web\HandmadeShop.Web.csproj", "{40E1A32A-B2E6-400A-BCE2-3E16350E9457}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Infrastructure.Abstractions", "src\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj", "{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,7 @@ Global
 		{967B3D8C-97F3-420C-97D4-06B17D908598} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 		{8DB4D4EF-992F-473F-955D-AAFD0EDD33E3} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 		{40E1A32A-B2E6-400A-BCE2-3E16350E9457} = {BC4D3946-651E-44AA-98B3-83E15916F5EC}
+		{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5} = {9D2895A3-20FE-4ADE-8412-E0BB5002C376}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -204,5 +207,9 @@ Global
 		{40E1A32A-B2E6-400A-BCE2-3E16350E9457}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40E1A32A-B2E6-400A-BCE2-3E16350E9457}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40E1A32A-B2E6-400A-BCE2-3E16350E9457}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE0390D-027E-46B4-84EB-25BBDE4A3AC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

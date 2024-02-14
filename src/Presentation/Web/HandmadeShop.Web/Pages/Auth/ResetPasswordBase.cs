@@ -44,8 +44,6 @@ public class ResetPasswordBase : ComponentBase
 
         Model.Email = email;
         Model.Token = token;
-        Console.WriteLine(Model.Email);
-        Console.WriteLine(Model.Token);
     }
 
     protected async Task OnValidSubmit()

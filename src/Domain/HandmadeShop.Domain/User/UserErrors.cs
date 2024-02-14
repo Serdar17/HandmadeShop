@@ -15,8 +15,11 @@ public class UserErrors
     public static Error CreateError(string message) =>
         Error.Conflict("Users.CreateUser", message);
 
+    public static Error UpdateError(string message) =>
+        Error.Conflict("Users.UpdateUser", $"Update user is wrong. {message}");
+
     public static Error VerifyEmail(string message) =>
-        Error.Conflict("Users.VerifyEmail", message);
+        Error.Conflict("Users.VerifyEmail", $"Confirmation user email is wrong. {message}");
 
     public static Error ResetPassword(string message) =>
         Error.Conflict("Users.ResetPassword", message);

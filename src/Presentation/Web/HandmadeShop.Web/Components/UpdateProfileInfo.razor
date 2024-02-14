@@ -1,0 +1,38 @@
+﻿@using HandmadeShop.Domain.Enums
+@inherits UpdateProfileInfoBase 
+
+<MudItem xs="12" sm="6" md="4">
+    <MudField Variant="Variant.Text">Почта: @Model.Email</MudField>
+    <MudForm @ref="Form" @bind-IsValid="@IsSuccess" @bind-Errors="@ValidationErrors">
+        <MudAlert Severity="Severity.Error" Class="@(ShowErrors ? "mb-3 d-block" : "d-none")">
+            @ErrorDetail
+        </MudAlert>
+        
+        <MudTextField @bind-Value="Model.Name" For="@(() => Model.Name)"
+                      Label="Имя"
+                      Class="mt-6"
+                      Required="true"
+                      RequiredError="Name is required!"/>
+        
+        
+        <MudRadioGroup Class="mt-6" @bind-Value="@Model.Gender">
+            <MudRadio Value="@(Gender.Male)" Color="Color.Primary" Size="Size.Small">Мужчина</MudRadio>
+            <MudRadio Value="@(Gender.Female)" Color="Color.Primary" Size="Size.Small">Женщина</MudRadio>
+        </MudRadioGroup>
+        
+        <MudDatePicker Label="Дата рождения" 
+                       Editable="true" 
+                       Class="mt-6"
+                       @bind-Date="Model.BirthDate" 
+                       Placeholder="Выберите дату рождения"/>
+
+        <div class="justify-content-center mt-4">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       Disabled="@(!IsSuccess)"
+                       Size="Size.Large"
+                       OnClick="@(async () => await OnValidSubmit())"
+                       Class="ml-auto">Сохранить</MudButton>
+        </div>
+    </MudForm>  
+</MudItem>

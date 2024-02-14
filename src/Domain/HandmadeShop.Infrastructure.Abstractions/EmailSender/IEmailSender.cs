@@ -1,6 +1,6 @@
 ﻿using HandmadeShop.Domain.Email;
 
-namespace HandmadeShop.Domain.EmailSender;
+namespace HandmadeShop.Infrastructure.Abstractions.EmailSender;
 
 public interface IEmailSender
 {

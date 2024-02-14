@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
-using HandmadeShop.Domain.Actions;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Domain.Email;
 using HandmadeShop.Domain.Enums;
+using HandmadeShop.Infrastructure.Abstractions.Actions;
 using HandmadeShop.UseCase.Auth.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -44,7 +44,8 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUserCommand,
             Email = request.Model.Email,
             UserName = request.Model.Email,
             Status = UserStatus.Active,
-            PasswordHash = request.Model.Password
+            PasswordHash = request.Model.Password,
+            Gender = Gender.Unknown,
         };
     
         user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, user.PasswordHash);

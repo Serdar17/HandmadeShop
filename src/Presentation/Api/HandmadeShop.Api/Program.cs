@@ -42,9 +42,9 @@ DbInitializer.Execute(app.Services);
 //
 // DbSeeder.Execute(app.Services);
 
-logger.Information("The Hand.API has started");
+logger.Information("The HandmadeShop.API has started");
 
 app.Run();
 
-logger.Information("The DSRNetSchool.API has stopped");
+logger.Information("The HandmadeShop.API has started");
 

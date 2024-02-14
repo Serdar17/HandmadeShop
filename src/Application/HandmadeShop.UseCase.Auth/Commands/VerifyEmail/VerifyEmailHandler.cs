@@ -27,9 +27,7 @@ internal sealed class VerifyEmailHandler : ICommandHandler<VerifyEmailCommand>
 
         if (!result.Succeeded)
         {
-            var message = $"Confirmation user email is wrong. " +
-                          $"{string.Join(", ", result.Errors.Select(s => s.Description))}";
-            return UserErrors.VerifyEmail(message);
+            return UserErrors.VerifyEmail(string.Join(", ", result.Errors.Select(s => s.Description)));
         }
         
         return Result.Success();

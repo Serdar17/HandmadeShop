@@ -3,6 +3,7 @@ using AutoMapper;
 using HandmadeShop.Api.Controllers.Auth.Models;
 using HandmadeShop.Api.Services;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.Infrastructure.Abstractions.Identity;
 using HandmadeShop.UseCase.Auth.Commands.ChangePassword;
 using HandmadeShop.UseCase.Auth.Commands.ForgotPassword;
 using HandmadeShop.UseCase.Auth.Commands.RegisterUser;
@@ -159,11 +160,7 @@ public class AuthController : ControllerBase
     [HttpPut("password/reset")]
     public async Task<IResult> ResetPasswordFromProfileAsync([FromBody] ResetProfilePasswordRequest request)
     {
-        var id = _identityService.GetUserIdentity();
-        var model = _mapper.Map<ResetProfilePasswordModel>(request);
-        model.UserId = id;
-        
-        var command = new ResetProfilePasswordCommand(model);
+        var command = new ResetProfilePasswordCommand(_mapper.Map<ResetProfilePasswordModel>(request));
 
         var result = await _sender.Send(command);
 

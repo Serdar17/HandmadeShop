@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using HandmadeShop.Domain;
+using Microsoft.EntityFrameworkCore;
 
-namespace HandmadeShop.Domain;
+namespace HandmadeShop.Infrastructure.Abstractions.Context;
 
 public interface IAppDbContext
 {

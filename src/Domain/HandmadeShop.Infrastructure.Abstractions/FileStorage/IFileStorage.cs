@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace HandmadeShop.Domain.FileStorage;
+namespace HandmadeShop.Infrastructure.Abstractions.FileStorage;
 
 public interface IFileStorage
 {

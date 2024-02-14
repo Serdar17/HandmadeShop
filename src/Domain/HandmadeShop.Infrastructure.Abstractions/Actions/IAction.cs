@@ -1,6 +1,6 @@
 ﻿using HandmadeShop.Domain.Email;
 
-namespace HandmadeShop.Domain.Actions;
+namespace HandmadeShop.Infrastructure.Abstractions.Actions;
 
 public interface IAction
 {

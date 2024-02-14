@@ -1,6 +1,6 @@
 ﻿using HandmadeShop.Common.Constants;
 using HandmadeShop.Domain.Email;
-using HandmadeShop.Domain.EmailSender;
+using HandmadeShop.Infrastructure.Abstractions.EmailSender;
 using HandmadeShop.Services.Logger.Logger;
 using HandmadeShop.Services.RabbitMq.RabbitMq;
 

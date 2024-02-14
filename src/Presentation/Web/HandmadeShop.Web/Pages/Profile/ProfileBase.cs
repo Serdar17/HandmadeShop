@@ -3,6 +3,7 @@ using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Pages.Profile.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 
 namespace HandmadeShop.Web.Pages.Profile;
@@ -15,7 +16,10 @@ public class ProfileBase : ComponentBase
     [Inject]
     private IAuthService AuthService { get; set; }
     
-    protected AccountInfoModel Model;
+    [Inject]
+    private ISnackbar Snackbar { get; set; }
+    
+    protected AccountInfoModel? Model;
     protected ResetProfilePasswordModel ResetPwdModel = new();
     protected bool IsSuccess { get; set; }
     
@@ -54,22 +58,6 @@ public class ProfileBase : ComponentBase
         }
     }
     
-    // protected void ToggleConfirmPasswordVisibility()
-    // {
-    //     if (PasswordConfirmVisibility)
-    //     {
-    //         PasswordConfirmVisibility = false;
-    //         PasswordConfirmInputIcon = Icons.Material.Filled.VisibilityOff;
-    //         PasswordConfirmInput = InputType.Password;
-    //     }
-    //     else
-    //     {
-    //         PasswordConfirmVisibility = true;
-    //         PasswordConfirmInputIcon = Icons.Material.Filled.Visibility;
-    //         PasswordConfirmInput = InputType.Text;
-    //     }
-    // }
-    
     protected void TogglePasswordVisibility(ref bool visibility, ref InputType input, ref string icon)
     {
         if (visibility)
@@ -99,6 +87,9 @@ public class ProfileBase : ComponentBase
 
         if (result.IsSuccess)
         {
+            Snackbar.Add("Пароль успешно изменен!", Severity.Success);
+            ResetPwdModel.Password = string.Empty;
+            ResetPwdModel.ConfirmPassword = string.Empty;
             return;
         }
         
@@ -109,8 +100,25 @@ public class ProfileBase : ComponentBase
     protected string PasswordMatch(string arg)
     {
         if (ResetPwdModel.Password != arg)
+        {
+            IsSuccess = false;
             return "Passwords don't match";
-        
+        }
+
+        IsSuccess = true;
         return null;
-    } 
+    }
+
+    protected IBrowserFile? Avatar;
+    protected void UploadFiles(IBrowserFile file)
+    {
+        Avatar = file;
+        //TODO upload the files to the server
+    }
+
+    protected async Task UploadAsync()
+    {
+        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
+        Snackbar.Add("TODO: Upload your files!");
+    }
 }

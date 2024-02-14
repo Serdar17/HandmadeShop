@@ -1,6 +1,6 @@
 ﻿using HandmadeShop.Common.Exceptions;
 using HandmadeShop.Domain.Email;
-using HandmadeShop.Domain.EmailSender;
+using HandmadeShop.Infrastructure.Abstractions.EmailSender;
 using HandmadeShop.Services.Settings.Settings;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;

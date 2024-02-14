@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj" />
       <ProjectReference Include="..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
       <ProjectReference Include="..\HandmadeShop.Services.RabbitMq\HandmadeShop.Services.RabbitMq.csproj" />
     </ItemGroup>

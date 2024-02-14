@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
+      <ProjectReference Include="..\..\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj" />
       <ProjectReference Include="..\HandmadeShop.Services.Settings\HandmadeShop.Services.Settings.csproj" />
     </ItemGroup>
 
