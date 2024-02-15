@@ -1,22 +1,6 @@
 version: '3.4'
 
-services:
-  handmade_shop_api:
-    ports:
-      - "10000:8080"
-    networks:
-      - shared_handmade_shop
-    env_file:
-      - env.api
-
-  handmade_shop_identity:
-    ports:
-      - "10001:8080"
-    networks:
-      - shared_handmade_shop
-    env_file:
-      - env.identity
-  
+services: 
   handmade_shop_porstgresql:
     environment:
       - POSTGRES_NAME=postgres
@@ -52,6 +36,22 @@ services:
       - shared_handmade_shop
     env_file:
       - env.worker
+
+  handmade_shop_identity:
+    ports:
+      - "10001:8080"
+    networks:
+      - shared_handmade_shop
+    env_file:
+      - env.identity
+  
+  handmade_shop_api:
+    ports:
+      - "10000:8080"
+    networks:
+      - shared_handmade_shop
+    env_file:
+      - env.api
 
 networks:
   shared_handmade_shop:
