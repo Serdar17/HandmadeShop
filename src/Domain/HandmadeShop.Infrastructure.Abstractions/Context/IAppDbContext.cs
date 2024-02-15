@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.Infrastructure.Abstractions.Context;
 
-public interface IAppDbContext
+public interface IAppDbContext : IDisposable
 {
     DbSet<Product> Products { get; }
     DbSet<Catalog> Catalogs { get; set; }

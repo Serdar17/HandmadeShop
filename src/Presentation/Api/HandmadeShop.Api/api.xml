@@ -467,6 +467,174 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest">
+            <summary>
+            Create product request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.Name">
+            <summary>
+            Product name
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.Description">
+            <summary>
+            Product description
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.Quantity">
+            <summary>
+            Quantity of product
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.Price">
+            <summary>
+            Product price
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.HasDiscount">
+            <summary>
+            Has discount
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.DiscountPercentage">
+            <summary>
+            Discount percentage if has discount
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest.CatalogName">
+            <summary>
+            Catalog name
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequestValidation">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequestValidation.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequestValidation"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequest">
+            <summary>
+            Delete product image request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequest.PathToImage">
+            <summary>
+            List of path to images
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest">
+            <summary>
+            Upload product images
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest.Images">
+            <summary>
+            List of product images
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.ProductController">
+            <summary>
+            Accounts controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
+            <summary>
+            
+            </summary>
+            <param name="mapper"></param>
+            <param name="sender"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetAllCatalogsAsync">
+            <summary>
+            Get all catalogs
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.CreateProductAsync(HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest)">
+            <summary>
+            Create product for user
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.UploadImagesAsync(System.Guid,HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest)">
+            <summary>
+            Upload product images
+            </summary>
+            <param name="productId">Unique product id</param>
+            <param name="request">List of product images</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.DeleteProductImageAsync(System.Guid,HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequest)">
+            <summary>
+            Delete product image
+            </summary>
+            <param name="productId">Unique product id</param>
+            <param name="request">Delete product image request</param>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.DependencyInjection">
             <summary>
             Register all application services

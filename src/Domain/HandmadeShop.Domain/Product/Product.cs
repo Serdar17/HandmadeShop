@@ -23,5 +23,5 @@ public class Product : BaseEntity
 
     public virtual ICollection<Specification> Specifications { get; set; } = new List<Specification>();
 
-    public virtual ICollection<Review> Reviews { get; set; }= new List<Review>();
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 }

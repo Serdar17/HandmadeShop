@@ -9,9 +9,7 @@ public class User : IdentityUser<Guid>
     public string? Surname { get; set; }
     public UserStatus Status { get; set; }
     public DateTime? BirthDate { get; set; }
-    
-    // TODO: ПОменять на nullable
-    public Gender? Gender { get; set; }
+    public Gender Gender { get; set; }
     public string? AvatarUrl { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();

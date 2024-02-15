@@ -1,6 +1,6 @@
 ﻿namespace HandmadeShop.Domain.Common;
 
-public class Result<TValue>
+public class Result<TValue> 
 {
     public TValue? Value { get; }
 

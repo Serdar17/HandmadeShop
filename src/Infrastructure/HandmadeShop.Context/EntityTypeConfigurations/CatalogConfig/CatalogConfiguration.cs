@@ -10,6 +10,8 @@ public class CatalogConfiguration : IEntityTypeConfiguration<Catalog>
     {
         builder.ToTable("catalogs");
 
+        builder.HasIndex(x => x.Name).IsUnique();
+        
         builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
 
         builder.HasMany(x => x.Products)

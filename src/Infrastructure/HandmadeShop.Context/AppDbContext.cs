@@ -1,10 +1,11 @@
 ﻿using HandmadeShop.Domain;
+using HandmadeShop.Infrastructure.Abstractions.Context;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.Context;
 
-public class AppDbContext : IdentityDbContext<User,  UserRole, Guid>
+public class AppDbContext : IdentityDbContext<User,  UserRole, Guid>, IAppDbContext
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<Catalog> Catalogs { get; set; }
