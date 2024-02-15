@@ -104,6 +104,12 @@
             <param name="request">Upload avatar request</param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.DeleteAvatarAsync">
+            <summary>
+            Delete user avatar
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.UpdateAccountInfoAsync(HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest)">
             <summary>
             

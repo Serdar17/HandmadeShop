@@ -1,10 +1,12 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
-using HandmadeShop.Web.Common;
+using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Services;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace HandmadeShop.Web.Pages.Profile.Services;
 
@@ -45,9 +47,64 @@ public class AccountService : IAccountService
             return model;
         }
         
-        var error = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
+        return await response.Content.ToErrorAsync();
+    }
 
-        return result.Errors.First();
+    public async Task<Result<AccountInfoModel>> UpdateAccountInfoModel(AccountInfoModel model)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/accounts/info";
+
+        var json = JsonSerializer.Serialize(model);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+        
+        var response = await _httpClient.PutAsync(url, data);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (response.IsSuccessStatusCode)
+        {
+            var newModel = JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (newModel is null)
+                return model;
+            
+            return newModel;
+        }
+        
+        return await response.Content.ToErrorAsync();
+    }
+
+    public async Task<Result<AccountInfoModel>> UploadAvatarAsync(MultipartFormDataContent form)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/accounts/avatar/upload";
+        
+        // var form = new MultipartFormDataContent();
+        // var fileContent = new StreamContent(file.OpenReadStream());
+        // form.Add(fileContent, "avatar", file.Name);
+        //
+        var response = await _httpClient.PostAsync(url, form);
+        
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+        return await response.Content.ToErrorAsync();
+    }
+
+    public async Task<Result<AccountInfoModel>> DeleteAvatarAsync()
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/accounts/avatar/delete";
+
+        var response = await _httpClient.DeleteAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (response.IsSuccessStatusCode)
+        { 
+            return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+        return await response.Content.ToErrorAsync();
     }
 }

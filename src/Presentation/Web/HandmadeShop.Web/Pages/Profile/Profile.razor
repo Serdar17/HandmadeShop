@@ -3,6 +3,8 @@
 @using HandmadeShop.Web.Common
 @inherits ProfileBase
 
+
+@* TODO: Разбить на компоненты *@
 <MudStack>
     <MudPaper Class="mt-8" Width="90%" Height="400px" Elevation="0">
         <MudText Class="mb-4" Typo="Typo.h4">Мой профиль</MudText>
@@ -18,7 +20,21 @@
                          <MudItem xs="3">
                         @if (Model.AvatarUrl is not null)
                         {
-                            <MudImage ObjectPosition="ObjectPosition.Center" Class="rounded-circle" Width="200" Height="200" Src="@Model.DownloadPath"></MudImage>
+                            <MudImage ObjectPosition="ObjectPosition.Center" 
+                                      Class="rounded-circle" 
+                                      Width="200" Height="200" 
+                                      Src="@Model.DownloadPath"/>
+                            
+                            <div class="d-flex justify-content-center mt-4">
+                                <MudButton Variant="Variant.Filled"
+                                           StartIcon="@Icons.Material.Filled.Delete" 
+                                           Color="Color.Error"
+                                           Class="justify-content-center"
+                                           OnClick="@DeleteAsync">
+                                    Удалить
+                                </MudButton>
+                                
+                            </div>
                         }
                         else
                         {
@@ -38,15 +54,20 @@
                             }
                             else
                             {
-                                <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles">
-                                    <ButtonTemplate>
-                                        <MudIconButton HtmlTag="label"
-                                                       Color="Color.Info"
-                                                       Icon="@Icons.Material.Filled.PhotoCamera"
-                                                       for="@context.Id">
-                                        </MudIconButton>
-                                    </ButtonTemplate>
-                                </MudFileUpload>
+                                <div class="d-flex justify-content-center mt-4">
+                                    <MudFileUpload T="IBrowserFile" 
+                                                   Accept=".png, .jpg, .svg, .gif" 
+                                                   MaximumFileCount="1" 
+                                                   OnFilesChanged="UploadFiles">
+                                        <ButtonTemplate>
+                                            <MudIconButton HtmlTag="label"
+                                                           Color="Color.Info"
+                                                           Icon="@Icons.Material.Filled.PhotoCamera"
+                                                           for="@context.Id">
+                                            </MudIconButton>
+                                        </ButtonTemplate>
+                                    </MudFileUpload>
+                                </div>
                             }
                         }
                     </MudItem>

@@ -2,11 +2,13 @@
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Account.Models;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.UseCase.Account.Commands.DeleteAvatar;
 using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
 using HandmadeShop.UseCase.Account.Commands.UploadAvatar;
 using HandmadeShop.UseCase.Account.Models;
 using HandmadeShop.UseCase.Account.Queries.GetUserInfo;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HandmadeShop.Api.Controllers.Account;
@@ -23,6 +25,7 @@ namespace HandmadeShop.Api.Controllers.Account;
 [Produces("application/json")]
 [ApiController]
 [ApiVersion("1.0")]
+[Authorize]
 
 public class AccountsController : ControllerBase
 {
@@ -46,6 +49,7 @@ public class AccountsController : ControllerBase
     /// <param name="userId">Unique user id</param>
     /// <returns></returns>
     [HttpGet("info/{userId:guid}")]
+    [ProducesResponseType(typeof(AccountInfoModel), 200)]
     public async Task<IResult> GetUserInfoAsync([FromRoute] Guid userId)
     {
         var query = new GetUserInfoQuery(userId);
@@ -62,9 +66,9 @@ public class AccountsController : ControllerBase
     /// </summary>
     /// <param name="request">Upload avatar request</param>
     /// <returns></returns>
-    [HttpPost("upload/avatar")]
+    [HttpPost("avatar/upload")]
     [RequestFormLimits(MultipartBodyLengthLimit = 5_242_880)]
-    [ProducesResponseType(typeof(UploadAvatarModel), 200)]
+    [ProducesResponseType(typeof(AccountInfoModel), 200)]
     public async Task<IResult> UploadAvatarAsync([FromForm] UploadAvatarRequest request)
     {
         var command = new UploadAvatarCommand(_mapper.Map<UploadAvatarModel>(request));
@@ -77,6 +81,24 @@ public class AccountsController : ControllerBase
         return result.ToProblemDetails();
     }
 
+    /// <summary>
+    /// Delete user avatar
+    /// </summary>
+    /// <returns></returns>
+    [HttpDelete("avatar/delete")]
+    [ProducesResponseType(typeof(AccountInfoModel), 200)]
+    public async Task<IResult> DeleteAvatarAsync()
+    {
+        var command = new DeleteAvatarCommand();
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+        
+        return result.ToProblemDetails();
+    }
+    
     /// <summary>
     /// 
     /// </summary>
@@ -95,4 +117,6 @@ public class AccountsController : ControllerBase
 
         return result.ToProblemDetails();
     }
+    
+    
 }

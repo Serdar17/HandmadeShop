@@ -1,4 +1,5 @@
 ﻿using HandmadeShop.Web.Common;
+using HandmadeShop.Web.Components;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Pages.Profile.Services;
@@ -19,6 +20,8 @@ public class ProfileBase : ComponentBase
     [Inject]
     private ISnackbar Snackbar { get; set; }
     
+    [Inject] private IDialogService DialogService { get; set; }
+    
     protected AccountInfoModel? Model;
     protected ResetProfilePasswordModel ResetPwdModel = new();
     protected bool IsSuccess { get; set; }
@@ -29,6 +32,8 @@ public class ProfileBase : ComponentBase
     protected InputType PasswordConfirmInput = InputType.Password;
     protected string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
     protected string PasswordConfirmInputIcon = Icons.Material.Filled.VisibilityOff;
+
+    private StreamContent stream;
 
     protected string ErrorDetail = string.Empty;
     protected bool ShowErrors;
@@ -110,15 +115,49 @@ public class ProfileBase : ComponentBase
     }
 
     protected IBrowserFile? Avatar;
-    protected void UploadFiles(IBrowserFile file)
+    protected async Task UploadFiles(InputFileChangeEventArgs args)
     {
-        Avatar = file;
-        //TODO upload the files to the server
+        Avatar = args.File;
+        stream = new StreamContent(args.File.OpenReadStream());
+    }
+
+    protected async Task DeleteAsync()
+    {
+        var parameters = new DialogParameters<Dialog>
+        {
+            { x => x.ContentText, "Вы действительно хотите удалить Аватар?" },
+            { x => x.ButtonText, "Delete" },
+            { x => x.Color, Color.Error }
+        };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = await DialogService.ShowAsync<Dialog>("Удаление", parameters, options);
+        
+        if ((await dialog.Result).Canceled)
+            return;
+        
+        var result = await AccountService.DeleteAvatarAsync();
+
+        if (result.IsSuccess && result.Value is not null)
+        {
+            Model = result.Value;
+            return;
+        }
     }
 
     protected async Task UploadAsync()
     {
-        Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopCenter;
-        Snackbar.Add("TODO: Upload your files!");
+        var form = new MultipartFormDataContent();
+        form.Add(stream, "avatar", Avatar.Name);
+        var result = await AccountService.UploadAvatarAsync(form);
+
+        if (result.IsSuccess)
+        {
+            Model = result.Value;
+            Snackbar.Add("Аватар загружен успешно!", Severity.Success);
+            Avatar = null;
+            return;
+        }
     }
 }

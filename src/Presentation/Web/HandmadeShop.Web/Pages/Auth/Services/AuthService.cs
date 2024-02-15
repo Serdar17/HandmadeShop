@@ -4,6 +4,7 @@ using System.Text.Json;
 using Blazored.LocalStorage;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Web.Common;
+using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Models;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Providers;
@@ -139,10 +140,7 @@ public class AuthService : IAuthService
 
         if (response.IsSuccessStatusCode)
             return Result.Success();
-        
-        var error = await response.Content.ReadAsStringAsync();
-        var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
 
-        return result.Errors.First();
+        return await response.Content.ToErrorAsync();
     }
 }
