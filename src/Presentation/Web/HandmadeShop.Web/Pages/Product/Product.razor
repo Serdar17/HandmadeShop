@@ -1,0 +1,203 @@
+﻿@page "/product/{ProductId:guid?}"
+@layout MainLayout
+@inherits ProductBase
+
+
+@if (ProductId is null || ProductModel == null)
+{
+    <div class="d-flex justify-content-center mt-6">
+        <MudButton StartIcon="@Icons.Material.Filled.Add"
+                   Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   OnClick="@((e) => CreateProduct())">
+            Создать
+        </MudButton>    
+    </div>
+    
+}
+else
+{
+    <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4">Карточка товара. Тут вы можете изменить либо удалить.</MudText>
+    <div class="d-flex justify-content-center mt-4">
+            <ProductCard IsEditable="false" Model="ProductModel"/>
+    </div>
+    
+    <div class="d-flex justify-content-center mt-4">
+	    <MudButton Class="mr-4" StartIcon="@Icons.Material.Filled.Edit" 
+	               Variant="Variant.Filled" 
+	               Color="Color.Warning"
+	               OnClick="@((e) => EditProduct())">
+		    Изменить
+	    </MudButton>
+                
+	    <MudButton StartIcon="@Icons.Material.Filled.DeleteForever"
+	               Variant="Variant.Filled"
+	               Color="Color.Error"
+	               OnClick="@((e) => DeleteProduct())">
+		    Удалить
+	    </MudButton>
+    </div>
+    
+    <div class="d-flex justify-content-center mt-10 mb-10">
+	    <MudPaper Width="600px">
+		    <div>
+			    <MudCarousel Class="mud-width-full" 
+			                 @ref="@Carousel" 
+			                 ItemsSource="@Images"
+			                 @bind-SelectedIndex="SelectedIndex"
+			                 Style="height:200px;" 
+			                 ShowArrows="true"
+			                 ShowBullets="true" 
+			                 EnableSwipeGesture="true" 
+			                 AutoCycle="false">
+				    <ItemTemplate>
+					    <div class="d-flex flex-column flex-column justify-center" style="height:100%">
+						    <MudImage Src="@context.DownloadUrl" Elevation="25" Class="rounded-lg"/>
+					    </div>
+				    </ItemTemplate>
+			    </MudCarousel>
+			    
+			    <br/>
+			    
+			    <MudFileUpload Class="ml-4" T="IBrowserFile" OnFilesChanged="UploadFiles">
+				    <ButtonTemplate>
+					    <MudButton HtmlTag="label"
+					               Variant="Variant.Filled"
+					               Color="Color.Primary"
+					               StartIcon="@Icons.Material.Filled.CloudUpload"
+					               for="@context.Id">
+						    Загрузить Файл
+					    </MudButton>
+				    </ButtonTemplate>
+			    </MudFileUpload>
+			    
+			    <MudButton Class="ml-4 ma-2" Variant="Variant.Filled" Color="Color.Error" OnClick="@(async () => await DeleteAsync(Carousel.SelectedIndex))">Удалить</MudButton>
+        	                
+		    </div>
+	    </MudPaper>
+	    
+    </div>
+    
+}
+
+@* <MudItem xs="7"> *@
+@*     <div class="d-flex justify-content-center mt-6"> *@
+@*         <MudPaper Class="pa-4 mb-10" Elevation="2" Width="400px"> *@
+@*             <EditForm Model="@Model" OnValidSubmit="OnValidSubmit"> *@
+@*                 <MudText Class="mt-4" Align="Align.Center" Typo="Typo.h4">Создание товара</MudText> *@
+@* *@
+@*                 <MudAlert Severity="Severity.Error" Class="@(ShowErrors ? "mb-3 d-block" : "d-none")"> *@
+@*                     @Error *@
+@*                     <br/> *@
+@*                     @ErrorDetail *@
+@*                 </MudAlert> *@
+@* *@
+@*                 <MudTextField T="string" *@
+@*                               @bind-Value="Model.Name" *@
+@*                               For="@(() => Model.Name)" *@
+@*                               Label="Название" *@
+@*                               Required="true" *@
+@*                               Class="mt-4" *@
+@*                               RequiredError="Name is required!"/> *@
+@* *@
+@*                 <MudTextField T="string" *@
+@*                               Variant="Variant.Text" *@
+@*                               AutoGrow="true" *@
+@*                               Class="mt-4" *@
+@*                               Text="@Model.Description" *@
+@*                               @bind-Value="Model.Description" For="@(() => Model.Description)" *@
+@*                               Label="Описание" *@
+@*                               Required="true" *@
+@*                               RequiredError="Description is required!"/> *@
+@* *@
+@*                 <MudAutocomplete T="string" *@
+@*                                  Class="mt-4" *@
+@*                                  Label="Категория товара" *@
+@*                                  HelperText="Выберите категорию или создайте новую" *@
+@*                                  ResetValueOnEmptyText="true" *@
+@*                                  @bind-Value="@Model.CatalogName" *@
+@*                                  For="@(() => Model.CatalogName)" *@
+@*                                  SearchFunc="@(Search)" *@
+@*                                  Required="true" *@
+@*                                  RequiredError="Category name is required!" *@
+@*                                  CoerceText="false" CoerceValue="true"/> *@
+@* *@
+@*                 <MudNumericField @bind-Value="Model.Quantity" *@
+@*                                  Label="Количество" *@
+@*                                  Class="mt-4" *@
+@*                                  Variant="Variant.Text" *@
+@*                                  Min="0"/> *@
+@* *@
+@*                 <MudNumericField @bind-Value="Model.Price" *@
+@*                                  Label="Цена товара" *@
+@*                                  Variant="Variant.Text" *@
+@*                                  Min="0.0" *@
+@*                                  Class="mt-4" *@
+@*                                  Culture="CultureInfo.InvariantCulture" *@
+@*                                  Max="int.MaxValue" *@
+@*                                  Required="true" *@
+@*                                  Validation="@(new RangeAttribute(1, int.MaxValue) { ErrorMessage = "The price of product must be valid" })"/> *@
+@* *@
+@*                 <MudCheckBox Class="mt-4" @bind-Value="@Model.HasDiscount"> Добавить скидку?</MudCheckBox> *@
+@* *@
+@*                 @if (Model.HasDiscount) *@
+@*                 { *@
+@*                     <MudNumericField @bind-Value="Model.DiscountPercentage" *@
+@*                                      Label="Цена со скидкой" *@
+@*                                      Variant="Variant.Text" *@
+@*                                      Min="0.0" *@
+@*                                      Class="mt-4" *@
+@*                                      Culture="CultureInfo.InvariantCulture" *@
+@*                                      Max="int.MaxValue" *@
+@*                                      Required="true" *@
+@*                                      Validation="@(new RangeAttribute(1, int.MaxValue) { ErrorMessage = "The price of product must be valid" })"/> *@
+@*                 } *@
+@* *@
+@*                 <div Class="d-flex justify-space-between align-center mt-4"> *@
+@*                     <MudButton Variant="Variant.Filled" *@
+@*                                Color="Color.Primary" *@
+@*                                Size="Size.Large" *@
+@*                                ButtonType="ButtonType.Submit">Сохранить</MudButton> *@
+@*                 </div> *@
+@*             </EditForm> *@
+@*         </MudPaper> *@
+@*     </div> *@
+@* </MudItem> *@
+
+
+@* <MudGrid> *@
+@*     <MudItem xs="5"> *@
+@*         <MudPaper Class="d-flex align-center justify-center mud-width-full py-8"> *@
+@*             xs-5 *@
+@*             $1$ <MudCarousel Class="mud-width-full" @ref="_carousel" ItemsSource="@_source" @bind-SelectedIndex="selectedIndex" Style="height:200px;" ShowArrows="@_arrows" ShowBullets="@_bullets" EnableSwipeGesture="@_enableSwipeGesture" AutoCycle="@_autocycle"> #1# *@
+@*             $1$ 	<ItemTemplate> #1# *@
+@*             $1$ 		<div class="d-flex flex-column flex-column justify-center" style="height:100%"> #1# *@
+@*             $1$ 			<MudIcon Class="mx-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" /> #1# *@
+@*             $1$ 			<MudText Align="@Align.Center" Class="mx-auto">@context</MudText> #1# *@
+@*             $1$ 		</div> #1# *@
+@*             $1$ 	</ItemTemplate> #1# *@
+@*             $1$ </MudCarousel> #1# *@
+@*             $1$ #1# *@
+@*             $1$ <MudFileUpload T="IBrowserFile" FilesChanged="UploadFiles"> #1# *@
+@*             $1$     <ButtonTemplate> #1# *@
+@*             $1$         <MudButton HtmlTag="label" #1# *@
+@*             $1$                    Variant="Variant.Filled" #1# *@
+@*             $1$                    Color="Color.Primary" #1# *@
+@*             $1$                    StartIcon="@Icons.Material.Filled.CloudUpload" #1# *@
+@*             $1$                    for="@context.Id"> #1# *@
+@*             $1$             Upload Files #1# *@
+@*             $1$         </MudButton> #1# *@
+@*             $1$     </ButtonTemplate> #1# *@
+@*             $1$ </MudFileUpload> #1# *@
+@*         </MudPaper>    *@
+@*     </MudItem> *@
+@*      *@
+@*     <MudItem xs="7"> *@
+@*          *@
+@* </MudGrid> *@
+
+
+
+
+
+

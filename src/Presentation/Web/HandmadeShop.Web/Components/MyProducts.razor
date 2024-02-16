@@ -1,0 +1,28 @@
+﻿@inherits MyProductsBase
+
+<MudText Typo="Typo.h5" Align="Align.Center">Список моих товаров</MudText>
+<div class="mb-8">
+    @if (Model is null)
+    {
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    }
+    else
+    {
+        <MudGrid Spacing="5" Justify="Justify.Center" Class="mt-8">
+            @foreach (var product in Model.Products)
+            {
+                <MudItem>
+                    <ProductCard IsEditable="true" Model="product"/>
+                </MudItem>
+            }
+        </MudGrid>
+    }
+    
+    <div class="d-flex justify-content-center">
+        <MudButton Class="mt-6" Href="product" Variant="Variant.Filled" Color="Color.Primary">Создать</MudButton>
+    </div>
+</div>
+
+
+
+

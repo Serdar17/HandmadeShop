@@ -1,0 +1,95 @@
+﻿
+@inherits ProductDialogBase
+
+<MudDialog>
+    <DialogContent>
+            <div class="d-flex justify-content-center mt-6">
+                @* <MudPaper Class="pa-4 mb-10" Elevation="2" Width="400px"> *@
+                <MudForm @ref="Form" Model="@Model" Validation="@(ModelValidator.ValidateValue)">
+                    <MudGrid>
+                        
+                        <MudItem xs="12" sm="6">
+                            <MudTextField T="string"
+                                          @bind-Value="Model.Name"
+                                          For="@(() => Model.Name)"
+                                          Label="Название"
+                                          Required="true"
+                                          Class="mt-4"
+                                          RequiredError="Name is required!"/>
+                        </MudItem>
+                        
+                        <MudItem xs="12">
+                            <MudTextField T="string"
+                                          Variant="Variant.Text"
+                                          AutoGrow="true"
+                                          Class="mt-4"
+                                          Text="@Model.Description"
+                                          @bind-Value="Model.Description" For="@(() => Model.Description)"
+                                          Label="Описание"
+                                          Required="true"
+                                          RequiredError="Description is required!"/>
+                        </MudItem>
+                       
+                        <MudItem xs="12" sm="6">
+                            <MudAutocomplete T="string"
+                                             Class="mt-4"
+                                             Label="Категория товара"
+                                             HelperText="Выберите категорию или создайте новую"
+                                             ResetValueOnEmptyText="true"
+                                             @bind-Value="@Model.CatalogName"
+                                             For="@(() => Model.CatalogName)"
+                                             SearchFunc="@(Search)"
+                                             Required="true"
+                                             RequiredError="Category name is required!"
+                                             CoerceText="false" CoerceValue="true"/>
+                        </MudItem>
+                                                    
+                        <MudItem xs="12" sm="6">
+                            <MudNumericField @bind-Value="Model.Quantity"
+                                             Label="Количество"
+                                             Class="mt-4"
+                                             Variant="Variant.Text"
+                                             Min="0"/>
+                        </MudItem>
+                        
+                        <MudItem xs="12" sm="3">
+                            <MudNumericField @bind-Value="Model.Price"
+                                             Label="Цена товара"
+                                             Variant="Variant.Text"
+                                             Min="0.0"
+                                             Class="mt-4"
+                                             Culture="CultureInfo.InvariantCulture"
+                                             Max="int.MaxValue"
+                                             Required="true"
+                                             Validation="@(new RangeAttribute(1, int.MaxValue) { ErrorMessage = "The price of product must be valid" })"/>
+                        </MudItem>
+                        
+                        <MudItem xs="12" sm="3">
+                            <MudCheckBox Class="mt-4" @bind-Value="@Model.HasDiscount"> Добавить скидку?</MudCheckBox>
+                        </MudItem>
+                        
+                        <MudItem xs="12" sm="3">
+                            @if (Model.HasDiscount)
+                            {
+                                <MudNumericField @bind-Value="Model.DiscountPercentage"
+                                                 Label="Цена со скидкой"
+                                                 Variant="Variant.Text"
+                                                 Min="0.0"
+                                                 Class="mt-4"
+                                                 Culture="CultureInfo.InvariantCulture"
+                                                 Max="int.MaxValue"
+                                                 Required="true"
+                                                 Validation="@(new RangeAttribute(1, int.MaxValue) { ErrorMessage = "The price of product must be valid" })"/>
+                            }
+                        </MudItem>
+                    </MudGrid>
+                    
+                </MudForm>
+                
+            </div>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Отмена</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Сохранить</MudButton>
+    </DialogActions>
+</MudDialog>
