@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using HandmadeShop.Domain;
-using Microsoft.AspNetCore.Http;
 
 namespace HandmadeShop.UserCase.Catalog.Models;
 

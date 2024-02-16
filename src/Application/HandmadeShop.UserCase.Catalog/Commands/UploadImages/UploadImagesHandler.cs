@@ -9,7 +9,7 @@ using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.UploadImages;
 
-internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand>
+internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand, UploadedImageModel>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFileStorage _fileStorage;
@@ -25,7 +25,7 @@ internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand>
         _fileStorage = fileStorage;
     }
 
-    public async Task<Result> Handle(UploadImagesCommand request, CancellationToken cancellationToken)
+    public async Task<Result<UploadedImageModel>> Handle(UploadImagesCommand request, CancellationToken cancellationToken)
     {
         var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
@@ -34,24 +34,38 @@ internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand>
             return ProductErrors.NotFound(request.ProductId);
         }
 
-        await UploadImagesAsync(product, request.Model);
+        // await UploadImagesAsync(product, request.Model);
 
+        var path = await _fileStorage.UploadAsync(
+            product.Uid,
+            request.Model.Image,
+            FolderPaths.PathToProductImagesFolder);
+            
+        product.Images.Add(path);
+        
         await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return Result.Success();
+        var model = new UploadedImageModel()
+        {
+            ImagePath = path,
+            DownloadUrl = await _fileStorage.GetDownloadLinkAsync(path, cancellationToken)
+        };
+        
+        return model;
     }
 
     private async Task UploadImagesAsync(Product product, UploadImagesModel model)
     {
-        foreach (var file in model.Images)
-        {
-            var path = await _fileStorage.UploadAsync(
-                product.Uid,
-                file,
-                FolderPaths.PathToProductImagesFolder);
-            
-            product.Images.Add(path);
-        }
+        
+        // foreach (var file in model.Images)
+        // {
+        //     var path = await _fileStorage.UploadAsync(
+        //         product.Uid,
+        //         file,
+        //         FolderPaths.PathToProductImagesFolder);
+        //     
+        //     product.Images.Add(path);
+        // }
     }
 }

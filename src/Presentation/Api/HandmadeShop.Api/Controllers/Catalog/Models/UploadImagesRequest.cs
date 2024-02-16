@@ -13,7 +13,7 @@ public class UploadImagesRequest
     /// <summary>
     /// List of product images
     /// </summary>
-    public required List<IFormFile> Images { get; set; }
+    public required IFormFile Image { get; set; }
 }
 
 /// <summary>
@@ -26,8 +26,8 @@ public class UploadImagesRequestValidator : AbstractValidator<UploadImagesReques
     /// </summary>
     public UploadImagesRequestValidator()
     {
-        RuleFor(x => x.Images)
-            .ListMustContainFewerThan(10);
+        RuleFor(x => x.Image)
+            .NotEmpty();
     }
 }
 

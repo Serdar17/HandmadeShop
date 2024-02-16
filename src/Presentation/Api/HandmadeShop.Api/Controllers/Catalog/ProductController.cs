@@ -3,10 +3,14 @@ using AutoMapper;
 using HandmadeShop.Api.Controllers.Catalog.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.UserCase.Catalog.Commands.CreateProduct;
+using HandmadeShop.UserCase.Catalog.Commands.DeleteProduct;
 using HandmadeShop.UserCase.Catalog.Commands.DeleteProductImage;
+using HandmadeShop.UserCase.Catalog.Commands.UpdateProduct;
 using HandmadeShop.UserCase.Catalog.Commands.UploadImages;
 using HandmadeShop.UserCase.Catalog.Models;
 using HandmadeShop.UserCase.Catalog.Queries.GetAllCatalogs;
+using HandmadeShop.UserCase.Catalog.Queries.GetProductById;
+using HandmadeShop.UserCase.Catalog.Queries.GetProductImages;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -62,11 +66,31 @@ public class ProductController : ControllerBase
     }
 
     /// <summary>
+    /// Get product by id
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpGet("{productId:guid}")]
+    [ProducesResponseType(typeof(ProductModel), 200)]
+    public async Task<IResult> GetProductById([FromRoute] Guid productId)
+    {
+        var query = new GetProductByIdQuery(productId);
+
+        var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
     /// Create product for user
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
+    [ProducesResponseType(typeof(ProductModel), 200)]
     public async Task<IResult> CreateProductAsync([FromBody] CreateProductRequest request)
     {
         var command = new CreateProductCommand(_mapper.Map<CreateProductModel>(request));
@@ -74,7 +98,64 @@ public class ProductController : ControllerBase
         var result = await _sender.Send(command);
 
         if (result.IsSuccess)
-            return Results.Ok();
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Update product
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpPut]
+    [ProducesResponseType(typeof(ProductModel), 200)]
+    public async Task<IResult> UpdateProductAsync([FromBody] UpdateProductRequest request)
+    {
+        var command = new UpdateProductCommand(_mapper.Map<UpdateProductModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Delete product by id
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpDelete("{productId:guid}")]
+    [ProducesResponseType(204)]
+    public async Task<IResult> DeleteProductAsync([FromRoute] Guid productId)
+    {
+        var command = new DeleteProductCommand(productId);
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.NoContent();
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Get product images by product id
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpGet("images/{productId:guid}")]
+    [ProducesResponseType(typeof(IEnumerable<ProductImageModel>), 200)]
+    public async Task<IResult> GetProductImagesAsync([FromRoute] Guid productId)
+    {
+        var query = new GetProductImagesQuery(productId);
+
+        var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
 
         return result.ToProblemDetails();
     }
@@ -86,6 +167,7 @@ public class ProductController : ControllerBase
     /// <param name="request">List of product images</param>
     /// <returns></returns>
     [HttpPost("upload/images/{productId:guid}")]
+    [ProducesResponseType(typeof(UploadedImageModel), 200)]
     public async Task<IResult> UploadImagesAsync([FromRoute] Guid productId, [FromForm] UploadImagesRequest request)
     {
         var command = new UploadImagesCommand(productId, _mapper.Map<UploadImagesModel>(request));
@@ -93,7 +175,7 @@ public class ProductController : ControllerBase
         var result = await _sender.Send(command);
 
         if (result.IsSuccess)
-            return Results.Ok();
+            return Results.Ok(result.Value);
 
         return result.ToProblemDetails();
     }

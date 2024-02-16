@@ -5,11 +5,12 @@ using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 using HandmadeShop.Infrastructure.Abstractions.Identity;
+using HandmadeShop.UserCase.Catalog.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.CreateProduct;
 
-internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
+internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProductCommand, ProductModel>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -30,7 +31,7 @@ internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProduc
         _fileStorage = fileStorage;
     }
 
-    public async Task<Result> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Result<ProductModel>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         var userId = _identityService.GetUserIdentity();
         var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -54,6 +55,6 @@ internal sealed class CreateProductCommandHandler : ICommandHandler<CreateProduc
             return UserErrors.UpdateError(string.Join(", ", result.Errors.Select(x => x.Description)));
         }
         
-        return Result.Success();
+        return _mapper.Map<ProductModel>(product);
     }
 }

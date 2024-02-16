@@ -97,6 +97,12 @@
             <param name="userId">Unique user id</param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.GetMyProducts">
+            <summary>
+             Get all user products
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.UploadAvatarAsync(HandmadeShop.Api.Controllers.Account.Models.UploadAvatarRequest)">
             <summary>
             Upload avatar image, max size of the uploaded file is 5MB.
@@ -559,12 +565,79 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest">
+            <summary>
+            Update product request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.Uid">
+            <summary>
+            Unique product id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.Name">
+            <summary>
+            Product name
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.Description">
+            <summary>
+            Product description
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.Quantity">
+            <summary>
+            Quantity of product
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.Price">
+            <summary>
+            Product price
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.HasDiscount">
+            <summary>
+            Has discount
+            </summary>
+            <example>false</example>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.DiscountPercentage">
+            <summary>
+            Discount percentage if has discount
+            </summary>
+            <example>null</example>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest.CatalogName">
+            <summary>
+            Catalog name
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest">
             <summary>
             Upload product images
             </summary>
         </member>
-        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest.Images">
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest.Image">
             <summary>
             List of product images
             </summary>
@@ -612,11 +685,39 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductById(System.Guid)">
+            <summary>
+            Get product by id
+            </summary>
+            <param name="productId">Unique product id</param>
+            <returns></returns>
+        </member>
         <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.CreateProductAsync(HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest)">
             <summary>
             Create product for user
             </summary>
             <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.UpdateProductAsync(HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest)">
+            <summary>
+            Update product
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.DeleteProductAsync(System.Guid)">
+            <summary>
+            Delete product by id
+            </summary>
+            <param name="productId">Unique product id</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductImagesAsync(System.Guid)">
+            <summary>
+            Get product images by product id
+            </summary>
+            <param name="productId">Unique product id</param>
             <returns></returns>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.UploadImagesAsync(System.Guid,HandmadeShop.Api.Controllers.Catalog.Models.UploadImagesRequest)">

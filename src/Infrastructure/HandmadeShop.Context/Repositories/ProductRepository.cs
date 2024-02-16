@@ -22,7 +22,9 @@ public class ProductRepository : IProductRepository
     public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Products
-            .FirstOrDefaultAsync(x => x.Uid.Equals(id), cancellationToken);
+            .Where(x => x.Uid.Equals(id))
+            .Include(x => x.Catalog)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public Task InsertAsync(Product model, CancellationToken cancellationToken = default)
@@ -35,13 +37,15 @@ public class ProductRepository : IProductRepository
         _context.Products.Update(model);
     }
 
-    public Task DeleteAsync(Product model, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Product model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Products.Remove(model);
     }
 
-    public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await _context.Products
+            .Where(x => x.Uid.Equals(id))
+            .ExecuteDeleteAsync(cancellationToken);
     }
 }
