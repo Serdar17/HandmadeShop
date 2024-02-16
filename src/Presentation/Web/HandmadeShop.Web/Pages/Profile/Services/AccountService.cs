@@ -6,7 +6,6 @@ using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Services;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace HandmadeShop.Web.Pages.Profile.Services;
 
@@ -47,6 +46,23 @@ public class AccountService : IAccountService
             return model;
         }
         
+        return await response.Content.ToErrorAsync();
+    }
+
+    public async Task<Result<UserProductModel>> GetUserProducts()
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/accounts/my-products";
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<UserProductModel>(content,
+                       new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                   ?? new UserProductModel();
+        }
+
         return await response.Content.ToErrorAsync();
     }
 

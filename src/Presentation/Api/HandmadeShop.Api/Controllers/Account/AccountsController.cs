@@ -6,6 +6,7 @@ using HandmadeShop.UseCase.Account.Commands.DeleteAvatar;
 using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
 using HandmadeShop.UseCase.Account.Commands.UploadAvatar;
 using HandmadeShop.UseCase.Account.Models;
+using HandmadeShop.UseCase.Account.Queries.GetMyProducts;
 using HandmadeShop.UseCase.Account.Queries.GetUserInfo;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -55,6 +56,25 @@ public class AccountsController : ControllerBase
         var query = new GetUserInfoQuery(userId);
         var result = await _sender.Send(query);
         
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
+
+    // TODO: Добавить пагинацию
+    /// <summary>
+    ///  Get all user products
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("my-products")]
+    [ProducesResponseType(typeof(UserProductModel), 200)]
+    public async Task<IResult> GetMyProducts()
+    {
+        var query = new GetMyProductQuery();
+
+        var result = await _sender.Send(query);
+
         if (result.IsSuccess)
             return Results.Ok(result.Value);
 

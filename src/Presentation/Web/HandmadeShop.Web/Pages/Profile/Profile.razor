@@ -1,14 +1,14 @@
 ﻿@page "/profile"
 @layout MainLayout
-@using HandmadeShop.Web.Common
 @inherits ProfileBase
+@attribute [Authorize]
 
 
 @* TODO: Разбить на компоненты *@
 <MudStack>
-    <MudPaper Class="mt-8" Width="90%" Height="400px" Elevation="0">
+    <MudPaper Class="mt-4 mb-8" Width="90%" Height="400px" Elevation="0">
         <MudText Class="mb-4" Typo="Typo.h4">Мой профиль</MudText>
-        <MudTabs Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6">
+        <MudTabs Class="mb-8" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 mb-8">
             <MudTabPanel Text="Личный данные">
                 <MudGrid>
                     @if (Model is null)
@@ -119,7 +119,7 @@
             </MudTabPanel>
     
             <MudTabPanel Text="Мои товары">
-                <MudText>Content Three</MudText>
+                <MyProducts/>
             </MudTabPanel>
             
             <MudTabPanel Text="Адреса доставки">
