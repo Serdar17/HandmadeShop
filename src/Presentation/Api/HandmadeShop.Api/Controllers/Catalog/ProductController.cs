@@ -11,6 +11,8 @@ using HandmadeShop.UserCase.Catalog.Models;
 using HandmadeShop.UserCase.Catalog.Queries.GetAllCatalogs;
 using HandmadeShop.UserCase.Catalog.Queries.GetProductById;
 using HandmadeShop.UserCase.Catalog.Queries.GetProductImages;
+using HandmadeShop.UserCase.Catalog.Queries.GetProductInfo;
+using HandmadeShop.UserCase.Catalog.Queries.GetProducts;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,13 +68,29 @@ public class ProductController : ControllerBase
     }
 
     /// <summary>
+    /// Get products by query params
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(PagedList<ProductModel>), 200)]
+    public async Task<IResult> GetProductsAsync([FromQuery] ProductQueryRequest request)
+    {
+        var query = new GetProductsQuery(_mapper.Map<ProductQueryModel>(request));
+
+        var result = await _sender.Send(query);
+        
+        return Results.Ok(result.Value);
+    }
+
+    /// <summary>
     /// Get product by id
     /// </summary>
     /// <param name="productId">Unique product id</param>
     /// <returns></returns>
     [HttpGet("{productId:guid}")]
     [ProducesResponseType(typeof(ProductModel), 200)]
-    public async Task<IResult> GetProductById([FromRoute] Guid productId)
+    public async Task<IResult> GetProductByIdAsync([FromRoute] Guid productId)
     {
         var query = new GetProductByIdQuery(productId);
 
@@ -82,6 +100,26 @@ public class ProductController : ControllerBase
             return Results.Ok(result.Value);
 
         return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Get product info by id
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpGet("info/{productId}")]
+    [ProducesResponseType(typeof(ProductInfoModel), 200)]
+    public async Task<IResult> GetProductInfoAsync([FromRoute] Guid productId)
+    {
+        var query = new GetProductInfoQuery(productId);
+
+        var result = await _sender.Send(query);
+        
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+
     }
 
     /// <summary>

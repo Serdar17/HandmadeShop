@@ -565,6 +565,46 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.DeleteProductImagesRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest">
+            <summary>
+            Product query
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.Search">
+            <summary>
+            The search value
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.SortColumn">
+            <summary>
+            Sort column
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.SortOrder">
+            <summary>
+            Sort order
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.Page">
+            <summary>
+            Number of page
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.PageSize">
+            <summary>
+            Page size
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.UpdateProductRequest">
             <summary>
             Update product request
@@ -685,9 +725,23 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductById(System.Guid)">
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductsAsync(HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest)">
+            <summary>
+            Get products by query params
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductByIdAsync(System.Guid)">
             <summary>
             Get product by id
+            </summary>
+            <param name="productId">Unique product id</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.GetProductInfoAsync(System.Guid)">
+            <summary>
+            Get product info by id
             </summary>
             <param name="productId">Unique product id</param>
             <returns></returns>
