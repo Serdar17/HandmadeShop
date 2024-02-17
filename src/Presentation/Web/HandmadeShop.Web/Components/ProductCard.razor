@@ -18,7 +18,14 @@
             @if (IsEditable)
             {
                 <MudButton Href="@("product/" + Model.Uid)" Variant="Variant.Text" Color="Color.Primary">Изменить</MudButton>
-            } 
+            }
+            else
+            {
+                <MudCardActions>
+                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default"/>
+                    <MudIconButton OnClick="@CopyToClipboard" Icon="@Icons.Material.Filled.Share" Color="Color.Default"/>
+                </MudCardActions>
+            }
             
         </MudCardActions>
     </MudPaper>

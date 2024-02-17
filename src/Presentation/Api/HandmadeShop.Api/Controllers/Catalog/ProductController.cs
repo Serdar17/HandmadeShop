@@ -2,6 +2,7 @@
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Catalog.Models;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.UserCase.Catalog.Commands.CreateProduct;
 using HandmadeShop.UserCase.Catalog.Commands.DeleteProduct;
 using HandmadeShop.UserCase.Catalog.Commands.DeleteProductImage;

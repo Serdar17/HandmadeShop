@@ -1,0 +1,94 @@
+﻿@page "/product/info/{ProductId:guid}"
+@inherits ProductInfoBase
+@layout MainLayout
+
+
+@* TODO: Тут будет детальная информация о продукте, надо разбить ОТЗЫВЫ, КАРУСЕЛЬ ФОТОК, ХАРАКТЕРИСТИКИ ТОВАРА на комполненты*@
+@* Сюда можно будет попасть только из основной страницы *@
+
+@if (IsLoading)
+{
+    <div class="spinner">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </div>
+    
+}
+else if (Model is null)
+{
+    <MudText Typo="Typo.h4" Align="Align.Center" Class="mt-4">Товар не найден</MudText>
+}
+else
+{
+    <MudText Class="mt-5 mb-5" Typo="Typo.h4" Style="font-weight: bold;" >Название товара</MudText>
+<div class="d-flex">
+    <MudRating ReadOnly="true" SelectedValue="2" />
+    <MudLink Class="ml-2" Href="@("/product/info/" + ProductId + "#reviews")">10 отзывов</MudLink>
+    
+    <MudText Class="ml-2 p-1" Typo="Typo.inherit">Дата публикации: 10.09.2023</MudText>
+</div>
+
+
+<MudGrid Justify="Justify.Center" Class="mt-5">
+    <MudItem xs="7">
+        <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8">
+            <ProductImage/>
+        </MudPaper>
+    </MudItem>
+    
+    <MudItem xs="5">
+        <MudPaper>
+            @if (Model.HasDiscount)
+            {
+                <div class="d-flex">
+                    <span class="current-price">@Model.DiscountPercentage ₽</span>
+                    <span class="old-price"><s>@Model.Price ₽</s></span>
+                </div>
+                
+            }
+            else
+            {
+                <div class="current-price">@Model.Price ₽</div>
+            }
+            
+            @if (true)
+            {
+                <span class="quantity">В наличии: <b>10</b> шт.</span>
+            }
+            
+            <div class="d-flex justify-content-center mt-5" >
+                <MudButton Class="rounded-xl" Color="Color.Primary" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ShoppingCart">Добавить в корзину</MudButton>
+            </div>
+            
+            <div class="d-flex justify-content-center mt-5">
+                <MudButton Class="rounded-xl" Color="Color.Primary" Variant="Variant.Outlined" EndIcon="@Icons.Material.Filled.ShoppingCartCheckout" >Заказать</MudButton>
+            </div>
+            
+        </MudPaper>
+    </MudItem>
+    
+    
+    <MudItem xs="12">
+        <MudText Class="mb-4" Style="font-weight: bold;" Typo="Typo.h5">Описание товара</MudText>
+        <MudDivider/>
+    </MudItem>
+
+    
+    <MudItem xs="6">
+            <h4 Class="mb-4 product-description-title">Характеристики</h4>
+    </MudItem>
+    
+    <MudItem xs="6">
+            <h4 Class="mb-4 product-description-title">Описание</h4>
+            <MudText>какое-то очень большое и полезное описание товара</MudText>
+    </MudItem>
+</MudGrid>
+
+
+
+
+<MudGrid Class="mt-10">
+    <div id="reviews"><Reviews /></div>
+</MudGrid>
+
+
+}

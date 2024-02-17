@@ -1,0 +1,52 @@
+﻿@page "/catalog/{CatalogName}"
+@inherits CatalogBase
+@layout MainLayout
+
+@attribute [Authorize]
+
+@if (IsLoading)
+{
+    <div class="spinner">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </div>   
+        
+}
+else
+{
+    <div class="d-flex mt-5 mb-5">
+        <MudText Class="mr-3" Style="font-weight: bold;" Typo="Typo.h5">@CatalogName</MudText>
+        <MudText Typo="Typo.h6">Страница - @Page</MudText>
+        <div class="d-flex align-items-center justify-content-center ml-3">
+            <MudText>Всего товаров: @PagedList.TotalCount</MudText>
+        </div>
+        
+    </div>
+
+
+    <MudGrid>
+        <MudItem xs="2">
+            <MudPaper>Фильтрация</MudPaper>
+        </MudItem>
+
+        <MudItem xs="10">
+            <MudPaper>Список кард</MudPaper>
+
+            <MudGrid Spacing="5" Justify="Justify.Center" Class="mt-8">
+                @foreach (var model in PagedList.Items)
+                {
+                    <MudItem>
+                        <ProductCard Model="@model" IsEditable="false"/>    
+                    </MudItem>
+                }
+            </MudGrid>
+            
+            <div class="d-flex flex-column align-center mt-10">
+                <MudPagination Selected="Page" SelectedChanged="@Selected" Rectangular="true" Variant="Variant.Filled" Count="@PageCount" Class="my-4" />
+            </div>
+        </MudItem>
+        
+    </MudGrid>
+
+}
+
+

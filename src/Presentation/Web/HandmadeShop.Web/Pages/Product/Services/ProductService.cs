@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.Json;
 using HandmadeShop.Domain.Common;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Product.Models;
 
@@ -45,10 +46,47 @@ public class ProductService : IProductService
         {
             return JsonSerializer.Deserialize<ProductModel>(content,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) 
-                   ?? new ProductModel();
+                   ?? new ProductModel
+                   {
+                       Name = string.Empty,
+                       Description = string.Empty
+                   };
 
         }
         
+        return await response.Content.ToErrorAsync();
+    }
+
+    public async Task<Result<PagedList<ProductModel>?>> GetProductsByQueryAsync(ProductQueryModel query)
+    {
+        var url = GetUrlWithParams($"{Settings.ApiRoot}/api/v1/products", query);
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+        
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<PagedList<ProductModel>>(content,
+                       new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+        
+        
+        throw new NotImplementedException();
+    }
+
+    public async Task<Result<ProductInfoModel?>> GetProductInfoModel(Guid id)
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/products/info/{id}";
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<ProductInfoModel>(content,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
         return await response.Content.ToErrorAsync();
     }
 
@@ -66,7 +104,11 @@ public class ProductService : IProductService
         {
             return JsonSerializer.Deserialize<ProductModel>(content,
                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-                   ?? new ProductModel();
+                   ?? new ProductModel()
+                   {
+                       Name=string.Empty,
+                       Description = string.Empty
+                   };
         }
 
         return await response.Content.ToErrorAsync();
@@ -86,7 +128,11 @@ public class ProductService : IProductService
         {
             return JsonSerializer.Deserialize<ProductModel>(content,
                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-                   ?? new ProductModel();
+                   ?? new ProductModel
+                   {
+                       Name = string.Empty,
+                       Description = string.Empty
+                   };
         }
 
         return await response.Content.ToErrorAsync();
@@ -157,5 +203,18 @@ public class ProductService : IProductService
         }
 
         return await response.Content.ToErrorAsync();
+    }
+
+    private string GetUrlWithParams(string url, ProductQueryModel model)
+    {
+        var uri = new Uri(url);
+
+        return uri.AddParameter("catalogName", model.CatalogName)
+            .AddParameter("pageSize", model.PageSize.ToString())
+            .AddParameter("page", model.Page.ToString())
+            .AddParameter("sortOrder", model.SortOrder)
+            .AddParameter("sortColumn", model.SortColumn)
+            .AddParameter("search", model.Search)
+            .ToString();
     }
 }

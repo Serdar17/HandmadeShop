@@ -2,6 +2,7 @@
 using System.Text.Json;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
+using HandmadeShop.SharedModel.Accounts.Models;
 using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;

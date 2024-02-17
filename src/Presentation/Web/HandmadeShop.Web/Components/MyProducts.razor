@@ -12,7 +12,7 @@
             @foreach (var product in Model.Products)
             {
                 <MudItem>
-                    <ProductCard IsEditable="true" Model="product"/>
+                    <ProductCard IsEditable="true" Model="@product"/>
                 </MudItem>
             }
         </MudGrid>

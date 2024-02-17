@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Web.Pages.Product.Models;
+﻿using HandmadeShop.SharedModel.Catalogs.Models;
+using HandmadeShop.Web.Pages.Product.Models;
 using HandmadeShop.Web.Pages.Product.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -11,7 +12,11 @@ public class ProductDialogBase : ComponentBase
 
     [Inject] protected IProductService ProductService { get; set; }
 
-    [Parameter] public ProductModel Model { get; set; } = new();
+    [Parameter] public ProductModel Model { get; set; } = new()
+    {
+        Name = string.Empty,
+        Description = string.Empty
+    };
     
     [Parameter] public Guid? ProductId { get; set; }
     

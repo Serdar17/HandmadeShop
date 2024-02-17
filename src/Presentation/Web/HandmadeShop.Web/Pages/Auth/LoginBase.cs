@@ -18,7 +18,7 @@ public class LoginBase : ComponentBase
     protected LoginModel Model = new()
     {
         Email = "useinovserdar23@gmail.com",
-        Password = "12345"
+        Password = "1234"
     };
 
     protected bool PasswordVisibility;

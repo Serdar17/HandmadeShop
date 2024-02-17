@@ -1,5 +1,4 @@
-﻿using HandmadeShop.Domain;
-using HandmadeShop.Web.Pages.Product.Models;
+﻿using HandmadeShop.SharedModel.Catalogs.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace HandmadeShop.Web.Components;
@@ -10,9 +9,16 @@ public class ProductCardBase : ComponentBase
     public bool IsEditable { get; set; }
 
     [Parameter] public ProductModel Model { get; set; }
+ 
+    [Inject] protected NavigationManager NavigationManager { get; set; }
     
     protected void Click()
     {
-        Console.WriteLine("Click");
+        NavigationManager.NavigateTo($"product/info/{Model.Uid}");
+    }
+
+    protected void CopyToClipboard()
+    {
+       // TODO доделать 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HandmadeShop.Domain.Common;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Pages.Product.Models;
 
 namespace HandmadeShop.Web.Pages.Product.Services;
@@ -8,6 +9,10 @@ public interface IProductService
     Task<Result<IEnumerable<CategoryModel>>> GetAllCatalogsAsync();
 
     Task<Result<ProductModel>> GetProductByIdAsync(Guid id);
+
+    Task<Result<PagedList<ProductModel>?>> GetProductsByQueryAsync(ProductQueryModel query);
+
+    Task<Result<ProductInfoModel?>> GetProductInfoModel(Guid id);
 
     Task<Result<ProductModel>> CreateProductModel(ProductModel model);
 

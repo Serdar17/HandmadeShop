@@ -1,4 +1,4 @@
-﻿using HandmadeShop.Web.Pages.Profile.Models;
+﻿using HandmadeShop.SharedModel.Accounts.Models;
 using HandmadeShop.Web.Pages.Profile.Services;
 using Microsoft.AspNetCore.Components;
 

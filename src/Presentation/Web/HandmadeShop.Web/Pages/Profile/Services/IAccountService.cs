@@ -1,6 +1,6 @@
 ﻿using HandmadeShop.Domain.Common;
+using HandmadeShop.SharedModel.Accounts.Models;
 using HandmadeShop.Web.Pages.Profile.Models;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace HandmadeShop.Web.Pages.Profile.Services;
 

@@ -1,15 +1,30 @@
 ﻿<MudNavMenu>
     <MudList Clickable="true">
-        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
-        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
-        <MudListItem><MudLink Underline="Underline.None" Href="#">Default</MudLink></MudListItem>
+        @foreach (var catalog in _catalogs)
+        {
+            <MudListItem  Style="color: #594AE2" Href="@("/catalog/" + catalog.Name)">@catalog.Name</MudListItem>
+        }
     </MudList>
 </MudNavMenu>
 
 @code
 {
-    private Color _color = Color.Dark;
+    [Inject] IProductService ProductService { get; set; }
     
+    private List<CategoryModel> _catalogs = new();
+    
+    private Color _color = Color.Dark;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await ProductService.GetAllCatalogsAsync();
+
+        if (result.IsSuccess && result.Value != null)
+        {
+            _catalogs = result.Value.ToList();
+        }
+    }
+
     private void OnFocus()
     {
         _color = Color.Error;

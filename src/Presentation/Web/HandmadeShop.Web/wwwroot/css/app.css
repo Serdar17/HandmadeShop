@@ -177,3 +177,47 @@ code {
     --rz-on-danger-dark: #ffffff;
     --rz-on-danger-darker: #ffffff;
 }
+
+.current-price {
+    font-size: 2.6em;
+    font-weight: bold;
+    padding-top: 20px;
+    margin-left: 10px;
+    /*padding-left: 10px;*/
+}
+
+.old-price {
+    font-size: 1.8em;
+    color: #9c8e8e;
+    /*margin: 20px 10px 10px 20px;*/
+    /*padding: 8px;*/
+}
+
+.quantity {
+    font-size: 1.5em;
+    margin-left: 10px;
+}
+
+.product-description-title {
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 400px;
+}
+
+.catalog-name {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.page-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

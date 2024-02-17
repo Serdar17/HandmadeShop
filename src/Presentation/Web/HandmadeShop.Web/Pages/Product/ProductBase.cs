@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Web.Components;
+﻿using HandmadeShop.SharedModel.Catalogs.Models;
+using HandmadeShop.Web.Components;
 using HandmadeShop.Web.Pages.Product.Models;
 using HandmadeShop.Web.Pages.Product.Services;
 using Microsoft.AspNetCore.Components;
