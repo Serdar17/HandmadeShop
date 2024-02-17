@@ -1,4 +1,4 @@
-﻿namespace HandmadeShop.UserCase.Catalog.Models;
+﻿namespace HandmadeShop.SharedModel.Catalogs.Models;
 
 public class ProductQueryModel
 {

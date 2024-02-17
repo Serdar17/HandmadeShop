@@ -4,7 +4,7 @@ using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
-using HandmadeShop.UserCase.Catalog.Models;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProducts;

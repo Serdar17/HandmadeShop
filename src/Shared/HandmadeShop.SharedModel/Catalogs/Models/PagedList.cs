@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace HandmadeShop.UserCase.Catalog.Models;
+namespace HandmadeShop.SharedModel.Catalogs.Models;
 
 public class PagedList<T>
 {

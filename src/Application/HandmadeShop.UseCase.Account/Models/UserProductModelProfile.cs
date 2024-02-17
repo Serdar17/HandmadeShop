@@ -1,27 +1,9 @@
-﻿using AutoMapper;
+using AutoMapper;
 using HandmadeShop.Domain;
 using HandmadeShop.Infrastructure.Abstractions.FileStorage;
+using HandmadeShop.SharedModel.Accounts.Models;
 
 namespace HandmadeShop.UseCase.Account.Models;
-
-public class UserProductModel
-{
-    public Guid Id { get; set; }
-
-    public List<UserProductInfoModel> Products { get; set; } = new();
-
-}
-
-public class UserProductInfoModel
-{
-    public Guid Uid { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
-    public bool HasDiscount { get; set; }
-    public decimal? DiscountPercentage { get; set; }
-    
-    public string? DownloadImage { get; set; }
-}
 
 public class UserProductModelProfile : Profile
 {

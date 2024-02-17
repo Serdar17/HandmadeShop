@@ -1,27 +1,8 @@
-﻿using FluentValidation;
+using FluentValidation;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.ValidationRules;
 
 namespace HandmadeShop.Web.Pages.Product.Models;
-
-public class ProductModel
-{
-    public Guid Uid { get; set; }
-    public string Name { get; set; }
-    
-    public string Description { get; set; }
-
-    public int Quantity { get; set; }
-    
-    public double Price { get; set; }
-
-    public bool HasDiscount { get; set; }
-
-    public double? DiscountPercentage { get; set; }
-
-    public string CatalogName { get; set; }
-
-    public string? DownloadUrl { get; set; }
-}
 
 public class ProductModelValidator : AbstractValidator<ProductModel>
 {

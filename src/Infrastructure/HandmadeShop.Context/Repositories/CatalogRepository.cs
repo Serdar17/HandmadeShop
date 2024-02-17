@@ -49,4 +49,9 @@ public class CatalogRepository : ICatalogRepository
         return await _context.Catalogs
             .FirstOrDefaultAsync(x => x.Name.ToLower().Equals(name.ToLower()));
     }
+
+    public async Task<bool> IsUniqueAsync(string name)
+    {
+        return await _context.Catalogs.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower()) is null;
+    }
 }

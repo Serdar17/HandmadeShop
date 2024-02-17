@@ -3,6 +3,7 @@ using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.UpdateProduct;
@@ -28,10 +29,16 @@ internal sealed class UpdateProductHandler : ICommandHandler<UpdateProductComman
         }
 
         _mapper.Map(request.Model, product);
+
+        var catalog = await _unitOfWork.CatalogRepository.GetByNameAsync(request.Model.CatalogName);
         
-        if (!string.Equals(product.Catalog.Name, request.Model.CatalogName, StringComparison.CurrentCultureIgnoreCase))
+        if (catalog is null)
         {
             product.Catalog = new Domain.Catalog(request.Model.CatalogName);
+        }
+        else
+        {
+            product.Catalog = catalog;
         }
 
         await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);

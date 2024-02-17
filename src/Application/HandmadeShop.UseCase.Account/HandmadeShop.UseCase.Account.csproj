@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Shared\HandmadeShop.SharedModel\HandmadeShop.SharedModel.csproj" />
       <ProjectReference Include="..\HandmadeShop.Application\HandmadeShop.Application.csproj" />
     </ItemGroup>
 

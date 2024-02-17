@@ -1,5 +1,5 @@
 ﻿using HandmadeShop.Application.Abstraction.Messaging;
-using HandmadeShop.UserCase.Catalog.Models;
+using HandmadeShop.SharedModel.Catalogs.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProductInfo;
 

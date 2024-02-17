@@ -2,6 +2,7 @@
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Account.Models;
 using HandmadeShop.Common.Extensions;
+using HandmadeShop.SharedModel.Accounts.Models;
 using HandmadeShop.UseCase.Account.Commands.DeleteAvatar;
 using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
 using HandmadeShop.UseCase.Account.Commands.UploadAvatar;

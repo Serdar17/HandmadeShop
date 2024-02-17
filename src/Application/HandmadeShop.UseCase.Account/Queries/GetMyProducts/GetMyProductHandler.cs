@@ -3,9 +3,8 @@ using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Identity;
-using HandmadeShop.UseCase.Account.Models;
+using HandmadeShop.SharedModel.Accounts.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UseCase.Account.Queries.GetMyProducts;
 

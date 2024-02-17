@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using HandmadeShop.Domain;
-
-namespace HandmadeShop.UserCase.Catalog.Models;
+﻿namespace HandmadeShop.SharedModel.Catalogs.Models;
 
 public class ProductInfoModel
 {
@@ -16,13 +13,4 @@ public class ProductInfoModel
     public DateTime CreatedAt { get; set; }
     
     public required string CatalogName { get; set; }
-}
-
-public class ProductInfoModelProfile : Profile
-{
-    public ProductInfoModelProfile()
-    {
-        CreateMap<Product, ProductInfoModel>()
-            .ForMember(x => x.CatalogName, opt => opt.MapFrom(x => x.Catalog.Name));
-    }
 }

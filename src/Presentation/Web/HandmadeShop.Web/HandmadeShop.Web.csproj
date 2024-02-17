@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Shared\HandmadeShop.SharedModel\HandmadeShop.SharedModel.csproj" />
     </ItemGroup>
 
 </Project>

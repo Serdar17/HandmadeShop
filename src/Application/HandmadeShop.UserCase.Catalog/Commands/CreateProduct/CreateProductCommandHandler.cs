@@ -5,6 +5,7 @@ using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 using HandmadeShop.Infrastructure.Abstractions.Identity;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.UserCase.Catalog.Models;
 using Microsoft.AspNetCore.Identity;
 

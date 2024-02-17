@@ -21,6 +21,7 @@ COPY ["src/Services/HandmadeShop.Services.RabbitMq/HandmadeShop.Services.RabbitM
 COPY ["src/Application/HandmadeShop.Application/HandmadeShop.Application.csproj", "src/Application/HandmadeShop.Application/"]
 COPY ["src/Application/HandmadeShop.UseCase.Auth/HandmadeShop.UseCase.Auth.csproj", "src/Application/HandmadeShop.UseCase.Auth/"]
 COPY ["src/Application/HandmadeShop.UseCase.Account/HandmadeShop.UseCase.Account.csproj", "src/Application/HandmadeShop.UseCase.Account/"]
+COPY ["src/Shared/HandmadeShop.SharedModel/HandmadeShop.SharedModel.csproj", "src/Shared/HandmadeShop.SharedModel/"]
 COPY ["src/Services/HandmadeShop.Services.Action/HandmadeShop.Services.Action.csproj", "src/Services/HandmadeShop.Services.Action/"]
 COPY ["src/Services/HandmadeShop.Services.EmailSender/HandmadeShop.Services.EmailSender.csproj", "src/Services/HandmadeShop.Services.EmailSender/"]
 COPY ["src/Services/HandmadeShop.Services.FileStorage/HandmadeShop.Services.FileStorage.csproj", "src/Services/HandmadeShop.Services.FileStorage/"]

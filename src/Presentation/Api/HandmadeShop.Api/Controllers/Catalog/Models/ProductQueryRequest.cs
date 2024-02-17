@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.Api.Controllers.Catalog.Models;
