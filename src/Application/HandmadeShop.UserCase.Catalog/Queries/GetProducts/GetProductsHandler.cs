@@ -26,6 +26,12 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
             .Include(x => x.Catalog)
             .AsQueryable();
 
+        if (!string.IsNullOrEmpty(request.Query.CatalogName))
+        {
+            productQuery = productQuery
+                .Where(x => x.Catalog.Name.ToLower().Equals(request.Query.CatalogName.ToLower()));
+        }
+        
         if (!string.IsNullOrEmpty(request.Query.Search))
         {
             productQuery = productQuery.Where(x => x.Name.Contains(request.Query.Search));

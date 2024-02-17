@@ -26,4 +26,6 @@ public class ProductQueryModel
     /// Page size
     /// </summary>
     public int PageSize { get; set; }
+
+    public string? CatalogName { get; set; }
 }

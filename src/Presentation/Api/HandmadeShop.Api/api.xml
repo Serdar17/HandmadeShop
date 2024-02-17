@@ -595,6 +595,11 @@
             Page size
             </summary>
         </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.CatalogName">
+            <summary>
+            Catalog Name
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile">
             <summary>
             Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest"/>
