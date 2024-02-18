@@ -1,0 +1,13 @@
+﻿@using HandmadeShop.SharedModel.Catalogs.Models
+<MudGrid Spacing="5" Justify="Justify.Center" Class="mt-8">
+    @foreach (var model in PagedList.Items)
+    {
+        <MudItem>
+            <ProductCard Model="@model" IsEditable="false"/>    
+        </MudItem>
+    }
+</MudGrid>
+
+@code {
+    [Parameter] public PagedList<ProductModel> PagedList { get; set; }
+}

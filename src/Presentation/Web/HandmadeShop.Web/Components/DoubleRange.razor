@@ -1,0 +1,70 @@
+﻿@using HandmadeShop.Web.Pages.Product
+
+
+<div class="d-flex mt-5">
+    <MudSlider T="int" Value="From" @onchange="@((e) => OnMinRangeChange(e))"  Min="_minValue" Max="@Average"/>
+    <MudSlider T="int" Value="To" @onchange="@((e) => OnMaxRangeChange(e))" Min="Average" Max="@_maxValue"/>
+</div>
+
+<MudNumericField @bind-Value="From" TextChanged="OnMinInputChange" Label="От" Variant="Variant.Text" Min="0" />
+<MudNumericField @bind-Value="To" TextChanged="OnMaxInputChang" Label="До" Variant="Variant.Text" Min="0" />
+
+
+
+@code{
+    [Parameter] public int MinValue { get; set; } = 100;
+    [Parameter] public int MaxValue { get; set; } = 1000;
+    
+    [Parameter] public int From { get; set; }
+    [Parameter] public int To { get; set; }
+    
+    [Parameter] public EventCallback<Price> OnChangeCallback { get; set; }
+
+    private int Average => (int)((double)(_maxValue + _minValue) / 2);
+    private int _maxValue;
+    private int _minValue;
+
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        Console.WriteLine("on parameter call");
+        _maxValue = MaxValue;
+        _minValue = MinValue;
+    }
+
+    protected void OnMinRangeChange(ChangeEventArgs e)
+    {
+        From = int.Parse(e.Value.ToString());
+        Console.WriteLine(From);
+        CallEvent();
+    }
+
+    protected void OnMaxRangeChange(ChangeEventArgs e)
+    {
+        Console.WriteLine("on max range change");
+        To = int.Parse(e.Value.ToString());
+    }
+
+    protected void OnMinInputChange(string value)
+    {
+        Console.WriteLine("on min change");
+        From = int.Parse(value);
+    }
+
+    protected void OnMaxInputChang(string value)
+    {
+        Console.WriteLine("on max change");
+        To = int.Parse(value);
+    }
+
+    protected void CallEvent()
+    {
+        var price = new Price()
+        {
+            From = From,
+            To = To,
+        };
+
+        OnChangeCallback.InvokeAsync(price);
+    }
+}

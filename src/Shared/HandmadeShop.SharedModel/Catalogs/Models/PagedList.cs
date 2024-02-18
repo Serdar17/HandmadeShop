@@ -12,19 +12,25 @@ public class PagedList<T>
 
     public int TotalCount { get; }
 
+    public int MaxPrice { get; set; }
+    
+    public int MinPrice { get; set; }
+
     public bool HasNextPage => PageSize * Page < TotalCount;
 
     public bool HasPreviousPage => Page > 1;
 
-    public PagedList(List<T> items, int page, int pageSize, int totalCount)
+    public PagedList(List<T> items, int page, int pageSize, int totalCount, int maxPrice, int minPrice)
     {
         Items = items;
         Page = page;
         PageSize = pageSize;
         TotalCount = totalCount;
+        MaxPrice = maxPrice;
+        MinPrice = minPrice;
     }
 
-    public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page, int pageSize)
+    public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page, int pageSize, int maxPrice, int minPrice)
     {
         var totalCount = await query.CountAsync();
         var items = await query
@@ -32,7 +38,7 @@ public class PagedList<T>
             .Take(pageSize)
             .ToListAsync();
 
-        return new(items, page, pageSize, totalCount);
+        return new(items, page, pageSize, totalCount, maxPrice, minPrice);
     }
 
 }
