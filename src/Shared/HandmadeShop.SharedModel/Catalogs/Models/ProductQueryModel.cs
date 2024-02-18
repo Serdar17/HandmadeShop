@@ -28,4 +28,8 @@ public class ProductQueryModel
     public int PageSize { get; set; }
 
     public string? CatalogName { get; set; }
+    
+    public int? PriceFrom { get; set; }
+
+    public int? PriceTo { get; set; }
 }

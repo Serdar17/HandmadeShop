@@ -12,4 +12,6 @@ public class ProductModel
     
     public string CatalogName { get; set; }
     public string DownloadUrl { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
 }

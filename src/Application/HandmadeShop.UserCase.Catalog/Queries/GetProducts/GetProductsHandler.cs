@@ -26,6 +26,9 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
             .Include(x => x.Catalog)
             .AsQueryable();
 
+        var maxPrice = await productQuery.MaxAsync(x => x.Price);
+        var minPrice = await productQuery.MinAsync(x => x.Price);
+        
         if (!string.IsNullOrEmpty(request.Query.CatalogName))
         {
             productQuery = productQuery
@@ -46,11 +49,26 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
             productQuery = productQuery.OrderBy(GetSortProperty(request));
         }
 
+        if (request.Query.PriceFrom != null)
+        {
+            productQuery = productQuery.Where(x => x.Price >= request.Query.PriceFrom);
+        }
+
+        if (request.Query.PriceTo != null)
+        {
+            productQuery = productQuery.Where(x => x.Price <= request.Query.PriceTo);
+        }
+
         var productResponseQuery = productQuery
             .Select(x => _mapper.Map<ProductModel>(x));
 
         var products = await 
-            PagedList<ProductModel>.CreateAsync(productResponseQuery, request.Query.Page, request.Query.PageSize);
+            PagedList<ProductModel>.CreateAsync(
+                productResponseQuery, 
+                request.Query.Page,
+                request.Query.PageSize,
+                (int)maxPrice,
+                (int)minPrice);
         
         return products;
     }

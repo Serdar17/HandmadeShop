@@ -600,6 +600,16 @@
             Catalog Name
             </summary>
         </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.PriceFrom">
+            <summary>
+            Price from
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.PriceTo">
+            <summary>
+            Price to
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile">
             <summary>
             Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest"/>

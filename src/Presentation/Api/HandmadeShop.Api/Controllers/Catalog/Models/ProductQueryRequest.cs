@@ -38,6 +38,16 @@ public class ProductQueryRequest
     /// Catalog Name
     /// </summary>
     public string? CatalogName { get; set; }
+
+    /// <summary>
+    /// Price from
+    /// </summary>
+    public int? PriceFrom { get; set; }
+
+    /// <summary>
+    /// Price to
+    /// </summary>
+    public int? PriceTo { get; set; }
 }
 
 /// <summary>
