@@ -24,4 +24,21 @@ public class Product : BaseEntity
     public virtual ICollection<Specification> Specifications { get; set; } = new List<Specification>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+
+    public void AddLike(User user)
+    {
+        if (Like is null)
+        {
+            Like = new Like
+            {
+                Quantity = 1
+            };
+            
+            Like.Users.Add(user);
+            return;
+        }
+
+        Like.Quantity += 1;
+        Like.Users.Add(user);
+    }
 }

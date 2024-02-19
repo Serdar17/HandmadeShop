@@ -6,6 +6,7 @@ public interface IUnitOfWork : IDisposable
 {
     public ICatalogRepository CatalogRepository { get; }
     public IProductRepository ProductRepository { get; }
+    public ILikeRepository LikeRepository { get; }
     
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

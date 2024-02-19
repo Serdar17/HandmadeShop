@@ -123,6 +123,12 @@
             <param name="request"></param>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.GetAllFavoriteAsync">
+            <summary>
+            Get all favorite
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest">
             <summary>
             Update Account info request
@@ -803,6 +809,60 @@
             </summary>
             <param name="productId">Unique product id</param>
             <param name="request">Delete product image request</param>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest">
+            <summary>
+            Add favorite request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest.ProductId">
+            <summary>
+            Product id
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.ReviewController">
+            <summary>
+            Reviews controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.#ctor(MediatR.ISender,AutoMapper.IMapper)">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.ReviewController"/>
+            </summary>
+            <param name="sender"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.AddFavoriteAsync(HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest)">
+            <summary>
+            Add favorite
+            </summary>
+            <param name="request">Add favorite model</param>
             <returns></returns>
         </member>
         <member name="T:HandmadeShop.Api.DependencyInjection">

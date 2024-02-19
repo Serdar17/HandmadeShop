@@ -24,6 +24,7 @@ public class ProductRepository : IProductRepository
         return await _context.Products
             .Where(x => x.Uid.Equals(id))
             .Include(x => x.Catalog)
+            .Include(x => x.Like)
             .FirstOrDefaultAsync(cancellationToken);
     }
 

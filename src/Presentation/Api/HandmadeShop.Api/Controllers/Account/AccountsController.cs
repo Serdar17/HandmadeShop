@@ -7,6 +7,7 @@ using HandmadeShop.UseCase.Account.Commands.DeleteAvatar;
 using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
 using HandmadeShop.UseCase.Account.Commands.UploadAvatar;
 using HandmadeShop.UseCase.Account.Models;
+using HandmadeShop.UseCase.Account.Queries.GetAllFavorite;
 using HandmadeShop.UseCase.Account.Queries.GetMyProducts;
 using HandmadeShop.UseCase.Account.Queries.GetUserInfo;
 using MediatR;
@@ -101,6 +102,7 @@ public class AccountsController : ControllerBase
 
         return result.ToProblemDetails();
     }
+    
 
     /// <summary>
     /// Delete user avatar
@@ -138,6 +140,22 @@ public class AccountsController : ControllerBase
 
         return result.ToProblemDetails();
     }
-    
-    
+
+    /// <summary>
+    /// Get all favorite
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("favorite/all")]
+    [ProducesResponseType(typeof(IEnumerable<Guid>), 200)]
+    public async Task<IResult> GetAllFavoriteAsync()
+    {
+        var query = new GetAllFavoriteQuery();
+
+        var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+            return Results.Ok(result.Value);
+
+        return result.ToProblemDetails();
+    }
 }
