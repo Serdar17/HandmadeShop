@@ -28,6 +28,6 @@ internal sealed class GetAllFavoriteHandler : IQueryHandler<GetAllFavoriteQuery,
             return UserErrors.NotFound(userId);
         }
 
-        return Result<IEnumerable<Guid>>.Success(user.Likes.Select(x => x.Product.Uid));
+        return Result<IEnumerable<Guid>>.Success(user.UserLikes.Select(x => x.Like.Product.Uid));
     }
 }

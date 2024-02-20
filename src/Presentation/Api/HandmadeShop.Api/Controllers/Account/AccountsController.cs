@@ -1,8 +1,10 @@
 ﻿using Asp.Versioning;
 using AutoMapper;
 using HandmadeShop.Api.Controllers.Account.Models;
+using HandmadeShop.Api.Controllers.Catalog.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.SharedModel.Accounts.Models;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.UseCase.Account.Commands.DeleteAvatar;
 using HandmadeShop.UseCase.Account.Commands.UpdateAccountInfo;
 using HandmadeShop.UseCase.Account.Commands.UploadAvatar;
@@ -70,10 +72,10 @@ public class AccountsController : ControllerBase
     /// </summary>
     /// <returns></returns>
     [HttpGet("my-products")]
-    [ProducesResponseType(typeof(UserProductModel), 200)]
-    public async Task<IResult> GetMyProducts()
+    [ProducesResponseType(typeof(PagedList<ProductModel>), 200)]
+    public async Task<IResult> GetMyProducts([FromQuery] ProductQueryRequest request)
     {
-        var query = new GetMyProductQuery();
+        var query = new GetMyProductQuery(_mapper.Map<ProductQueryModel>(request));
 
         var result = await _sender.Send(query);
 
@@ -158,4 +160,5 @@ public class AccountsController : ControllerBase
 
         return result.ToProblemDetails();
     }
+    
 }

@@ -1,4 +1,5 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
@@ -26,7 +27,7 @@ COPY ["src/Application/HandmadeShop.UseCase.Auth/HandmadeShop.UseCase.Auth.cspro
 COPY ["src/Application/HandmadeShop.UseCase.Account/HandmadeShop.UseCase.Account.csproj", "src/Application/HandmadeShop.UseCase.Account/"]
 COPY ["src/Shared/HandmadeShop.SharedModel/HandmadeShop.SharedModel.csproj", "src/Shared/HandmadeShop.SharedModel/"]
 COPY ["src/Application/HandmadeShop.UserCase.Catalog/HandmadeShop.UserCase.Catalog.csproj", "src/Application/HandmadeShop.UserCase.Catalog/"]
-COPY ["src/Application/HandmadeShop.UserCase.Catalog/HandmadeShop.UserCase.Review.csproj", "src/Application/HandmadeShop.UserCase.Review/"]
+COPY ["src/Application/HandmadeShop.UseCase.Review/HandmadeShop.UseCase.Review.csproj", "src/Application/HandmadeShop.UseCase.Review/"]
 RUN dotnet restore "src/Presentation/Api/HandmadeShop.Api/HandmadeShop.Api.csproj"
 COPY . .
 WORKDIR "/src/src/Presentation/Api/HandmadeShop.Api"

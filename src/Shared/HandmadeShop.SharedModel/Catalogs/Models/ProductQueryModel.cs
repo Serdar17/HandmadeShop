@@ -32,4 +32,6 @@ public class ProductQueryModel
     public int? PriceFrom { get; set; }
 
     public int? PriceTo { get; set; }
+
+    public bool IsFavorite { get; set; }
 }

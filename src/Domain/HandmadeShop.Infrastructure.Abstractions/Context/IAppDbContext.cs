@@ -9,6 +9,9 @@ public interface IAppDbContext : IDisposable
     DbSet<Catalog> Catalogs { get; set; }
     DbSet<Review> Reviews { get; set; }
     DbSet<Like> Likes { get; set; }
+    DbSet<User> Users { get; set; }
+    
+    DbSet<UserLike> UserLikes { get; set; }
 
     Task SaveAsync(CancellationToken cancellationToken = default);
 }

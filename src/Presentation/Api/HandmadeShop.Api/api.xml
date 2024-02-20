@@ -97,7 +97,7 @@
             <param name="userId">Unique user id</param>
             <returns></returns>
         </member>
-        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.GetMyProducts">
+        <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.GetMyProducts(HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest)">
             <summary>
              Get all user products
             </summary>
@@ -616,6 +616,11 @@
             Price to
             </summary>
         </member>
+        <member name="P:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest.IsFavorite">
+            <summary>
+            True, if need only favorite products
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequestProfile">
             <summary>
             Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Catalog.Models.ProductQueryRequest"/>
@@ -841,6 +846,36 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequest">
+            <summary>
+            Remove favorite request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequest.ProductId">
+            <summary>
+            Product id
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.ReviewController">
             <summary>
             Reviews controller
@@ -862,7 +897,14 @@
             <summary>
             Add favorite
             </summary>
-            <param name="request">Add favorite model</param>
+            <param name="request">Add favorite request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.RemoveFavoritesAsync(HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequest)">
+            <summary>
+            Remove favorite
+            </summary>
+            <param name="request">Remove favorite request</param>
             <returns></returns>
         </member>
         <member name="T:HandmadeShop.Api.DependencyInjection">

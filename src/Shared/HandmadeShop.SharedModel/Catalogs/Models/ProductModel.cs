@@ -10,7 +10,7 @@ public class ProductModel
     public bool HasDiscount { get; set; }
     public double? DiscountPercentage { get; set; }
     
-    public string CatalogName { get; set; }
+    public string? CatalogName { get; set; }
     public string DownloadUrl { get; set; }
     
     public DateTime CreatedAt { get; set; }

@@ -33,12 +33,26 @@ public class Product : BaseEntity
             {
                 Quantity = 1
             };
-            
-            Like.Users.Add(user);
+        }
+        else
+        {
+            Like.Quantity += 1;
+        }
+        
+        Like.UserLikes.Add(new UserLike
+        {
+            Like = Like,
+            User = user
+        });
+    }
+    
+    public void RemoveLike()
+    {
+        if (Like is null)
+        {
             return;
         }
-
-        Like.Quantity += 1;
-        Like.Users.Add(user);
+    
+        Like.Quantity -= 1;
     }
 }

@@ -5,6 +5,7 @@ using HandmadeShop.Api.Controllers.Review.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.SharedModel.Reviews.Models;
 using HandmadeShop.UseCase.Review.Commands.AddFavorite;
+using HandmadeShop.UseCase.Review.Commands.RemoveFavorite;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@ public class ReviewController : ControllerBase
     /// <summary>
     /// Add favorite
     /// </summary>
-    /// <param name="request">Add favorite model</param>
+    /// <param name="request">Add favorite request</param>
     /// <returns></returns>
     [HttpPost("favorites")]
     public async Task<IResult> AddFavoriteAsync([FromBody] AddFavoriteRequest request)
@@ -56,6 +57,24 @@ public class ReviewController : ControllerBase
         {
             return Results.Ok();
         }
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Remove favorite
+    /// </summary>
+    /// <param name="request">Remove favorite request</param>
+    /// <returns></returns>
+    [HttpDelete("favorites")]
+    public async Task<IResult> RemoveFavoritesAsync([FromBody] RemoveFavoriteRequest request)
+    {
+        var command = new RemoveFavoriteCommand(_mapper.Map<RemoveFavoriteModel>(request));
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.Ok();
 
         return result.ToProblemDetails();
     }
