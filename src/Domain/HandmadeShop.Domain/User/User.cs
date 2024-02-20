@@ -13,5 +13,7 @@ public class User : IdentityUser<Guid>
     public string? AvatarUrl { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-    public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
+    // public virtual ICollection<Like> Likes { get; set; } = new List<Like>();
+
+    public virtual ICollection<UserLike> UserLikes { get; set; } = new List<UserLike>();
 }

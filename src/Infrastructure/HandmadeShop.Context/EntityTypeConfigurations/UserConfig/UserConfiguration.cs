@@ -18,9 +18,5 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.NoAction);
-
-        builder.HasMany(x => x.Likes)
-            .WithMany(x => x.Users)
-            .UsingEntity(x => x.ToTable("users_likes"));
     }
 }

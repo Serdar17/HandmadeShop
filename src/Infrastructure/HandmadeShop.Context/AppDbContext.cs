@@ -11,7 +11,8 @@ public class AppDbContext : IdentityDbContext<User,  UserRole, Guid>, IAppDbCont
     public DbSet<Catalog> Catalogs { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Like> Likes { get; set; }
-    
+    public DbSet<UserLike> UserLikes { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
