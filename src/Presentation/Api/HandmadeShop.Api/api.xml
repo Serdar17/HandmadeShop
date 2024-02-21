@@ -876,6 +876,46 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.RemoveFavoriteRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest">
+            <summary>
+            Review request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.ProductId">
+            <summary>
+            Unique product id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.Comment">
+            <summary>
+            Comment
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.Rating">
+            <summary>
+            Rating
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.ReviewController">
             <summary>
             Reviews controller
@@ -892,6 +932,27 @@
             </summary>
             <param name="sender"></param>
             <param name="mapper"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.GetProductReviews(System.Guid)">
+            <summary>
+            Get all product reviews by id
+            </summary>
+            <param name="productId">Unique product id</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.AddReviewAsync(HandmadeShop.Api.Controllers.Review.Models.ReviewRequest)">
+            <summary>
+            Add review
+            </summary>
+            <param name="request">Review request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.RemoveReviewAsync(System.Guid)">
+            <summary>
+            Remove review by Id
+            </summary>
+            <param name="reviewId">Unique review id</param>
+            <returns></returns>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.AddFavoriteAsync(HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest)">
             <summary>

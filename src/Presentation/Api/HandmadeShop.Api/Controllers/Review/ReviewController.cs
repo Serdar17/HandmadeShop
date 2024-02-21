@@ -5,7 +5,10 @@ using HandmadeShop.Api.Controllers.Review.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.SharedModel.Reviews.Models;
 using HandmadeShop.UseCase.Review.Commands.AddFavorite;
+using HandmadeShop.UseCase.Review.Commands.AddReview;
 using HandmadeShop.UseCase.Review.Commands.RemoveFavorite;
+using HandmadeShop.UseCase.Review.Commands.RemoveReview;
+using HandmadeShop.UseCase.Review.Queries.GetProductReviews;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,6 +42,63 @@ public class ReviewController : ControllerBase
     {
         _sender = sender;
         _mapper = mapper;
+    }
+
+    /// <summary>
+    /// Get all product reviews by id
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpGet("{productId:guid}")]
+    public async Task<IResult> GetProductReviews([FromRoute] Guid productId)
+    {
+        var query = new GetProductReviewQuery(productId);
+        var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
+    
+    /// <summary>
+    /// Add review
+    /// </summary>
+    /// <param name="request">Review request</param>
+    /// <returns></returns>
+    [HttpPost]
+    [ProducesResponseType(typeof(ReviewInfoModel), 200)]
+    public async Task<IResult> AddReviewAsync([FromBody] ReviewRequest request)
+    {
+        var command = new AddReviewCommand(_mapper.Map<ReviewModel>(request));
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Remove review by Id
+    /// </summary>
+    /// <param name="reviewId">Unique review id</param>
+    /// <returns></returns>
+    [HttpDelete("{reviewId:guid}")]
+    public async Task<IResult> RemoveReviewAsync([FromRoute] Guid reviewId)
+    {
+        var command = new RemoveReviewCommand(reviewId);
+
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+            return Results.NoContent();
+
+        return result.ToProblemDetails();
     }
 
     /// <summary>
@@ -78,5 +138,4 @@ public class ReviewController : ControllerBase
 
         return result.ToProblemDetails();
     }
-    
 }

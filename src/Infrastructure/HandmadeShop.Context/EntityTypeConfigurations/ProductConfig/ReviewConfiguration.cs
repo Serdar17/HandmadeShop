@@ -13,7 +13,11 @@ public class ReviewConfiguration : IEntityTypeConfiguration<Review>
 
         builder.Property(x => x.Comment).IsRequired();
         builder.Property(x => x.Rating).IsRequired();
-        builder.Property(x => x.Rating).IsRequired();
+
+        builder.HasOne(x => x.Owner)
+            .WithMany(x => x.Reviews)
+            .HasForeignKey(x => x.OwnerId)
+            .OnDelete(DeleteBehavior.NoAction);
         
         builder.Property(x => x.Images)
             .HasConversion(
