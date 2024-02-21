@@ -1,5 +1,7 @@
 ﻿@using HandmadeShop.SharedModel.Catalogs.Models
-<MudGrid Spacing="5" Justify="Justify.Center" Class="mt-8">
+@using HandmadeShop.Web.Pages.Product
+
+<MudGrid Spacing="5" Justify="Justify.FlexStart" Class="mt-8">
     @foreach (var model in PagedList.Items)
     {
         <MudItem>
@@ -10,4 +12,6 @@
 
 @code {
     [Parameter] public PagedList<ProductModel> PagedList { get; set; }
+    [CascadingParameter] public List<Guid> FavoriteProducts { get; set; } 
+    [CascadingParameter] public Catalog? Catalog { get; set; }
 }

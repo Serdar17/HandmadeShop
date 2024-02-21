@@ -22,7 +22,13 @@
             else
             {
                 <MudCardActions>
-                    <MudIconButton Icon="@Icons.Material.Filled.Favorite" Color="Color.Default"/>
+                    <MudToggleIconButton Toggled="ToggleValue" 
+                                         ToggledChanged="OnToggleChanged"
+                                         Icon="@Icons.Material.Filled.FavoriteBorder"
+                                         Color="Color.Primary"
+                                         ToggledIcon="@Icons.Material.Filled.Favorite"
+                                         ToggledColor="Color.Primary"/>
+                    
                     <MudIconButton OnClick="@CopyToClipboard" Icon="@Icons.Material.Filled.Share" Color="Color.Default"/>
                 </MudCardActions>
             }

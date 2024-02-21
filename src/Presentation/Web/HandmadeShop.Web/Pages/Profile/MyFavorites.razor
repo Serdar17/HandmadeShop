@@ -1,0 +1,30 @@
+﻿@page "/my/favorites"
+@layout MainLayout
+@inherits MyFavoritesBase
+
+<MudText Class="mt-4" Style="font-weight: bold" Typo="Typo.h4">Избранные товары</MudText>
+
+@if (Products is null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="@(async e => await LoadProducts())">
+        <MudGrid Spacing="5" Justify="Justify.FlexStart" Class="mt-8">
+                @foreach (var product in Products.Items)
+                {
+                    <MudItem>
+                        <CascadingValue Value="this">
+                            <CascadingValue Value="FavoriteProducts">
+                                <ProductCard IsEditable="false" Model="@product"/>
+                            </CascadingValue>
+                        </CascadingValue>
+                        
+                    </MudItem>
+                }
+    
+                <div id="observerTarget"></div>
+        </MudGrid>
+    </InfiniteScroll>
+}

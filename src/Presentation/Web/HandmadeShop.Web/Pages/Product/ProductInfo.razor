@@ -39,9 +39,9 @@ else
         <MudPaper>
             @if (Model.HasDiscount)
             {
-                <div class="d-flex">
+                <div class="product-price d-flex">
                     <span class="current-price">@Model.DiscountPercentage ₽</span>
-                    <span class="old-price"><s>@Model.Price ₽</s></span>
+                    <span class="d-flex justify-content-center align-items-center old-price">@Model.Price ₽</span>
                 </div>
                 
             }
@@ -53,6 +53,10 @@ else
             @if (true)
             {
                 <span class="quantity">В наличии: <b>10</b> шт.</span>
+            }
+            else
+            {
+                <span>Товара нет в наличии</span>
             }
             
             <div class="d-flex justify-content-center mt-5" >
@@ -78,17 +82,26 @@ else
     </MudItem>
     
     <MudItem xs="6">
-            <h4 Class="mb-4 product-description-title">Описание</h4>
-            <MudText>какое-то очень большое и полезное описание товара</MudText>
+        <h4 Class="mb-4 product-description-title">Описание</h4>
+        <MudText>какое-то очень большое и полезное описание товара</MudText>
     </MudItem>
+    
+    <MudItem xs="8" Class="mt-10">
+        @* <div id="reviews" class="reviews"></div> *@
+        <Reviews ProductId="Model.Uid" />
+    </MudItem>
+    <MudItem xs="4">
+        
+    </MudItem>
+    
+    
+    
 </MudGrid>
 
 
 
 
-<MudGrid Class="mt-10">
-    <div id="reviews"><Reviews /></div>
-</MudGrid>
+
 
 
 }

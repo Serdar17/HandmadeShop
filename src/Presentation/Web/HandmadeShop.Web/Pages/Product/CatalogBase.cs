@@ -1,10 +1,10 @@
 ﻿using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Product.Services;
+using HandmadeShop.Web.Pages.Profile.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
+
 
 namespace HandmadeShop.Web.Pages.Product;
 
@@ -14,19 +14,23 @@ public class CatalogBase : ComponentBase
     
     [Inject] protected IProductService ProductService { get; set; }
     
+    [Inject] protected IAccountService AccountService { get; set; } = null!;
+
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
     protected ProductQueryModel QueryModel;
 
-    protected int PageCount => (int)Math.Ceiling((double)PagedList.TotalCount / PageSize);
+    protected List<Guid> FavoriteProducts = new();
+
+    protected int PageCount { get; set; }
     
     protected int Page { get; set; } = 1;
     protected int PageSize { get; set; } = 4;
 
     protected string SortOrder = "desc";
     protected string? SortColumn = string.Empty;
-    protected int PriceFrom;
-    protected int PriceTo;
+    protected int? PriceFrom;
+    protected int? PriceTo;
     
     protected bool IsLoading { get; set; }
     
@@ -42,10 +46,15 @@ public class CatalogBase : ComponentBase
         new SortItem("Сначала дешевле", "price,asc"),
     };
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         SortItem = SortItems[0];
-        base.OnInitialized();
+        var result = await AccountService.GetAllFavoriteAsync();
+        
+        if (result.IsSuccess && result.Value != null)
+        {
+            FavoriteProducts = result.Value.ToList();
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -79,6 +88,17 @@ public class CatalogBase : ComponentBase
             QueryModel.SortOrder = sortOrder;
             SortOrder = sortOrder;
         }
+
+        if (query.TryGetValue("priceProm", out var priceFrom))
+        {
+            QueryModel.PriceFrom = int.Parse(priceFrom);
+        }
+        
+        if (query.TryGetValue("priceTo", out var priceTo))
+        {
+            QueryModel.PriceTo = int.Parse(priceTo);
+        }
+        
         await ReloadData(QueryModel);
     }
 
@@ -91,13 +111,14 @@ public class CatalogBase : ComponentBase
         if (result.IsSuccess && result.Value != null)
         {
             PagedList = result.Value;
+            PageCount = (int)Math.Ceiling((double)PagedList.TotalCount / PageSize);
             StateHasChanged();
             IsLoading = false;
-            if (PriceFrom == 0)
-            {
-                PriceFrom = PagedList.MinPrice;
-                PriceTo = PagedList.MaxPrice;
-            }
+            // if (PriceFrom == 0)
+            // {
+            //     PriceFrom = PagedList.MinPrice;
+            //     PriceTo = PagedList.MaxPrice;
+            // }
 
             return;
         }
@@ -108,13 +129,14 @@ public class CatalogBase : ComponentBase
         Page = value;
         IsLoading = true;
         var query = GetQueryUrl("/catalog");
-        QueryModel = new ProductQueryModel();
         QueryModel = new ProductQueryModel()
         {
             Page = Page,
             PageSize = PageCount,
             SortColumn = SortColumn,
-            SortOrder = SortOrder
+            SortOrder = SortOrder,
+            PriceFrom = PriceFrom,
+            PriceTo = PriceTo,
         };
         QueryModel.CatalogName = CatalogName;
         NavigationManager.NavigateTo($"/catalog/{CatalogName}{query}");
@@ -133,7 +155,9 @@ public class CatalogBase : ComponentBase
             Page = Page,
             PageSize = PageCount,
             SortColumn = SortColumn,
-            SortOrder = SortOrder
+            SortOrder = SortOrder,
+            PriceFrom = PriceFrom,
+            PriceTo = PriceTo,
         };
         QueryModel.CatalogName = CatalogName;
         var query = GetQueryUrl("/catalog");
@@ -142,12 +166,25 @@ public class CatalogBase : ComponentBase
         ShouldRender();
     }
     
-    protected void OnRangeChanged(Price price)
+    protected async Task OnRangeChanged(Price price)
     {
-        Console.WriteLine("On range change");
-        Console.WriteLine(price.From);
         PriceFrom = price.From;
         PriceTo = price.To;
+        // QueryModel = new ProductQueryModel()
+        // {
+        //     Page = Page,
+        //     PageSize = PageCount,
+        //     SortColumn = SortColumn,
+        //     SortOrder = SortOrder,
+        //     PriceFrom = PriceFrom,
+        //     PriceTo = PriceTo,
+        // };
+        // QueryModel.CatalogName = CatalogName;
+        // var query = GetQueryUrl("/catalog");
+        // NavigationManager.NavigateTo($"/catalog/{CatalogName}{query}");
+        // await ReloadData(QueryModel);
+        // ShouldRender();
+        
     }
     
     private string GetQueryUrl(string url)
@@ -165,13 +202,15 @@ public class CatalogBase : ComponentBase
             queryUrl = queryUrl.AddParameter("priceFrom", PriceFrom.ToString());
         
         if (PriceTo != null)
-            queryUrl = queryUrl.AddParameter("priceFrom", PriceTo.ToString());
+            queryUrl = queryUrl.AddParameter("priceTo", PriceTo.ToString());
     
         return queryUrl.Query;
     }
     
-
-    
+    public void NotifyChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
 }
 
 public class Price

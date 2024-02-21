@@ -3,6 +3,7 @@ using System.Text.Json;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.SharedModel.Accounts.Models;
+using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
@@ -50,18 +51,36 @@ public class AccountService : IAccountService
         return await response.Content.ToErrorAsync();
     }
 
-    public async Task<Result<UserProductModel>> GetUserProducts()
+    public async Task<Result<PagedList<ProductModel>>> GetUserProducts(ProductQueryModel model)
     {
-        var url = $"{Settings.ApiRoot}/api/v1/accounts/my-products";
+        var url = GetUrlWithParams($"{Settings.ApiRoot}/api/v1/accounts/my-products", model);
 
         var response = await _httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<UserProductModel>(content,
-                       new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
-                   ?? new UserProductModel();
+            return JsonSerializer.Deserialize<PagedList<ProductModel>>(content,
+                       new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+        }
+
+        return await response.Content.ToErrorAsync();
+    }
+
+    public async Task<Result<IEnumerable<Guid>>> GetAllFavoriteAsync()
+    {
+        var url = $"{Settings.ApiRoot}/api/v1/accounts/favorite/all";
+
+        var response = await _httpClient.GetAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
+
+        if (response.IsSuccessStatusCode)
+        {
+            var model = JsonSerializer.Deserialize<IEnumerable<Guid>>(content,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) 
+                   ?? Enumerable.Empty<Guid>();
+            
+            return Result<IEnumerable<Guid>>.Success(model);
         }
 
         return await response.Content.ToErrorAsync();
@@ -123,5 +142,22 @@ public class AccountService : IAccountService
         }
 
         return await response.Content.ToErrorAsync();
+    }
+    
+    private string GetUrlWithParams(string url, ProductQueryModel model)
+    {
+        // TODO сделать extension
+        var uri = new Uri(url);
+
+        return uri.AddParameter("catalogName", model.CatalogName)
+            .AddParameter("pageSize", model.PageSize.ToString())
+            .AddParameter("page", model.Page.ToString())
+            .AddParameter("sortOrder", model.SortOrder)
+            .AddParameter("sortColumn", model.SortColumn)
+            .AddParameter("search", model.Search)
+            .AddParameter("priceFrom", model.PriceFrom.ToString())
+            .AddParameter("priceTo", model.PriceTo.ToString())
+            .AddParameter("isFavorite", model.IsFavorite.ToString())
+            .ToString();
     }
 }

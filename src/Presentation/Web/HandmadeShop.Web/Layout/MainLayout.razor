@@ -7,27 +7,66 @@
 <MudSnackbarProvider/>
             
 <MudLayout>
-    <MudAppBar Elevation="1">
-            <MudLink Href="/" Class="ml-4 mr-4" Color="Color.Inherit" Style="text-decoration: none; font-size: 20px;">Handmade Shop</MudLink>
-            <MudButton StartIcon="@(_drawerOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu)" Color="Color.Inherit" IconSize="Size.Large" OnClick="@DrawerToggleAsync">Каталог</MudButton>
-    
-            <MudItem Class="rounded-circle ml-5">
-                <MudTextField
-                    @bind-Value="TextValue"
-                    Label="Поиск"
-                    Class="rounded"
-                    Style="@(_isDarkMode ? _sizeStyles : _inputStyles + _sizeStyles)"
-                    Variant="Variant.Outlined"
-                    Adornment="Adornment.End"
-                    AdornmentIcon="@Icons.Material.Filled.Search"
-                    AdornmentColor="Color.Secondary"
-                    OnAdornmentClick="Search"/>
-            </MudItem>
-    
-            <MudSpacer/>
-            <HeaderMenu/>
-            <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" @onclick="@ToggleDarkModeAsync" Color="Color.Inherit" Edge="Edge.End"/>
-            
+    <MudAppBar Class="d-flex justify-content-center align-items-center" Elevation="1">
+
+           <MudLink Href="/" Class="ml-4 mr-4" Color="Color.Inherit" Style="text-decoration: none; font-size: 20px;">Handmade Shop</MudLink>
+           <MudButton StartIcon="@(_drawerOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu)"
+                      Color="Color.Inherit" IconSize="Size.Large"
+                      OnClick="@DrawerToggleAsync">
+               Каталог
+           </MudButton>
+   
+           @* <MudItem Class="rounded-circle ml-5"> *@
+
+           @* </MudItem> *@
+           
+               @* <MudText Align="Align.Center">.rounded-pill</MudText> *@
+               <MudTextField
+                   @bind-Value="TextValue"
+                   Placeholder="Поиск товаров"
+                   Class="rounded mr-4 ml-4"
+                   Style="@(_isDarkMode ? _sizeStyles : _inputStyles + _sizeStyles)"
+                   Variant="Variant.Outlined"
+                   Adornment="Adornment.End"
+                   AdornmentIcon="@Icons.Material.Filled.Search"
+                   AdornmentColor="Color.Secondary"
+                   OnAdornmentClick="Search"/>
+               
+   
+           
+           @* <MudTextField T="string"  *@
+           @*                *@
+           @*               Class="rounded-input" *@
+           @*               Placeholder="Поиск товаров" *@
+           @*               AdornmentIcon="@Icons.Material.Filled.Search" *@
+           @*               AdornmentColor="Color.Default" *@
+           @*               Variant="Variant.Outlined"/> *@
+           
+           @* <MudAutocomplete Placeholder="Поиск товаров" *@
+           @*                  T="string" *@
+           @*                  Immediate="true" *@
+           @*                  AdornmentIcon="@Icons.Material.Filled.Search"  *@
+           @*                  AdornmentColor="Color.Primary"/> *@
+   
+           <MudLink Href="/my/favorites">
+               <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Style="color: white;" Size="Size.Medium"/>
+           </MudLink>
+           
+           <MudLink Href="/cart">
+               <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Style="color: white;" Size="Size.Medium"/>
+           </MudLink>
+           
+           
+           <MudDivider Class="mt-2" Style="height: 70%;" DividerType="DividerType.Middle" Vertical="true" FlexItem="true" />
+           
+
+           <HeaderMenu/>
+           <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" 
+                          @onclick="@ToggleDarkModeAsync" 
+                          Color="Color.Inherit" 
+                          Edge="Edge.End"/>
+                   
+
 
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
@@ -42,6 +81,10 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
+<MudScrollToTop>
+    <MudFab Color="Color.Primary" Icon="@Icons.Material.Filled.ArrowCircleUp" />
+</MudScrollToTop>
 
 @code {
 

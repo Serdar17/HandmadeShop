@@ -37,6 +37,7 @@ public class ProfileBase : ComponentBase
 
     protected string ErrorDetail = string.Empty;
     protected bool ShowErrors;
+    protected string DataUrl = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -118,7 +119,11 @@ public class ProfileBase : ComponentBase
     protected async Task UploadFiles(InputFileChangeEventArgs args)
     {
         Avatar = args.File;
-        stream = new StreamContent(args.File.OpenReadStream());
+        var imageStream = Avatar.OpenReadStream();
+        var imageBytes = new byte[imageStream.Length];
+        await imageStream.ReadAsync(imageBytes, 0, (int)imageStream.Length);
+        DataUrl = $"data:{Avatar.ContentType};base64,{Convert.ToBase64String(imageBytes)}";  
+        // stream = new StreamContent(args.File.OpenReadStream());
     }
 
     protected async Task DeleteAsync()

@@ -40,24 +40,28 @@
                         {
                             if (Avatar is not null)
                             {
-                                <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@Avatar">
-                                    @Avatar.Name <code>@Avatar.Size bytes</code>
-                                </MudListItem>
-
-                                <MudButton OnClick="@UploadAsync"
-                                           Class="mt-4"
-                                           Color="Color.Primary"
-                                           Disabled="false"
-                                           Variant="Variant.Filled">
-                                    Загрузить
-                                </MudButton>
+                                <MudImage ObjectPosition="ObjectPosition.Center" 
+                                          Class="rounded-circle" 
+                                          Width="200" Height="200" 
+                                          Src="@DataUrl"/>
+                                @* <MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@Avatar"> *@
+                                @*     @Avatar.Name <code>@Avatar.Size bytes</code> *@
+                                @* </MudListItem> *@
+                                @* *@
+                                @* <MudButton OnClick="@UploadAsync" *@
+                                @*            Class="mt-4" *@
+                                @*            Color="Color.Primary" *@
+                                @*            Disabled="false" *@
+                                @*            Variant="Variant.Filled"> *@
+                                @*     Загрузить *@
+                                @* </MudButton> *@
                             }
                             else
                             {
                                 <div class="d-flex justify-content-center mt-4">
-                                    <MudFileUpload T="IBrowserFile" 
-                                                   Accept=".png, .jpg, .svg, .gif" 
-                                                   MaximumFileCount="1" 
+                                    <MudFileUpload T="IBrowserFile"
+                                                   Accept=".png, .jpg, .svg, .gif"
+                                                   MaximumFileCount="1"
                                                    OnFilesChanged="UploadFiles">
                                         <ButtonTemplate>
                                             <MudIconButton HtmlTag="label"
@@ -67,6 +71,7 @@
                                             </MudIconButton>
                                         </ButtonTemplate>
                                     </MudFileUpload>
+                                    
                                 </div>
                             }
                         }

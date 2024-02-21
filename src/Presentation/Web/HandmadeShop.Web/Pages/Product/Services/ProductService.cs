@@ -69,9 +69,8 @@ public class ProductService : IProductService
             return JsonSerializer.Deserialize<PagedList<ProductModel>>(content,
                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
-        
-        
-        throw new NotImplementedException();
+
+        return await response.Content.ToErrorAsync();
     }
 
     public async Task<Result<ProductInfoModel?>> GetProductInfoModel(Guid id)
@@ -215,6 +214,8 @@ public class ProductService : IProductService
             .AddParameter("sortOrder", model.SortOrder)
             .AddParameter("sortColumn", model.SortColumn)
             .AddParameter("search", model.Search)
+            .AddParameter("priceFrom", model.PriceFrom.ToString())
+            .AddParameter("priceTo", model.PriceTo.ToString())
             .ToString();
     }
 }

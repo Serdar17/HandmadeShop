@@ -48,6 +48,11 @@ public class ProductQueryRequest
     /// Price to
     /// </summary>
     public int? PriceTo { get; set; }
+
+    /// <summary>
+    /// True, if need only favorite products
+    /// </summary>
+    public bool IsFavorite { get; set; }
 }
 
 /// <summary>

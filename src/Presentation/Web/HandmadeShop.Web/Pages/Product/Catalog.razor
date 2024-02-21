@@ -4,7 +4,7 @@
 
 @attribute [Authorize]
 
-@if (IsLoading)
+@if (PagedList is null)
 {
     <div class="spinner">
         <MudProgressCircular Color="Color.Default" Indeterminate="true" />
@@ -53,15 +53,19 @@ else
             @*     <MudSlider Value="50" Variant="Variant.Filled"/> *@
             @* </div> *@
             
-            <DoubleRange MaxValue="PagedList.MaxPrice" From="PriceFrom" To="PriceTo" OnChangeCallback="OnRangeChanged" MinValue="PagedList.MinPrice" />
+            @* <DoubleRange MaxValue="PagedList.MaxPrice" From="PriceFrom" To="PriceTo" OnChangeCallback="OnRangeChanged" MinValue="PagedList.MinPrice" /> *@
             
             
         </MudItem>
 
         <MudItem xs="10">
             <MudPaper>Список кард</MudPaper>
-
-            <ProductsView PagedList="PagedList"/>
+            
+            <CascadingValue Value="this">
+                <CascadingValue Value="FavoriteProducts">
+                    <ProductsView PagedList="PagedList"/>
+                </CascadingValue>
+            </CascadingValue>
             
             <div class="d-flex flex-column align-center mt-10">
                 <MudPagination Selected="Page" SelectedChanged="@Selected" Rectangular="true" Variant="Variant.Filled" Count="@PageCount" Class="my-4" />
