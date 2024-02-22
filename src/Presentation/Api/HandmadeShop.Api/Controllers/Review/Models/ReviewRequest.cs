@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using HandmadeShop.Common.ValidationRules;
 using HandmadeShop.SharedModel.Reviews.Models;
 
 namespace HandmadeShop.Api.Controllers.Review.Models;

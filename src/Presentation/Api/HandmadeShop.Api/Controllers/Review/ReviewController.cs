@@ -8,6 +8,8 @@ using HandmadeShop.UseCase.Review.Commands.AddFavorite;
 using HandmadeShop.UseCase.Review.Commands.AddReview;
 using HandmadeShop.UseCase.Review.Commands.RemoveFavorite;
 using HandmadeShop.UseCase.Review.Commands.RemoveReview;
+using HandmadeShop.UseCase.Review.Commands.UploadReviewImage;
+using HandmadeShop.UseCase.Review.Models;
 using HandmadeShop.UseCase.Review.Queries.GetProductReviews;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -73,6 +75,26 @@ public class ReviewController : ControllerBase
     public async Task<IResult> AddReviewAsync([FromBody] ReviewRequest request)
     {
         var command = new AddReviewCommand(_mapper.Map<ReviewModel>(request));
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Upload review image
+    /// </summary>
+    /// <param name="request">Upload review image request</param>
+    /// <returns></returns>
+    [HttpPost("upload/image")]
+    [ProducesResponseType(typeof(UploadedReviewImage), 200)]
+    public async Task<IResult> UploadReviewImage([FromForm] UploadReviewImageRequest request)
+    {
+        var command = new UploadReviewImageCommand(_mapper.Map<UploadReviewImageModel>(request));
         var result = await _sender.Send(command);
 
         if (result.IsSuccess)

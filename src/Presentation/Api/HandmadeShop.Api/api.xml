@@ -896,6 +896,11 @@
             Rating
             </summary>
         </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.Images">
+            <summary>
+            Review images
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestValidator">
             <summary>
             Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest"/>
@@ -914,6 +919,41 @@
         <member name="M:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestProfile.#ctor">
             <summary>
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequest">
+            <summary>
+            Upload review image request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequest.ReviewId">
+            <summary>
+            Review id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequest.Image">
+            <summary>
+            Upload images
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestValidator">
+            <summary>
+            Valiadtion rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestProfile"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequestProfile"/>
             </summary>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.ReviewController">
@@ -945,6 +985,13 @@
             Add review
             </summary>
             <param name="request">Review request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.UploadReviewImage(HandmadeShop.Api.Controllers.Review.Models.UploadReviewImageRequest)">
+            <summary>
+            Upload review image
+            </summary>
+            <param name="request">Upload review image request</param>
             <returns></returns>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Review.ReviewController.RemoveReviewAsync(System.Guid)">

@@ -113,14 +113,9 @@ public class AccountService : IAccountService
     {
         var url = $"{Settings.ApiRoot}/api/v1/accounts/avatar/upload";
         
-        // var form = new MultipartFormDataContent();
-        // var fileContent = new StreamContent(file.OpenReadStream());
-        // form.Add(fileContent, "avatar", file.Name);
-        //
         var response = await _httpClient.PostAsync(url, form);
         
         var content = await response.Content.ReadAsStringAsync();
-
         if (response.IsSuccessStatusCode)
         {
             return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

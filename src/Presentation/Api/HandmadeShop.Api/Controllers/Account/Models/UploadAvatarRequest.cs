@@ -25,8 +25,8 @@ public class UploadAvatarRequestValidator : AbstractValidator<UploadAvatarReques
     /// </summary>
     public UploadAvatarRequestValidator()
     {
-        RuleFor(x => x.Avatar)
-            .NotEmpty();
+        // RuleFor(x => x.Avatar)
+        //     .NotEmpty();
     }
 }
 

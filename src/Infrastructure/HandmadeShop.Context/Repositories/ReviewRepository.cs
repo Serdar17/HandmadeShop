@@ -31,9 +31,9 @@ public class ReviewRepository : IReviewRepository
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(Review model, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(Review model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await Task.FromResult(_context.Reviews.Update(model));
     }
 
     public Task DeleteAsync(Review model, CancellationToken cancellationToken = default)

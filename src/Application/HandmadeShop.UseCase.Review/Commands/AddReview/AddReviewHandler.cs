@@ -3,6 +3,7 @@ using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
+using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 using HandmadeShop.Infrastructure.Abstractions.Identity;
 using HandmadeShop.SharedModel.Reviews.Models;
 using Microsoft.AspNetCore.Identity;
@@ -15,17 +16,19 @@ internal sealed class AddReviewHandler : ICommandHandler<AddReviewCommand, Revie
     private readonly UserManager<User> _userManager;
     private readonly IIdentityService _identityService;
     private readonly IMapper _mapper;
+    private readonly IFileStorage _fileStorage;
     
     public AddReviewHandler(
         IUnitOfWork unitOfWork,
         UserManager<User> userManager,
         IIdentityService identityService,
-        IMapper mapper)
+        IMapper mapper, IFileStorage fileStorage)
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
         _identityService = identityService;
         _mapper = mapper;
+        _fileStorage = fileStorage;
     }
 
     public async Task<Result<ReviewInfoModel>> Handle(AddReviewCommand request, CancellationToken cancellationToken)

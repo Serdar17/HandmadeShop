@@ -7,6 +7,8 @@ public class ReviewInfoModel
     public int Rating { get; set; }
     public DateTime CreatedAt { get; set; }
     public OwnerModel Owner { get; set; }
+
+    public List<string> ImageUrls { get; set; } = new();
 }
 
 public class OwnerModel
