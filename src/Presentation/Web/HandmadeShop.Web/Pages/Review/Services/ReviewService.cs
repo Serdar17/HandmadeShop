@@ -36,19 +36,24 @@ public class ReviewService : IReviewService
         return await response.Content.ToErrorAsync();
     }
 
-    public async Task<Result<ReviewInfoModel>> AddReviewAsync(ReviewModel model)
+    public async Task<Result<ReviewInfoModel>> AddReviewAsync(ReviewModel model, List<string> images)
     {
         var json = JsonSerializer.Serialize(model);
         var data = new StringContent(json, Encoding.UTF8, MediaTypeNames.Application.Json);
-
         var response = await _httpClient.PostAsync(Root, data);
         var content = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<ReviewInfoModel>(content,
+            var responseModel = JsonSerializer.Deserialize<ReviewInfoModel>(content,
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ReviewInfoModel();
+
+            await UploadImagesAsync(responseModel, images);
+
+            return responseModel;
         }
+
+        Console.WriteLine(content);
 
         return await response.Content.ToErrorAsync();
     }
@@ -99,5 +104,33 @@ public class ReviewService : IReviewService
         }
 
         return await response.Content.ToErrorAsync();
+    }
+
+    protected async Task UploadImagesAsync(ReviewInfoModel model, List<string> images)
+    {;
+        foreach (var image in images)
+        {
+            var form = new MultipartFormDataContent();
+            
+            var bytes = Convert.FromBase64String(image.Split(',')[1]);
+            using var ms = new MemoryStream(bytes);
+            using var stream = new StreamContent(ms);
+            form.Add(new StringContent(model.Uid.ToString()), "reviewId");
+            form.Add(stream,"image", Path.GetRandomFileName());
+            
+
+            var response = await _httpClient.PostAsync($"{Root}/upload/image", form);
+            var content = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(content);
+            if (!response.IsSuccessStatusCode) 
+                continue;
+            
+            var result = JsonSerializer.Deserialize<UploadedReviewImage>(content,
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+            if (result != null)
+                model.ImageUrls.Add(result.DownloadUrl);
+        }
     }
 }

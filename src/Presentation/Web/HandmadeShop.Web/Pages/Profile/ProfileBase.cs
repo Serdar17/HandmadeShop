@@ -1,5 +1,6 @@
 ﻿using HandmadeShop.Web.Common;
 using HandmadeShop.Web.Components;
+using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
 using HandmadeShop.Web.Pages.Profile.Services;
@@ -25,6 +26,7 @@ public class ProfileBase : ComponentBase
     protected AccountInfoModel? Model;
     protected ResetProfilePasswordModel ResetPwdModel = new();
     protected bool IsSuccess { get; set; }
+    protected bool Processing { get; set; }
     
     protected bool PasswordVisibility;
     protected bool PasswordConfirmVisibility;
@@ -119,11 +121,7 @@ public class ProfileBase : ComponentBase
     protected async Task UploadFiles(InputFileChangeEventArgs args)
     {
         Avatar = args.File;
-        var imageStream = Avatar.OpenReadStream();
-        var imageBytes = new byte[imageStream.Length];
-        await imageStream.ReadAsync(imageBytes, 0, (int)imageStream.Length);
-        DataUrl = $"data:{Avatar.ContentType};base64,{Convert.ToBase64String(imageBytes)}";  
-        // stream = new StreamContent(args.File.OpenReadStream());
+        DataUrl = await Avatar.GetDataUrl();
     }
 
     protected async Task DeleteAsync()
@@ -153,16 +151,27 @@ public class ProfileBase : ComponentBase
 
     protected async Task UploadAsync()
     {
-        var form = new MultipartFormDataContent();
-        form.Add(stream, "avatar", Avatar.Name);
-        var result = await AccountService.UploadAvatarAsync(form);
+        Processing = true;
 
+        var imageBytes = Convert.FromBase64String(DataUrl.Split(',')[1]);
+        using MemoryStream ms = new MemoryStream(imageBytes);
+        using var stream1 = new StreamContent(ms);
+        var form = new MultipartFormDataContent();
+        form.Add(stream1,"avatar", Avatar.Name);
+        var result = await AccountService.UploadAvatarAsync(form);
+        
         if (result.IsSuccess)
         {
             Model = result.Value;
             Snackbar.Add("Аватар загружен успешно!", Severity.Success);
             Avatar = null;
-            return;
         }
+
+        Processing = false;
+    }
+
+    protected void RemoveFile()
+    {
+        Avatar = null;
     }
 }

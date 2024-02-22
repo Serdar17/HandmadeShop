@@ -1,13 +1,17 @@
 ﻿@inherits ReviewsBase
 
-@* <MudGrid Class="mt-4"> *@
 
 <MudText Class="mb-4" Style="font-weight: bold;" Typo="Typo.h5">Отзывы</MudText>
 
 <MudDivider Class="mb-4" />
-    
-    
-    @if (false)
+
+@if (Processing)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+   @if (Reviews.Count == 0)
     {
         <MudItem xs="8" Class="mt-4 d-flex justify-content-center align-items-center">
             <div class="mt-4">
@@ -18,52 +22,106 @@
                 </div>
                 <MudText Typo="Typo.body1">Будьте первым кто оставит отзыв!</MudText>
             </div>
-           
-            
         </MudItem>
     }
     else
     {
-        for (int i = 0; i < 6; i++)
+        foreach (var review in Reviews)
         {
-            <MudItem xs="12">
-                <MudText Typo="Typo.h6" Style="font-weight: bold; font-size: 18px;">Nickname</MudText>   
+            <MudItem xs="12" Class="mt-4">
+                @if (string.IsNullOrEmpty(review.Owner.Name))
+                {
+                    <MudText Typo="Typo.h6" Style="font-weight: bold; font-size: 18px;">Аноним</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6" Style="font-weight: bold; font-size: 18px;">@review.Owner.Name</MudText>
+                }
+                
                 <div class="review-stat d-flex">
-                    <MudRating ReadOnly="true" SelectedValue="2" Size="Size.Small" />
-                    <MudText Class="ml-2" Typo="Typo.body1">19.02.2024</MudText>
+                    <MudRating ReadOnly="true" SelectedValue="@review.Rating" Size="Size.Small"/>
+                    <MudText Class="ml-2" Typo="Typo.body1">@review.CreatedAt.ToString("dd.MM.yyyy")</MudText>
                 </div>
                 
-                <MudText Class="mt-4 mb-4" Typo="Typo.body1">Описание ббольшое флдвыофэывжлж двлойджцво йвойлыво йдвлодйлво дйвойдлвойдцлов йждцв</MudText>
+                <div>
+                    @foreach (var image in review.ImageUrls)
+                    {
+                        <MudImage Src="@image" 
+                                  ObjectFit="ObjectFit.Cover"
+                                  @onclick="@(async (e) => await ShowDialog(review.ImageUrls))" 
+                                  class="mt-4 mr-4 mb-4 rounded-lg"
+                                  Style="cursor: pointer;"
+                                  Width="100" Height="100" Elevation="10"/>
+                    }
+                </div>
+                
+                <MudText Class="mt-4 mb-4" Typo="Typo.body1">@review.Comment</MudText>
             </MudItem>
-        
+
             <MudDivider/>
         }
-
-        <MudItem Class="mt-4" xs="12">
-            <EditForm Model="Model" OnValidSubmit="OnValidSubmit">
-                <MudText Class="mb-4" Typo="Typo.h6" Style="font-weight: bold;">Оставьте отзыв</MudText>
-                
-                <div class="d-flex">
-                    <MudRating Class="mr-2" @bind-SelectedValue="Model.Rating" />
-                    <MudText Typo="Typo.body1">Ваша оценка</MudText>
-                </div>
-                
-                <MudTextField T="string" 
-                              Class="mb-4"
-                              @bind-Value="Model.Comment"
-                              Variant="Variant.Outlined" 
-                              Placeholder="Введите текст..."
-                              Lines="5" />
-                
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           Disabled="@(!IsSuccess())"
-                           Size="Size.Large"
-                           OnClick="@(async () => await OnValidSubmit())"
-                           Class="ml-auto">Сохранить</MudButton>
-            </EditForm>
-        </MudItem>
-    }
+    } 
     
-@* </MudGrid> *@
+    <MudItem Class="mt-4" xs="12">
+    <MudText Class="mb-4" Typo="Typo.h6" Style="font-weight: bold;">Оставьте отзыв</MudText>
 
+    <div class="mb-4 d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center">
+            <MudRating Class="mr-2" @bind-SelectedValue="Model.Rating"/>
+            <MudText Typo="Typo.body1">Ваша оценка</MudText>
+        </div>
+        <div>
+            <MudFileUpload T="IBrowserFile" 
+                           FilesChanged="@(async (e) => await UploadFiles(e))"
+                           Disabled="@Disabled">
+                <ButtonTemplate>
+                    <MudButton HtmlTag="label"
+                               Variant="Variant.Filled"
+                               Color="Color.Primary"
+                               StartIcon="@Icons.Material.Filled.AttachFile"
+                               for="@context.Id">
+                        Загрузить фото
+                    </MudButton>
+                </ButtonTemplate>
+            </MudFileUpload>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-4">
+        @foreach (var image in Images)
+        {
+            <div class="mr-4 d-inline-block position-relative">
+                <MudImage ObjectFit="ObjectFit.Cover" class="rounded-lg" Src="@image" Width="100" Height="100" Elevation="10"/>
+                <div class="remove-image" @onclick="@(() => RemoveFile(image))">
+                    <span class="remove-image-icon">&times;</span>
+                </div>
+            </div>
+        }
+    </div>
+
+    <MudTextField T="string"
+                  Class="mb-4"
+                  @bind-Value="Model.Comment"
+                  Variant="Variant.Outlined"
+                  Placeholder="Введите текст..."
+                  Lines="5"/>
+
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               Disabled="@(!IsSuccess() || Processing)"
+               Size="Size.Large"
+               OnClick="@(async () => await OnValidSubmit())"
+               Class="ml-auto">
+        
+        @if (Processing)
+        {
+            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+            <MudText Class="ms-2">Сохраняем...</MudText>
+        }
+        else
+        {
+            <MudText>Сохранить</MudText>
+        }
+    </MudButton>
+</MudItem>
+}

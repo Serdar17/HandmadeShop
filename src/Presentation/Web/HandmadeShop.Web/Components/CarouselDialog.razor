@@ -1,0 +1,31 @@
+﻿
+<MudDialog>
+	<DialogContent>
+		<MudCarousel
+			Class="mud-width-full"
+			@ref="_carousel"
+			ItemsSource="@Images"
+			Style="height:400px;"
+			ShowArrows="true"
+			ShowBullets="true"
+			EnableSwipeGesture="true"
+			AutoCycle="false">
+			<ItemTemplate>
+				<div class="d-flex  justify-content-center" style="height:100%;">
+					<MudImage Src="@context" 
+					          Elevation="25" 
+					          Class="rounded-lg ma-4"/>
+				</div>
+			</ItemTemplate>
+            
+		</MudCarousel>
+		
+	</DialogContent>
+    
+</MudDialog>
+
+@code {
+	[Parameter] public List<string> Images { get; set; }
+    private MudCarousel<string> _carousel;
+
+}

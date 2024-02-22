@@ -6,7 +6,7 @@ namespace HandmadeShop.Web.Pages.Review.Services;
 public interface IReviewService
 {
     Task<Result<IEnumerable<ReviewInfoModel>>> GetProductReviews(Guid productId);
-    Task<Result<ReviewInfoModel>> AddReviewAsync(ReviewModel model);
+    Task<Result<ReviewInfoModel>> AddReviewAsync(ReviewModel model, List<string> images);
     Task<Result> RemoveReviewAsync(Guid reviewId);
     Task<Result> AddFavoriteAsync(AddFavoriteModel model);
     Task<Result> RemoveFavoriteAsync(RemoveFavoriteModel model);
