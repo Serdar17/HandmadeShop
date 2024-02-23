@@ -48,6 +48,7 @@
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.MySql\HandmadeShop.Context.Migrations.MySql.csproj" />
       <ProjectReference Include="..\..\..\Infrastructure\Migrations\HandmadeShop.Context.Migrations.PgSql\HandmadeShop.Context.Migrations.PgSql.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Action\HandmadeShop.Services.Action.csproj" />
+      <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Cache\HandmadeShop.Services.Cache.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.EmailSender\HandmadeShop.Services.EmailSender.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.FileStorage\HandmadeShop.Services.FileStorage.csproj" />
       <ProjectReference Include="..\..\..\Services\HandmadeShop.Services.Logger\HandmadeShop.Services.Logger.csproj" />

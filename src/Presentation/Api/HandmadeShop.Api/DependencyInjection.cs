@@ -3,6 +3,7 @@ using HandmadeShop.Api.Services;
 using HandmadeShop.Application;
 using HandmadeShop.Infrastructure.Abstractions.Identity;
 using HandmadeShop.Services.Action;
+using HandmadeShop.Services.Cache;
 using HandmadeShop.Services.EmailSender;
 using HandmadeShop.Services.FileStorage;
 using HandmadeShop.Services.Logger;
@@ -36,6 +37,7 @@ public static class DependencyInjection
             .AddEmailSettings()
             .AddFileStorageSettings()
             .AddWebSettings()
+            .AddCacheSettings()
             .AddRabbitMq()
             .AddAppHealthChecks()
             .AddAppVersioning()
@@ -49,6 +51,7 @@ public static class DependencyInjection
             .AddEmailSender()
             .AddCatalogService()
             .AddReviewService()
+            .AddCacheService()
             ;
 
         services.AddTransient<IIdentityService, IdentityService>();

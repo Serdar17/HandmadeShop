@@ -11,6 +11,7 @@ COPY ["src/Services/HandmadeShop.Services.Settings/HandmadeShop.Services.Setting
 COPY ["src/Services/HandmadeShop.Services.Logger/HandmadeShop.Services.Logger.csproj", "src/Services/HandmadeShop.Services.Logger/"]
 COPY ["src/Services/HandmadeShop.Services.RabbitMq/HandmadeShop.Services.RabbitMq.csproj", "src/Services/HandmadeShop.Services.RabbitMq/"]
 COPY ["src/Services/HandmadeShop.Services.Action/HandmadeShop.Services.Action.csproj", "src/Services/HandmadeShop.Services.Action/"]
+COPY ["src/Services/HandmadeShop.Services.Cache/HandmadeShop.Services.Cache.csproj", "src/Services/HandmadeShop.Services.Cache/"]
 COPY ["src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.MSSQL/HandmadeShop.Context.Migrations.MSSQL.csproj", "src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.MSSQL/"]
 COPY ["src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.MySql/HandmadeShop.Context.Migrations.MySql.csproj", "src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.MySql/"]
 COPY ["src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.PgSql/HandmadeShop.Context.Migrations.PgSql.csproj", "src/Infrastructure/Migrations/HandmadeShop.Context.Migrations.PgSql/"]
