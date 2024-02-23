@@ -14,9 +14,9 @@ public class UserProductInfoModel
 {
     public Guid Uid { get; set; }
     public string Name { get; set; }
-    public decimal Price { get; set; }
+    public double Price { get; set; }
     public bool HasDiscount { get; set; }
-    public decimal? DiscountPercentage { get; set; }
+    public double DiscountPrice { get; set; }
     
     public string? DownloadImage { get; set; }
 }

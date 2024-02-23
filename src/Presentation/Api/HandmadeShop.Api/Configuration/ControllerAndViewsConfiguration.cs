@@ -1,6 +1,5 @@
 ﻿using HandmadeShop.Common.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using NetSchool.Common;
 
 namespace HandmadeShop.Api.Configuration;
 

@@ -63,4 +63,12 @@ public static class Bootstrapper
         services.AddSingleton(settings);
         return services;
     }
+    
+    public static IServiceCollection AddCacheSettings(this IServiceCollection services,
+        IConfiguration configuration = null)
+    {
+        var settings = Common.Settings.Settings.Load<CacheSettings>(CacheSettings.SectionName, configuration);
+        services.AddSingleton(settings);
+        return services;
+    }
 }

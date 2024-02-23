@@ -11,6 +11,7 @@ using HandmadeShop.Services.RabbitMq;
 using HandmadeShop.Services.Settings;
 using HandmadeShop.UseCase.Account;
 using HandmadeShop.UseCase.Auth;
+using HandmadeShop.UseCase.Basket;
 using HandmadeShop.UseCase.Review;
 using HandmadeShop.UserCase.Catalog;
 
@@ -52,6 +53,7 @@ public static class DependencyInjection
             .AddCatalogService()
             .AddReviewService()
             .AddCacheService()
+            .AddBasketService()
             ;
 
         services.AddTransient<IIdentityService, IdentityService>();

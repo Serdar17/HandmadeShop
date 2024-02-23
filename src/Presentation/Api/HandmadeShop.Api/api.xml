@@ -479,6 +479,66 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.BasketController">
+            <summary>
+            Basket controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.BasketController"/>
+            </summary>
+            <param name="mapper"></param>
+            <param name="sender"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.AddCartAsync(HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest)">
+            <summary>
+            Add product to basket
+            </summary>
+            <param name="request">AddCartRequest</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.GetUserBasketAsync">
+            <summary>
+            Get user basket
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest">
+            <summary>
+            Add cart request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest.ProductId">
+            <summary>
+            Product id
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest">
             <summary>
             Create product request
@@ -894,11 +954,6 @@
         <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.Rating">
             <summary>
             Rating
-            </summary>
-        </member>
-        <member name="P:HandmadeShop.Api.Controllers.Review.Models.ReviewRequest.Images">
-            <summary>
-            Review images
             </summary>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.Models.ReviewRequestValidator">
