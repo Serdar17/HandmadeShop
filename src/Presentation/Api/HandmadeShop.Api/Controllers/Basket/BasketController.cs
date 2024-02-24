@@ -4,6 +4,8 @@ using HandmadeShop.Api.Controllers.Basket.Models;
 using HandmadeShop.Common.Extensions;
 using HandmadeShop.SharedModel.Basket.Models;
 using HandmadeShop.UseCase.Basket.Commands.AddCart;
+using HandmadeShop.UseCase.Basket.Commands.DeleteCart;
+using HandmadeShop.UseCase.Basket.Queries.GetBasketData;
 using HandmadeShop.UseCase.Basket.Queries.GetUserBasket;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -70,6 +72,49 @@ public class BasketController : ControllerBase
     {
         var query = new GetUserBasketQuery();
         var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
+
+    /// <summary>
+    /// Get basket data
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("all")]
+    [ProducesResponseType(typeof(CartModel), 200)]
+    public async Task<IResult> GetBasketDataAsync()
+    {
+        var query = new GetBasketDataQuery();
+        var result = await _sender.Send(query);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
+    
+    // [HttpPut]
+    // [ProducesResponseType(typeof(CartItemModel), 200)]
+    // public async Task<IResult> UpdateCartItemAsync([FromBody]  )
+
+    /// <summary>
+    /// Delete cart item form basket
+    /// </summary>
+    /// <param name="productId">Unique product id</param>
+    /// <returns></returns>
+    [HttpDelete("{productId:guid}")]
+    [ProducesResponseType(typeof(BasketModel), 200)]
+    public async Task<IResult> DeleteCartAsync([FromRoute] Guid productId)
+    {
+        var command = new DeleteCartCommand(productId);
+        var result = await _sender.Send(command);
 
         if (result.IsSuccess)
         {
