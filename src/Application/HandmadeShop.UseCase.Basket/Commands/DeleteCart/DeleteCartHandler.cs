@@ -49,7 +49,7 @@ internal sealed class DeleteCartHandler : ICommandHandler<DeleteCartCommand, Bas
             data.Items.Remove(item);
         }
 
-        await _cache.PutAsync(userId.ToString(), item, cancellationToken: cancellationToken);
+        await _cache.PutAsync(userId.ToString(), data, cancellationToken: cancellationToken);
         model.BasketProducts = data.Items.Select(x => x.ProductId).ToList();
         return model;
     }
