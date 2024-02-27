@@ -2,7 +2,6 @@
 using HandmadeShop.Common.Exceptions;
 using HandmadeShop.Common.Responses;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using NetSchool.Common;
 
 namespace HandmadeShop.Common.Extensions;
 

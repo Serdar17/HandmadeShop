@@ -12,6 +12,8 @@ public interface IAppDbContext : IDisposable
     DbSet<User> Users { get; set; }
     
     DbSet<UserLike> UserLikes { get; set; }
+    DbSet<Order> Orders { get; set; }
+    DbSet<Buyer> Buyers { get; set; }
 
     Task SaveAsync(CancellationToken cancellationToken = default);
 }

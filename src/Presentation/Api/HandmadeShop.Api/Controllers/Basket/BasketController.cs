@@ -5,6 +5,7 @@ using HandmadeShop.Common.Extensions;
 using HandmadeShop.SharedModel.Basket.Models;
 using HandmadeShop.UseCase.Basket.Commands.AddCart;
 using HandmadeShop.UseCase.Basket.Commands.DeleteCart;
+using HandmadeShop.UseCase.Basket.Commands.UpdateCartItem;
 using HandmadeShop.UseCase.Basket.Queries.GetBasketData;
 using HandmadeShop.UseCase.Basket.Queries.GetUserBasket;
 using MediatR;
@@ -99,10 +100,26 @@ public class BasketController : ControllerBase
 
         return result.ToProblemDetails();
     }
-    
-    // [HttpPut]
-    // [ProducesResponseType(typeof(CartItemModel), 200)]
-    // public async Task<IResult> UpdateCartItemAsync([FromBody]  )
+
+    /// <summary>
+    /// Update cart item endpoint
+    /// </summary>
+    /// <param name="request">Update cart item request</param>
+    /// <returns></returns>
+    [HttpPut]
+    [ProducesResponseType(typeof(CartItemModel), 200)]
+    public async Task<IResult> UpdateCartItemAsync([FromBody] UpdateCartItemRequest request)
+    {
+        var command = new UpdateCartItemCommand(_mapper.Map<UpdateCartItemModel>(request));
+        var result = await _sender.Send(command);
+
+        if (result.IsSuccess)
+        {
+            return Results.Ok(result.Value);
+        }
+
+        return result.ToProblemDetails();
+    }
 
     /// <summary>
     /// Delete cart item form basket

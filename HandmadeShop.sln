@@ -91,6 +91,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.Services.Cache
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.UseCase.Basket", "src\Application\HandmadeShop.UseCase.Basket\HandmadeShop.UseCase.Basket.csproj", "{7CAEF983-3EFC-4338-8724-27AFD38F2F63}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandmadeShop.UseCase.Order", "src\Application\HandmadeShop.UseCase.Order\HandmadeShop.UseCase.Order.csproj", "{ED1AECA6-6FF4-4465-949F-9B4CD183E45F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,7 @@ Global
 		{17CA7526-90C2-4C9C-B840-D26DAB6E0C5E} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 		{FC4636F4-4429-4A9F-88FF-74A76D6B075E} = {D3E9D04F-E6E0-42C6-AA76-896C469D3243}
 		{7CAEF983-3EFC-4338-8724-27AFD38F2F63} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
+		{ED1AECA6-6FF4-4465-949F-9B4CD183E45F} = {C9952364-11EB-48D7-B130-6DAAD2EBD881}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B811F0FF-3716-4B1B-960B-0E2605026B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -246,5 +249,9 @@ Global
 		{7CAEF983-3EFC-4338-8724-27AFD38F2F63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CAEF983-3EFC-4338-8724-27AFD38F2F63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CAEF983-3EFC-4338-8724-27AFD38F2F63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1AECA6-6FF4-4465-949F-9B4CD183E45F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1AECA6-6FF4-4465-949F-9B4CD183E45F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1AECA6-6FF4-4465-949F-9B4CD183E45F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1AECA6-6FF4-4465-949F-9B4CD183E45F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

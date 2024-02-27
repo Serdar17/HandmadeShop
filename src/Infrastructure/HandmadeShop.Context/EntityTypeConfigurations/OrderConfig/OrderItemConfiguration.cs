@@ -14,5 +14,6 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.Property(x => x.Price).IsRequired();
         builder.Property(x => x.Quantity).IsRequired();
         builder.Property(x => x.ProductId).IsRequired();
+        builder.Property(x => x.ImagePath).HasMaxLength(250);
     }
 }

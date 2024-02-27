@@ -14,7 +14,7 @@ public class Order : BaseEntity
     /// </summary>
     public Address Address { get; set; }
 
-    public OrderStatus OrderStatus { get; set; }
+    public OrderStatus OrderStatus { get; set; } = OrderStatus.Pending;
 
     public int BuyerId { get; set; }
     public virtual Buyer Buyer { get; set; }

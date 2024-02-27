@@ -12,6 +12,7 @@ using HandmadeShop.Services.Settings;
 using HandmadeShop.UseCase.Account;
 using HandmadeShop.UseCase.Auth;
 using HandmadeShop.UseCase.Basket;
+using HandmadeShop.UseCase.Order;
 using HandmadeShop.UseCase.Review;
 using HandmadeShop.UserCase.Catalog;
 
@@ -54,6 +55,7 @@ public static class DependencyInjection
             .AddReviewService()
             .AddCacheService()
             .AddBasketService()
+            .AddOrderService()
             ;
 
         services.AddTransient<IIdentityService, IdentityService>();

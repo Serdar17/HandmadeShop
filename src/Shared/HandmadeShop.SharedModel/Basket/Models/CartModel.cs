@@ -6,6 +6,6 @@ public class CartModel
     public List<CartItemModel> Items { get; set; } = new();
 
     public double TotalPrice => Items
-        .Select(x => x.HasDiscount ? x.DiscountPrice : x.Price)
+        .Select(x => x.HasDiscount ? x.DiscountPrice * x.Quantity : x.Price * x.Quantity)
         .Sum();
 }

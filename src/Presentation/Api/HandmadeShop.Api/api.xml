@@ -509,6 +509,26 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.GetBasketDataAsync">
+            <summary>
+            Get basket data
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.UpdateCartItemAsync(HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest)">
+            <summary>
+            Update cart item endpoint
+            </summary>
+            <param name="request">Update cart item request</param>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.BasketController.DeleteCartAsync(System.Guid)">
+            <summary>
+            Delete cart item form basket
+            </summary>
+            <param name="productId">Unique product id</param>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequest">
             <summary>
             Add cart request
@@ -537,6 +557,41 @@
         <member name="M:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestProfile.#ctor">
             <summary>
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.AddCartRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest">
+            <summary>
+            Update cart item model
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest.ProductId">
+            <summary>
+            Product id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest.Quantity">
+            <summary>
+            Quantity
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Basket.Models.UpdateCartItemRequestProfile"/>
             </summary>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest">
@@ -875,6 +930,84 @@
             <param name="productId">Unique product id</param>
             <param name="request">Delete product image request</param>
             <returns></returns>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.AddressRequest">
+            <summary>
+            Address request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.AddressRequest.Country">
+            <summary>
+            Country
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.AddressRequest.City">
+            <summary>
+            City
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.AddressRequest.ExactAddress">
+            <summary>
+            Exact address
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest">
+            <summary>
+            Create order request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest.Buyer">
+            <summary>
+            Buyer
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest.Order">
+            <summary>
+            Order model
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.OrderController">
+            <summary>
+            Order controller
+            </summary>
+            <response code="400">Bad Request</response>;
+            <response code="401">Unauthorized</response>;
+            <response code="403">Forbidden</response>;
+            <response code="404">Not Found</response>;
+            <response code="409">Conflict</response>;
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.#ctor(MediatR.ISender,AutoMapper.IMapper)">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.OrderController"/>
+            </summary>
+            <param name="sender"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.CreateOrderAsync(HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest)">
+            <summary>
+            Create order 
+            </summary>
+            <param name="request">Create order request</param>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest">
             <summary>

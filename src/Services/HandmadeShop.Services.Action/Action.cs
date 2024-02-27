@@ -20,7 +20,7 @@ public class Action : IAction
 
     public async Task SendEmail(EmailModel email)
     {
-        _logger.LogInformation("Сообщение было отправлено {@email}", email);
+        _logger.LogInformation("The message {@email} was sent to the queue", email);
         await _rabbitMq.PushAsync(RabbitMqTaskQueueNames.SendEmail, email);
     }
 }

@@ -12,6 +12,8 @@ public class AppDbContext : IdentityDbContext<User,  UserRole, Guid>, IAppDbCont
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Like> Likes { get; set; }
     public DbSet<UserLike> UserLikes { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Buyer> Buyers { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {

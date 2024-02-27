@@ -1,6 +1,6 @@
-﻿namespace HandmadeShop.Domain;
+﻿namespace HandmadeShop.SharedModel.Orders.Models;
 
-public class Address
+public class AddressModel
 {
     public string Country { get; set; }
     public string City { get; set; }

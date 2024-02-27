@@ -41,6 +41,7 @@
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Account\HandmadeShop.UseCase.Account.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Basket\HandmadeShop.UseCase.Basket.csproj" />
+      <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Order\HandmadeShop.UseCase.Order.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UseCase.Review\HandmadeShop.UseCase.Review.csproj" />
       <ProjectReference Include="..\..\..\Application\HandmadeShop.UserCase.Catalog\HandmadeShop.UserCase.Catalog.csproj" />
       <ProjectReference Include="..\..\..\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj" />
