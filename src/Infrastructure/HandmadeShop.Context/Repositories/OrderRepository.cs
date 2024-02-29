@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Domain;
+﻿using System.Linq.Expressions;
+using HandmadeShop.Domain;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,19 @@ public class OrderRepository : IOrderRepository
         return await Task.FromResult(_context.Orders.AsQueryable());
     }
 
+    public async Task<IQueryable<Order>> GetAllAsync(Expression<Func<Order, bool>> predicate)
+    {
+        return _context.Orders
+            .Include(x => x.Buyer)
+            .Include(x => x.Items)
+            .Where(predicate);
+    }
+
     public async Task<Order?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await _context.Orders
+            .Include(x => x.Buyer)
+            .Include(x => x.Items)
             .FirstOrDefaultAsync(x => x.Uid == id, cancellationToken: cancellationToken);
     }
 

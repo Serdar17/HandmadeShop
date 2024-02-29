@@ -1,8 +1,7 @@
-﻿namespace NetSchool.Common;
-
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
+
+namespace HandmadeShop.Common.Extensions;
 
 public static class ObjectJsonExtension
 {

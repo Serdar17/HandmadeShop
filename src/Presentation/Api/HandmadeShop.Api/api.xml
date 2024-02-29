@@ -1009,6 +1009,19 @@
             </summary>
             <param name="request">Create order request</param>
         </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.GetOrdersAsync">
+            <summary>
+            Get orders
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.GetOrderDetailsAsync(System.Guid)">
+            <summary>
+            Get order details by id
+            </summary>
+            <param name="orderId">Unique order id</param>
+            <returns></returns>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest">
             <summary>
             Add favorite request

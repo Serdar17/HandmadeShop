@@ -5,20 +5,26 @@ using HandmadeShop.SharedModel.Orders.Models;
 
 namespace HandmadeShop.UseCase.Order.Models;
 
-public class CreateOrderProfile : Profile
+public class OrderModelProfile : Profile
 {
-    public CreateOrderProfile()
+    public OrderModelProfile()
     {
-        CreateMap<BuyerModel, Buyer>();
+        CreateMap<BuyerModel, Buyer>()
+            .ReverseMap();
         
-        CreateMap<OrderModel, Domain.Order>();
+        CreateMap<OrderItem, OrderItemModel>()
+            .ReverseMap();
+        
+        CreateMap<OrderModel, Domain.Order>()
+            .ReverseMap();
 
-        CreateMap<AddressModel, Address>();
+        CreateMap<AddressModel, Address>()
+            .ReverseMap();
         
         CreateMap<CartItem, OrderItem>()
             .ForMember(x => x.ProductName, opt => opt.MapFrom(x => x.Name))
             .ForMember(x => x.Price, opt => opt.MapFrom(x => x.HasDiscount ? x.DiscountPrice : x.Price))
-            .ForMember(x => x.ImagePath, opt => opt.MapFrom(x => x.ImageUrl));
-        
+            .ForMember(x => x.ImagePath, opt => opt.MapFrom(x => x.ImageUrl))
+            .ReverseMap();
     }
 }

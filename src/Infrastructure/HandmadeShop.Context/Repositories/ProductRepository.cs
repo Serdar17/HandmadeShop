@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Domain;
+﻿using System.Linq.Expressions;
+using HandmadeShop.Domain;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,11 @@ public class ProductRepository : IProductRepository
     }
 
     public Task<IQueryable<Product>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IQueryable<Product>> GetAllAsync(Expression<Func<Product, bool>> predicate)
     {
         throw new NotImplementedException();
     }

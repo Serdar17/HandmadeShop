@@ -50,6 +50,7 @@ internal sealed class CreateOrderHandler : ICommandHandler<CreateOrderCommand>
 
         var order = _mapper.Map<Domain.Order>(request.Model.Order);
         var buyer = _mapper.Map<Buyer>(request.Model.Buyer);
+        buyer.UserId = userId;
         var orderItems = _mapper.Map<IEnumerable<OrderItem>>(cart.Items);
         order.Buyer = buyer;
         order.Items = orderItems.ToList();

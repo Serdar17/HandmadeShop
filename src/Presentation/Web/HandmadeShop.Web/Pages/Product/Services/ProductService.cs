@@ -32,7 +32,7 @@ public class ProductService : IProductService
             return Result<IEnumerable<CategoryModel>>.Success(model);
         }
         
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ProductModel>> GetProductByIdAsync(Guid id)
@@ -54,7 +54,7 @@ public class ProductService : IProductService
 
         }
         
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<PagedList<ProductModel>?>> GetProductsByQueryAsync(ProductQueryModel query)
@@ -70,7 +70,7 @@ public class ProductService : IProductService
                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ProductInfoModel?>> GetProductInfoModel(Guid id)
@@ -86,7 +86,7 @@ public class ProductService : IProductService
                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ProductModel>> CreateProductModel(ProductModel model)
@@ -110,7 +110,7 @@ public class ProductService : IProductService
                    };
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ProductModel>> UpdateProductModel(ProductModel model)
@@ -134,7 +134,7 @@ public class ProductService : IProductService
                    };
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result> DeleteProductAsync(Guid id)
@@ -142,11 +142,12 @@ public class ProductService : IProductService
         var url = $"{Settings.ApiRoot}/api/v1/products/{id}";
 
         var response = await _httpClient.DeleteAsync(url);
-
+        var content = await response.Content.ReadAsStringAsync();
+        
         if (response.IsSuccessStatusCode)
             return Result.Success();
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<IList<ProductImageModel>>> GetProductImagesAsync(Guid id)
@@ -165,7 +166,7 @@ public class ProductService : IProductService
             return Result<IList<ProductImageModel>>.Success(model);
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ProductImageModel>> UploadImageAsync(MultipartFormDataContent form, Guid id)
@@ -183,7 +184,7 @@ public class ProductService : IProductService
                    ?? new ProductImageModel();
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result> DeleteProductImageAsync(Guid id, DeleteProductImageModel model)
@@ -195,13 +196,14 @@ public class ProductService : IProductService
 
         var message = new HttpRequestMessage(HttpMethod.Delete, url) {Content = data};
         var response = await _httpClient.SendAsync(message);
+        var content = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
             return Result.Success();
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     private string GetUrlWithParams(string url, ProductQueryModel model)

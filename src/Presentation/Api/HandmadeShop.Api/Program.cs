@@ -34,7 +34,7 @@ app.UseAppHealthChecks();
 
 app.UseAppSwagger();
 
-// app.UseAppAuth();
+app.UseAppAuth();
 
 app.UseAppControllerAndViews();
 

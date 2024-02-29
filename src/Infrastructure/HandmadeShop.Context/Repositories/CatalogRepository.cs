@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Domain;
+﻿using System.Linq.Expressions;
+using HandmadeShop.Domain;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,11 @@ public class CatalogRepository : ICatalogRepository
     public async Task<IQueryable<Catalog>> GetAllAsync(CancellationToken cancellationToken = default)
     {
         return _context.Catalogs;
+    }
+
+    public Task<IQueryable<Catalog>> GetAllAsync(Expression<Func<Catalog, bool>> predicate)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<Catalog?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)

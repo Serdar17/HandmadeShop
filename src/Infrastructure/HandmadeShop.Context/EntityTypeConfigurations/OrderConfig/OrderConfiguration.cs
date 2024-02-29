@@ -13,7 +13,12 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(x => x.Description)
             .HasMaxLength(1000).IsRequired();
 
-        builder.OwnsOne(x => x.Address);
+        builder.OwnsOne(x => x.Address, add =>
+        {
+            add.Property(x => x.City).IsRequired();
+            add.Property(x => x.Country).IsRequired();
+            add.Property(x => x.ExactAddress).IsRequired();
+        });
 
         builder.HasOne(x => x.Buyer)
             .WithOne(x => x.Order)
