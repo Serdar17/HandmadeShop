@@ -32,6 +32,8 @@ public static class ResultExtensions
                 return StatusCodes.Status404NotFound;
             case ErrorType.Conflict:
                 return StatusCodes.Status409Conflict;
+            case ErrorType.Forbidden:
+                return StatusCodes.Status403Forbidden;
             default:    
                 return StatusCodes.Status500InternalServerError;
         }

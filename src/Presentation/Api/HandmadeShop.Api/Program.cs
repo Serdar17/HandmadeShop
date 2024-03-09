@@ -38,6 +38,8 @@ app.UseAppAuth();
 
 app.UseAppControllerAndViews();
 
+app.UseAppMiddlewares();
+
 DbInitializer.Execute(app.Services);
 //
 // DbSeeder.Execute(app.Services);
