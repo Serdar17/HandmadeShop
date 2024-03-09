@@ -37,11 +37,26 @@ internal sealed class GetOrdersHandler : IQueryHandler<GetOrdersQuery, IEnumerab
         {
             return UserErrors.NotFound(userId);
         }
-
-        var orders = await _unitOfWork.OrderRepository
-            .GetAllAsync(p => p.Buyer.UserId == userId);
         
-        var model =_mapper.Map<IEnumerable<OrderModel>>(orders.ToList());
+        var orderQuery = await _unitOfWork.OrderRepository
+            .GetAllAsync(p => p.Buyer.UserId == userId);
+
+        if (request.Model.Status != null)
+        {
+            if (request.Model.Status == OrderStatus.Pending)
+            {
+                orderQuery = orderQuery.Where(x => x.OrderStatus == OrderStatus.Pending ||
+                                                   x.OrderStatus == OrderStatus.Sent ||
+                                                   x.OrderStatus == OrderStatus.Shipped || 
+                                                   x.OrderStatus == OrderStatus.StockConfirmed);
+            }
+            else
+            {
+                orderQuery = orderQuery.Where(x => x.OrderStatus == request.Model.Status);
+            }
+        }
+        
+        var model =_mapper.Map<IEnumerable<OrderModel>>(orderQuery.ToList());
         return Result<IEnumerable<OrderModel>>.Success(model);
     }
 }

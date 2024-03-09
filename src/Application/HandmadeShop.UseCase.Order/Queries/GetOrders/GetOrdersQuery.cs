@@ -3,4 +3,4 @@ using HandmadeShop.SharedModel.Orders.Models;
 
 namespace HandmadeShop.UseCase.Order.Queries.GetOrders;
 
-public sealed record GetOrdersQuery : IQuery<IEnumerable<OrderModel>>;
+public sealed record GetOrdersQuery(OrderQueryModel Model) : IQuery<IEnumerable<OrderModel>>;

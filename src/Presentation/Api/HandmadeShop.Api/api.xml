@@ -42,6 +42,17 @@
             Add logger
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Configuration.MiddlewaresConfiguration">
+            <summary>
+            Extension for <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Configuration.MiddlewaresConfiguration.UseAppMiddlewares(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Extension method for <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>
+            </summary>
+            <param name="app"><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/></param>
+        </member>
         <member name="T:HandmadeShop.Api.Configuration.SwaggerConfiguration">
             <summary>
             Swagger configuration
@@ -951,6 +962,67 @@
             Exact address
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequest">
+            <summary>
+            Cancel order request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequest.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequestProfile"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest">
+            <summary>
+            
+            Confirm order id
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest.OrderId">
+            <summary>
+            Order id
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestValidator">
+            <summary>
+            Validation rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestValidator.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestValidator"/>
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestProfile"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequest">
             <summary>
             Create order request
@@ -986,6 +1058,26 @@
             Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.CreateOrderRequestProfile"/>
             </summary>
         </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequest">
+            <summary>
+            Order query request
+            </summary>
+        </member>
+        <member name="P:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequest.Status">
+            <summary>
+            Order status
+            </summary>
+        </member>
+        <member name="T:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequestProfile">
+            <summary>
+            Mapping rules for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequest"/>
+            </summary>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequestProfile.#ctor">
+            <summary>
+            Ctor for <see cref="T:HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequestProfile"/>
+            </summary>
+        </member>
         <member name="T:HandmadeShop.Api.Controllers.Order.OrderController">
             <summary>
             Order controller
@@ -1009,7 +1101,7 @@
             </summary>
             <param name="request">Create order request</param>
         </member>
-        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.GetOrdersAsync">
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.GetOrdersAsync(HandmadeShop.Api.Controllers.Order.Models.OrderQueryRequest)">
             <summary>
             Get orders
             </summary>
@@ -1021,6 +1113,18 @@
             </summary>
             <param name="orderId">Unique order id</param>
             <returns></returns>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.CancelOrderAsync(HandmadeShop.Api.Controllers.Order.Models.CancelOrderRequest)">
+            <summary>
+            Cancel order endpoint
+            </summary>
+            <param name="request">Cancel order request</param>
+        </member>
+        <member name="M:HandmadeShop.Api.Controllers.Order.OrderController.ConfirmOrderAsync(HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest)">
+            <summary>
+            Confirm order endpoint
+            </summary>
+            <param name="request">ConfirmOrderRequest</param>
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Review.Models.AddFavoriteRequest">
             <summary>

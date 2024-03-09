@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using HandmadeShop.Domain;
+﻿using HandmadeShop.Domain;
 
 namespace HandmadeShop.SharedModel.Orders.Models;
 
@@ -25,9 +24,9 @@ public class OrderModel
             OrderStatus.Pending => "Ожидание",
             OrderStatus.StockConfirmed => "Подтвержден запас",
             OrderStatus.Cancelled => "Отменен",
-            OrderStatus.Shipping => "Доставляется",
-            OrderStatus.Taken => "Получен",
-            OrderStatus.WaitingForSent => "Ожидает отправки",
+            OrderStatus.Shipped => "Доставлен",
+            OrderStatus.Accepted => "Получен",
+            OrderStatus.Sent => "Отправлен",
             _ => "Неизвестно"
         };
     }
