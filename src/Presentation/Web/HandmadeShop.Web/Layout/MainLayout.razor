@@ -1,4 +1,7 @@
 ﻿@using HandmadeShop.Web.Services
+@using HandmadeShop.Web.Pages.Basket.Services
+@using HandmadeShop.Web.TransferServices
+@implements IDisposable
 @inherits LayoutComponentBase
 @inject IConfigurationService ConfigurationService
 
@@ -47,26 +50,35 @@
            @*                  Immediate="true" *@
            @*                  AdornmentIcon="@Icons.Material.Filled.Search"  *@
            @*                  AdornmentColor="Color.Primary"/> *@
-   
+            
            <MudLink Href="/my/favorites">
                <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Style="color: white;" Size="Size.Medium"/>
            </MudLink>
+
+           <MudLink Href="/basket" Class="badge-container">
+              @if (BasketTransferService.Data is null || BasketTransferService.Data.BasketProducts.Count == 0)
+              {
+                  <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Style="color: white;" Size="Size.Medium"/>
+              }
+              else
+              {
+                  <MudBadge Content="@BasketTransferService.Data.BasketProducts.Count" Color="Color.Warning" Overlap="true" Bordered="true" Class="mx-6 my-4">
+                      <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart"
+                                     Style="color: white; width: 38px; height: 38px" 
+                                     Size="Size.Medium"/> 
+                  </MudBadge>
+              }
+           </MudLink>   
            
-           <MudLink Href="/cart">
-               <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" Style="color: white;" Size="Size.Medium"/>
-           </MudLink>
-           
+               
            
            <MudDivider Class="mt-2" Style="height: 70%;" DividerType="DividerType.Middle" Vertical="true" FlexItem="true" />
            
-
            <HeaderMenu/>
            <MudIconButton Icon="@(_isDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" 
                           @onclick="@ToggleDarkModeAsync" 
                           Color="Color.Inherit" 
                           Edge="Edge.End"/>
-                   
-
 
     </MudAppBar>
     <MudDrawer @bind-Open="_drawerOpen" Elevation="2">
@@ -87,50 +99,26 @@
 </MudScrollToTop>
 
 @code {
-
+    [Inject] BasketTransferService BasketTransferService { get; set; }
+    [Inject] IBasketService BasketService { get; set; }
     private string _inputStyles = $"background: {Colors.Blue.Lighten5};";
     private string _sizeStyles = "width: 400px; height: 50px";
-    public string TextValue { get; set; }
-    private bool _resetValueOnEmptyText;
-    private bool _coerceText;
-    private bool _coerceValue;
-    private string value1, value2;
-    private string[] states =
-    {
-        "Alabama", "Alaska", "American Samoa", "Arizona",
-        "Arkansas", "California", "Colorado", "Connecticut",
-        "Delaware", "District of Columbia", "Federated States of Micronesia",
-        "Florida", "Georgia", "Guam", "Hawaii", "Idaho",
-        "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky",
-        "Louisiana", "Maine", "Marshall Islands", "Maryland",
-        "Massachusetts", "Michigan", "Minnesota", "Mississippi",
-        "Missouri", "Montana", "Nebraska", "Nevada",
-        "New Hampshire", "New Jersey", "New Mexico", "New York",
-        "North Carolina", "North Dakota", "Northern Mariana Islands", "Ohio",
-        "Oklahoma", "Oregon", "Palau", "Pennsylvania", "Puerto Rico",
-        "Rhode Island", "South Carolina", "South Dakota", "Tennessee",
-        "Texas", "Utah", "Vermont", "Virgin Island", "Virginia",
-        "Washington", "West Virginia", "Wisconsin", "Wyoming",
-    };
-
-    private async Task<IEnumerable<string>> Search2(string value)
-    {
-        // In real life use an asynchronous function for fetching data from an api.
-        await Task.Delay(5);
-
-        // if text is null or empty, don't return values (drop-down will not open)
-        if (string.IsNullOrEmpty(value))
-            return new string[0];
-        return states.Where(x => x.Contains(value, StringComparison.InvariantCultureIgnoreCase));
-    }
+    private string TextValue;
+    private bool _processing;
     
     private bool _drawerOpen = true;
     private bool _isDarkMode;
     
+    
     protected override async Task OnInitializedAsync()
     {
+        _processing = true;
         _drawerOpen = await ConfigurationService.GetNavigationMenuVisibleAsync();
         _isDarkMode = await ConfigurationService.GetDarkModeAsync();
+        var data = (await BasketService.GetUserBasketAsync()).Value;
+        BasketTransferService.Data = data;
+        BasketTransferService.DataChanged += OnBasketChanged;
+        _processing = false;
     }
     
     private async Task DrawerToggleAsync()
@@ -145,8 +133,16 @@
         await ConfigurationService.SetDarkModeAsync(_isDarkMode);
     }
 
-    private async Task Search()
+    public void OnBasketChanged(object? sender, BasketModel model)
     {
-        Console.WriteLine("Search");
+        InvokeAsync(StateHasChanged);
     }
+
+    private void Search() { }
+
+    public void Dispose()
+    {
+        BasketTransferService.DataChanged -= OnBasketChanged;
+    }
+
 }

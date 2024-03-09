@@ -1,17 +1,21 @@
 ﻿<MudNavMenu>
-    <MudList Clickable="true">
-        @foreach (var catalog in _catalogs)
-        {
-            <MudListItem  Style="color: #594AE2" Href="@("/catalog/" + catalog.Name)">@catalog.Name</MudListItem>
-        }
-    </MudList>
+    @if (_catalogs is not null)
+    {
+        <MudList Clickable="true">
+            @foreach (var catalog in _catalogs)
+            {
+                <MudListItem Style="color: #594AE2" Href="@("/catalog/" + catalog.Name)">@catalog.Name</MudListItem>
+            }
+        </MudList>
+    }
+    
 </MudNavMenu>
 
 @code
 {
     [Inject] IProductService ProductService { get; set; }
     
-    private List<CategoryModel> _catalogs = new();
+    private List<CategoryModel>? _catalogs;
     
     private Color _color = Color.Dark;
 
@@ -28,7 +32,6 @@
     private void OnFocus()
     {
         _color = Color.Error;
-        Console.WriteLine("change color");
     }
 
     private void OnFocusOut()

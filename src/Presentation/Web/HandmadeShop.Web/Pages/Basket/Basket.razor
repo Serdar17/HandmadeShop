@@ -1,0 +1,85 @@
+﻿@page "/basket"
+@layout MainLayout
+@inherits BasketBase
+@attribute [Authorize]
+
+@if (Model is null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <h4 class="cart-title">@Title</h4>
+    
+    <MudGrid Class="mt-4" >
+        <MudItem xs="8">
+             @foreach (var item in Model.Items)
+             {
+                 <MudItem xs="12" Class="mb-5">
+                     <MudDivider/>
+                     
+                     <div class="mt-4">
+                         <div class="d-flex justify-content-between">
+                             <div class="d-flex">
+                                 <MudImage Src="/images/mony.jpg"
+                                           ObjectFit="ObjectFit.Cover"
+                                           class="rounded-lg"
+                                           Width="100" Height="100" Elevation="2"/>
+                             
+                                 <MudText Class="ml-4 cart-description" Typo="Typo.body1">@item.Name</MudText>
+                             </div>
+                             
+                             
+                             <div class="d-flex counter">
+                             
+                                 <MudNumericField T="int"
+                                                  Style="max-width: 70px;"
+                                                  HideSpinButtons="false"
+                                                  ValueChanged="@(async (e) => await Add(item, e))"
+                                                  Value="@item.Quantity"
+                                                  Variant="Variant.Outlined"
+                                                  Min="1"
+                                                  Max="@item.MaxQuantity"/>
+                             
+                             </div>
+                             
+                             
+                             <div class="d-flex flex-column">
+                                 @if (item.HasDiscount)
+                                 {
+                                     <div class="cart-price">@item.DiscountPrice ₽</div>
+                                     <div class="cart-discount_price">@item.Price ₽</div>
+                                 }
+                                 else
+                                 {
+                                     <div class="cart-price">@item.Price ₽</div>
+                                 }
+                             
+                             </div>
+                             
+                         </div>
+                         <div class="d-flex justify-content-end">
+                             <MudButton StartIcon="@Icons.Material.Outlined.Delete"
+                                        IconColor="Color.Error"
+                                        Size="Size.Small"
+                                        OnClick="@(async () => await DeleteFromBasket(item))">
+                                        
+                                 удалить
+                             </MudButton>
+                         </div>
+                     </div>
+                     
+                 </MudItem>
+             }
+             <MudDivider/>
+        </MudItem>
+       
+        <MudItem xs="4">
+            <CheckoutPrice Model="Model"/>
+        </MudItem>
+
+
+    </MudGrid>
+   
+    
+}
