@@ -10,10 +10,10 @@ public static class AppClients
         {
             new Client
             {
-                ClientId = "swagger",
+                ClientId = "handmade_shop_web_client",
                 ClientSecrets =
                 {
-                    new Secret("secret".Sha256())
+                    new Secret("A3F0811F2E934C4F1114CB693F7D785E".Sha256())
                 },
 
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
@@ -31,7 +31,7 @@ public static class AppClients
                 ClientId = "frontend",
                 ClientSecrets =
                 {
-                    new Secret("secret".Sha256())
+                    new Secret("A3F0811F2E934C4F1114CB693F7D785E".Sha256())
                 },
 
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
