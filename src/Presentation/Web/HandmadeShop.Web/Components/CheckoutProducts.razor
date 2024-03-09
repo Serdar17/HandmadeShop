@@ -1,0 +1,43 @@
+﻿
+<MudText Class="mt-7 mb-4" Typo="Typo.h5" Style="font-weight: bold">Товары в заказе</MudText>
+
+@foreach (var item in Model.Items)
+{
+    <MudItem xs="12" Class="mb-6">
+         <MudDivider/>
+         
+         <div class="mt-4">
+             <div class="d-flex justify-content-between align-items-center">
+                 <div class="d-flex align-items-center">
+                     <MudImage Src="/images/mony.jpg"
+                               ObjectFit="ObjectFit.Cover"
+                               class="rounded-lg"
+                               Width="100" Height="100" Elevation="2"/>
+                 
+                     <MudText Class="ml-4 cart-description" Typo="Typo.body1">@item.Quantity x @item.Name</MudText>
+                 </div>
+                 
+                 <div class="d-flex flex-column">
+                     @if (item.HasDiscount)
+                     {
+                         <div class="cart-price">@item.DiscountPrice ₽</div>
+                         <div class="cart-discount_price">@item.Price ₽</div>
+                     }
+                     else
+                     {
+                         <div class="cart-price">@item.Price ₽</div>
+                     }
+                 
+                 </div>
+                 
+             </div>
+         </div>
+         
+     </MudItem>
+}
+
+
+
+@code {
+    [Parameter] public CartModel Model { get; set; }
+}

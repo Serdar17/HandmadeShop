@@ -1,0 +1,57 @@
+﻿@page "/orders"
+@inherits OrdersBase
+@layout MainLayout
+
+<MudText Class="mt-4 mb-4" Style="font-weight: bold;" Typo="Typo.h5">@Title</MudText>
+
+
+<div class="d-flex mb-5">
+    
+    <MudButton Variant="@(IsCurrentStatus ? Variant.Filled : Variant.Outlined)"
+               Color="Color.Primary"
+               Class="mr-3"
+               OnClick="@(async () => await CurrentClick())">
+        Текущие
+    </MudButton>
+    
+    <MudButton Variant="@(IsPast ? Variant.Filled : Variant.Outlined)"
+               Color="Color.Primary"
+               Class="mr-3"
+               OnClick="@(async () => await PastClick())">
+        Прошлые
+    </MudButton>
+    
+    <MudButton Variant="@(IsCancelled ? Variant.Filled : Variant.Outlined)"
+               Color="Color.Primary"
+               OnClick="@(async () => await CancelledClick())">
+        Отмененные
+    </MudButton>
+</div>
+
+@if (Processing)
+{
+    <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <MudTable T="OrderModel" Items="@Orders" Hover="true" Breakpoint="Breakpoint.Sm" @ref="@MudTable">
+    
+        <HeaderContent>
+            <MudTh>Дата</MudTh>
+            <MudTh>Заказ#</MudTh>
+            <MudTh>Адрес</MudTh>
+            <MudTh>Сумма</MudTh>
+            <MudTh>Статус</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Дата">@context.CreatedAt.ToString("dd.MM.yyyy")</MudTd>
+            <MudTd DataLabel="Заказ#">@context.Id</MudTd>
+            <MudTd DataLabel="Адрес">@context.Address</MudTd>
+            <MudTd DataLabel="Сумма">@context.Sum ₽</MudTd>
+            <MudTd DataLabel="Статус">@context.GetStatus()</MudTd>
+            <MudTd><MudLink Href="@("/order/details" + $"/{context.Uid}")">Детали</MudLink></MudTd>
+        </RowTemplate>
+    </MudTable>
+
+}

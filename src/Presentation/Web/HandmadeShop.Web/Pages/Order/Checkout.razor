@@ -1,0 +1,95 @@
+﻿@page "/checkout"
+@inherits CheckoutBase
+@layout MainLayout
+
+
+@if (CartModel is null)
+{
+    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+}
+else
+{
+    <MudText Class="mt-4" Typo="Typo.h5" Style="font-weight: bold">Оформление заказа</MudText>
+    
+    <MudGrid Class="mt-4">
+        <MudItem xs="8">
+            <div class="d-flex justify-content-center">
+                <MudItem xs="7">
+                    <MudForm Model="Model" @ref="Form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+                
+                        <MudTextField @bind-Value="@Model.Buyer.Name"
+                                      For="@(() => Model.Buyer.Name)"
+                                      Class="mb-4"
+                                      Immediate="true"
+                                      Variant="Variant.Outlined"
+                                      Label="Имя"/>
+                
+                        <MudTextField @bind-Value="@Model.Buyer.PhoneNumber"
+                                      For="@(() => Model.Buyer.PhoneNumber)"
+                                      Immediate="true"
+                                      Class="mb-4"
+                                      Variant="Variant.Outlined"
+                                      Label="Номер телефона"/>
+                
+                        <MudTextField @bind-Value="@Model.Order.Address.ExactAddress"
+                                      For="@(() => Model.Order.Address.ExactAddress)"
+                                      Immediate="true"
+                                      Class="mb-4"
+                                      Variant="Variant.Outlined"
+                                      Label="Точный адресс"
+                                      Placeholder="Улица, номер дома/квартиры и т.п"/>
+                
+                        <MudTextField @bind-Value="@Model.Order.Address.City"
+                                      For="@(() => Model.Order.Address.City)"
+                                      Immediate="true"
+                                      Class="mb-4"
+                                      Variant="Variant.Outlined"
+                                      Label="Город"/>
+                
+                        <MudTextField @bind-Value="@Model.Order.Address.Country"
+                                      For="@(() => Model.Order.Address.Country)"
+                                      Immediate="true"
+                                      Class="mb-4"
+                                      Variant="Variant.Outlined"
+                                      Label="Страна"/>
+                
+                        <MudTextField @bind-Value="Model.Order.Description"
+                                      For="@(() => Model.Order.Description)"
+                                      Label="Комментарии"
+                                      Class="mb-4"
+                                      Variant="Variant.Outlined"
+                                      Placeholder="Введите комментарии к заказу"
+                                      Lines="5"/>
+                
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Primary"
+                                   Disabled="@(Processing)"
+                                   Size="Size.Large"
+                                   OnClick="@(async () => await Submit())"
+                                   Class="ml-auto">
+                
+                            @if (Processing)
+                            {
+                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                                <MudText Class="ms-2">Отправляем...</MudText>
+                            }
+                            else
+                            {
+                                <MudText>Заказать</MudText>
+                            }
+                        </MudButton>
+                    </MudForm>
+                </MudItem>
+            </div>
+            
+
+            <CheckoutProducts Model="CartModel"/>
+
+        </MudItem>  
+        
+        <MudItem xs="4">
+            <CheckoutPrice Model="CartModel" DisabledSubmit="true"/>
+        </MudItem>
+        
+    </MudGrid>
+}

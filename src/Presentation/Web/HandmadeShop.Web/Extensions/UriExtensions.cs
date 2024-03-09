@@ -5,7 +5,7 @@ namespace HandmadeShop.Web.Extensions;
 public static class UriExtensions
 {
     /// <summary>
-    /// Adds the specified parameter to the Query String.
+    /// Add the specified parameter to the Query String.
     /// </summary>
     /// <param name="url"></param>
     /// <param name="paramName">Name of the parameter to add.</param>

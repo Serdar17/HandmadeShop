@@ -1,0 +1,48 @@
+﻿
+<MudPaper Outlined="true">
+    <div class="checkout-block">
+        <div class="d-flex justify-content-between">
+            <span>@Model.Items.Count @StringHelper.Decline("товар", Model.Items.Count) на сумму</span>
+            <span class="cart-sum_price">@Model.TotalPrice ₽</span>
+        </div>
+                    
+        <div class="cart-discount d-flex justify-content-between mt-4">
+            <span>Скидка</span>
+            <span>0 ₽</span>
+        </div>
+                    
+        <MudDivider Class="mt-4"/>
+                    
+        <div class="cart-total_price d-flex justify-content-between mt-4">
+            <span>Итого:</span>
+            <span class="cart-total_price">@Model.TotalPrice ₽</span>
+        </div>
+        
+        @if (!DisabledSubmit)
+        {
+            <div class="d-flex mt-4 justify-content-center">
+                <MudButton Class="rounded-xl"
+                           FullWidth="true"
+                           Color="Color.Primary"
+                           Variant="Variant.Filled"
+                           OnClick="@GoToOrder">
+                    Заказать
+                </MudButton> 
+            </div>
+        }
+                    
+    </div>
+                
+</MudPaper>
+
+
+@code {
+    [Parameter] public CartModel Model { get; set; }
+    [Parameter] public bool DisabledSubmit { get; set; }
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    private void GoToOrder()
+    {
+        NavigationManager.NavigateTo("/checkout");
+    }
+}

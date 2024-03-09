@@ -17,13 +17,6 @@ public static class ValidationRuleExtensions
             .Name(nameof(Catalog), max: 50);
     }
     
-    // public static IRuleBuilderOptions<T, string> IsRequired<T>(this IRuleBuilder<T, string> ruleBuilder)
-    // {
-    //     return ruleBuilder
-    //         .NotEmpty().WithMessage("Field is required");
-    // }
-
-
     public static IRuleBuilderOptions<T, string> Name<T>(this IRuleBuilder<T, string> ruleBuilder, string type,
         int min = 1, int max = 100)
     {

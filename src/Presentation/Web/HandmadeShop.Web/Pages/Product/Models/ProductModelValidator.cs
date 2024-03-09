@@ -23,7 +23,7 @@ public class ProductModelValidator : AbstractValidator<ProductModel>
         RuleFor(x => x.Price)
             .GreaterThan(0);
 
-        RuleFor(x => x.DiscountPercentage)
+        RuleFor(x => x.DiscountPrice)
             .NotEmpty()
             .When(x => x.HasDiscount)
             .GreaterThan(0);
