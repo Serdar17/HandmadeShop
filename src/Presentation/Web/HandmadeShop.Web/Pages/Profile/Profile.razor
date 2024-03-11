@@ -6,104 +6,103 @@
 
 @* TODO: Разбить на компоненты *@
 <MudStack>
-    <MudPaper Class="mt-4 mb-8" Width="90%" Height="400px" Elevation="0">
         <MudText Class="mb-4" Typo="Typo.h4">Мой профиль</MudText>
         <MudTabs Class="mb-8" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 mb-8">
             <MudTabPanel Text="Личный данные">
                 <MudGrid>
                     @if (Model is null)
                     {
-                        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+                        <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true" />
                     }
                     else
                     {
-                         <MudItem xs="3">
-                        @if (Model.AvatarUrl is not null)
-                        {
-                            <div class="d-flex justify-content-center">
-                                <MudImage ObjectFit="ObjectFit.Cover"
-                                          ObjectPosition="ObjectPosition.Center"
-                                          Class="rounded-circle" 
-                                          Width="200" Height="200" 
-                                          Src="@Model.DownloadPath"/>
-                                
-                            </div>
-                            
-                            
-                            <div class="d-flex justify-content-center mt-4">
-                                <MudButton Variant="Variant.Filled"
-                                           StartIcon="@Icons.Material.Filled.Delete"
-                                           Color="Color.Error"
-                                           Class="justify-content-center"
-                                           OnClick="@DeleteAsync">
-                                    Удалить
-                                </MudButton>
-
-                            </div>
-                        }
-                        else
-                        {
-                            if (Avatar is not null)
+                        <MudItem xs="3">
+                            @if (Model.AvatarUrl is not null)
                             {
                                 <div class="d-flex justify-content-center">
-                                    <div class="d-inline-block position-relative">
-                                        <MudImage ObjectFit="ObjectFit.Cover"
-                                                  Class="rounded-circle" 
-                                                  Width="200" Height="200" 
-                                                  Src="@DataUrl"/>
-                                                                        
-                                        <div class="remove-image" @onclick="@(RemoveFile)">
-                                            <span class="remove-image-icon">&times;</span>
-                                        </div>
-                                    </div>
+                                    <MudImage ObjectFit="ObjectFit.Cover"
+                                              ObjectPosition="ObjectPosition.Center"
+                                              Class="rounded-circle" 
+                                              Width="200" Height="200" 
+                                              Src="@Model.DownloadPath"/>
+                                
                                 </div>
-                                
-                                <div class="d-flex justify-content-center">
-                                    <MudButton OnClick="@UploadAsync"
-                                               Disabled="@Processing"
-                                               Class="mt-4"
-                                               Color="Color.Primary"
-                                               Variant="Variant.Filled">
-                                        @if (Processing)
-                                        {
-                                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
-                                            <MudText Class="ms-2">Загружается...</MudText>
-                                        }
-                                        else
-                                        {
-                                            <MudText Class="ms-2">Загрузить</MudText>
-                                        }
-
+                            
+                            
+                                <div class="d-flex justify-content-center mt-4">
+                                    <MudButton Variant="Variant.Filled"
+                                               StartIcon="@Icons.Material.Filled.Delete"
+                                               Color="Color.Error"
+                                               Class="justify-content-center"
+                                               OnClick="@DeleteAsync">
+                                        Удалить
                                     </MudButton>
-                                   
-                                </div> 
-                                
+
+                                </div>
                             }
                             else
                             {
-                                <div class="d-flex">
-                                    <MudFileUpload T="IBrowserFile"
-                                                   Class="d-flex justify-content-center align-items-center"
-                                                   Accept=".png, .jpg, .svg, .gif"
-                                                   MaximumFileCount="1"
-                                                   OnFilesChanged="UploadFiles">
-                                        <ButtonTemplate>
-                                            <MudIconButton HtmlTag="label"
-                                                           Color="Color.Info"
-                                                           Icon="@Icons.Material.Filled.PhotoCamera"
-                                                           for="@context.Id">
-                                            </MudIconButton>
-                                        </ButtonTemplate>
+                                if (Avatar is not null)
+                                {
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-inline-block position-relative">
+                                            <MudImage ObjectFit="ObjectFit.Cover"
+                                                      Class="rounded-circle" 
+                                                      Width="200" Height="200" 
+                                                      Src="@DataUrl"/>
+                                                                        
+                                            <div class="remove-image" @onclick="@(RemoveFile)">
+                                                <span class="remove-image-icon">&times;</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="d-flex justify-content-center">
+                                        <MudButton OnClick="@UploadAsync"
+                                                   Disabled="@Processing"
+                                                   Class="mt-4"
+                                                   Color="Color.Primary"
+                                                   Variant="Variant.Filled">
+                                            @if (Processing)
+                                            {
+                                                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                                                <MudText Class="ms-2">Загружается...</MudText>
+                                            }
+                                            else
+                                            {
+                                                <MudText Class="ms-2">Загрузить</MudText>
+                                            }
+
+                                        </MudButton>
+                                   
+                                    </div> 
+                                
+                                }
+                                else
+                                {
+                                    <div class="d-flex">
+                                        <MudFileUpload T="IBrowserFile"
+                                                       Class="d-flex justify-content-center align-items-center"
+                                                       Accept=".png, .jpg, .svg, .gif"
+                                                       MaximumFileCount="1"
+                                                       OnFilesChanged="UploadFiles">
+                                            <ButtonTemplate>
+                                                <MudIconButton HtmlTag="label"
+                                                               Color="Color.Info"
+                                                               Icon="@Icons.Material.Filled.PhotoCamera"
+                                                               for="@context.Id">
+                                                </MudIconButton>
+                                            </ButtonTemplate>
                                        
-                                    </MudFileUpload>
+                                        </MudFileUpload>
                                     
-                                </div>
+                                    </div>
+                                }
                             }
-                        }
-                    </MudItem>
-                    <MudItem xs="9">
-                        <UpdateProfileInfo Model="@Model"/>
-                    </MudItem>
+                        </MudItem>
+                        <MudItem xs="9">
+                            <UpdateProfileInfo Model="@Model"/>
+                        </MudItem>
                     }
                    
                 </MudGrid>
@@ -113,37 +112,9 @@
             </MudTabPanel>
     
             <MudTabPanel Text="Смена пароля">
+                
                 <MudItem xs="6" sm="4">
-                    <MudAlert Severity="Severity.Error" Class="@(ShowErrors ? "mb-3 d-block" : "d-none")">
-                        @ErrorDetail
-                    </MudAlert>
-    
-                    <MudTextField @bind-Value="ResetPwdModel.Password" For="@(() => ResetPwdModel.Password)"
-                                  Label="Password"
-                                  InputType="@PasswordInput"
-                                  Adornment="Adornment.End"
-                                  AdornmentIcon="@PasswordInputIcon"
-                                  Required="true"
-                                  RequiredError="Password is required!"
-                                  OnAdornmentClick="@(() => ChangeVisibility(PasswordType.Password))"/>
-    
-                    <MudTextField @bind-Value="ResetPwdModel.ConfirmPassword" For="@(() => ResetPwdModel.ConfirmPassword)"
-                                  Label="Confirm Password"
-                                  InputType="@PasswordConfirmInput"
-                                  Adornment="Adornment.End"
-                                  AdornmentIcon="@PasswordConfirmInputIcon"
-                                  Required="true"
-                                  RequiredError="Password is required!"
-                                  OnAdornmentClick="@(() => ChangeVisibility(PasswordType.ConfirmPassword))"
-                                  Validation="@(new Func<string, string>(PasswordMatch))"/>
-    
-                    <MudButton Variant="Variant.Filled"
-                               Color="Color.Primary"
-                               Disabled="@(!IsSuccess)"
-                               Size="Size.Large"
-                               OnClick="@(async () => await OnValidSubmit())"
-                               Class="ml-auto mt-4">Сохранить</MudButton>
-                                    
+                    <ChangePassword />
                 </MudItem>
 
             </MudTabPanel>
@@ -152,10 +123,9 @@
                 <MyProducts/>
             </MudTabPanel>
             
-            <MudTabPanel Text="Адреса доставки">
+            <MudTabPanel Text="Заказы товаров">
                 <MudText>Content Three</MudText>
             </MudTabPanel>
             
         </MudTabs>
-    </MudPaper>
 </MudStack>

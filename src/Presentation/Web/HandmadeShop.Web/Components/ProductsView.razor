@@ -1,17 +1,26 @@
 ﻿@using HandmadeShop.SharedModel.Catalogs.Models
 @using HandmadeShop.Web.Pages.Product
 
-<MudGrid Spacing="5" Justify="Justify.FlexStart" Class="mt-8">
-    @foreach (var model in PagedList.Items)
-    {
-        <MudItem>
-            <ProductCard Model="@model" IsEditable="false"/>    
-        </MudItem>
-    }
-</MudGrid>
+@if (PagedList.Items.Count == 0)
+{
+    <MudText Typo="Typo.body1" Style="font-weight: bold;">К сожалению, товаров с такими параметрами не найдено. Попробуйте изменить условие поиска</MudText>
+}
+else
+{
+    <MudGrid Spacing="5" Justify="Justify.FlexStart" Class="mt-8">
+        @foreach (var model in PagedList.Items)
+        {
+            <MudItem>
+                <ProductCard Model="@model" IsEditable="false"/>    
+            </MudItem>
+        }
+    </MudGrid> 
+    
+}
+
 
 @code {
     [Parameter] public PagedList<ProductModel> PagedList { get; set; }
-    [CascadingParameter] public List<Guid> FavoriteProducts { get; set; } 
+    [CascadingParameter] public List<Guid> FavoriteProducts { get; set; }
     [CascadingParameter] public Catalog? Catalog { get; set; }
 }

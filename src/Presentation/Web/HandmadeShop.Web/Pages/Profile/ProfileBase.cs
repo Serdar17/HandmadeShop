@@ -1,5 +1,4 @@
-﻿using HandmadeShop.Web.Common;
-using HandmadeShop.Web.Components;
+﻿using HandmadeShop.Web.Components;
 using HandmadeShop.Web.Extensions;
 using HandmadeShop.Web.Pages.Auth.Services;
 using HandmadeShop.Web.Pages.Profile.Models;
@@ -24,21 +23,10 @@ public class ProfileBase : ComponentBase
     [Inject] private IDialogService DialogService { get; set; }
     
     protected AccountInfoModel? Model;
-    protected ResetProfilePasswordModel ResetPwdModel = new();
-    protected bool IsSuccess { get; set; }
     protected bool Processing { get; set; }
-    
-    protected bool PasswordVisibility;
-    protected bool PasswordConfirmVisibility;
-    protected InputType PasswordInput = InputType.Password;
-    protected InputType PasswordConfirmInput = InputType.Password;
-    protected string PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-    protected string PasswordConfirmInputIcon = Icons.Material.Filled.VisibilityOff;
 
     private StreamContent stream;
 
-    protected string ErrorDetail = string.Empty;
-    protected bool ShowErrors;
     protected string DataUrl = string.Empty;
 
     protected override async Task OnInitializedAsync()
@@ -49,72 +37,6 @@ public class ProfileBase : ComponentBase
             await AuthService.Logout();
 
         Model = result.Value;
-    }
-
-    protected void ChangeVisibility(PasswordType type)
-    {
-        if (type == PasswordType.Password)
-        {
-            TogglePasswordVisibility(ref PasswordVisibility, ref PasswordInput, ref PasswordInputIcon);
-        }
-        else
-        {
-            TogglePasswordVisibility(
-                ref PasswordConfirmVisibility, 
-                ref PasswordConfirmInput, 
-                ref PasswordConfirmInputIcon);
-        }
-    }
-    
-    protected void TogglePasswordVisibility(ref bool visibility, ref InputType input, ref string icon)
-    {
-        if (visibility)
-        {
-            visibility = false;
-            icon = Icons.Material.Filled.VisibilityOff;
-            input = InputType.Password;
-        }
-        else
-        {
-            visibility = true;
-            icon = Icons.Material.Filled.Visibility;
-            input = InputType.Text;
-        }
-    }
-
-    protected async Task OnValidSubmit()
-    {
-        if (ResetPwdModel.Password != ResetPwdModel.ConfirmPassword)
-        {
-            ShowErrors = true;
-            ErrorDetail = "Пароли должны совпадать!!!";
-            return;
-        }
-        
-        var result = await AuthService.ResetProfilePasswordAsync(ResetPwdModel);
-
-        if (result.IsSuccess)
-        {
-            Snackbar.Add("Пароль успешно изменен!", Severity.Success);
-            ResetPwdModel.Password = string.Empty;
-            ResetPwdModel.ConfirmPassword = string.Empty;
-            return;
-        }
-        
-        ShowErrors = true;
-        ErrorDetail = result.Error.Message;
-    }
-    
-    protected string PasswordMatch(string arg)
-    {
-        if (ResetPwdModel.Password != arg)
-        {
-            IsSuccess = false;
-            return "Passwords don't match";
-        }
-
-        IsSuccess = true;
-        return null;
     }
 
     protected IBrowserFile? Avatar;

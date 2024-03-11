@@ -1,38 +1,38 @@
 ﻿@inherits ProductCardBase
 
-    <MudPaper @onclick="@Click" Width="300px" Style="cursor: pointer">
-        <MudCardMedia Image="@(Model.DownloadUrl ?? "images/бусы.jpg")" Height="200"/>
-        <MudCardContent>
-            <MudText Typo="Typo.h5">@Model.Name</MudText>
-            @if (Model.HasDiscount)
-            {
-                <MudText Color="Color.Primary" Typo="Typo.body2">@Model.DiscountPercentage ₽</MudText>
-                <MudText Typo="Typo.body2"><s>@Model.Price ₽</s></MudText>
-            }
-            else
-            {
-                <MudText Typo="Typo.body2">@Model.Price ₽</MudText>
-            }
-        </MudCardContent>
-        <MudCardActions>
-            @if (IsEditable)
-            {
-                <MudButton Href="@("product/" + Model.Uid)" Variant="Variant.Text" Color="Color.Primary">Изменить</MudButton>
-            }
-            else
-            {
-                <MudCardActions>
-                    <MudToggleIconButton Toggled="ToggleValue" 
-                                         ToggledChanged="OnToggleChanged"
-                                         Icon="@Icons.Material.Filled.FavoriteBorder"
-                                         Color="Color.Primary"
-                                         ToggledIcon="@Icons.Material.Filled.Favorite"
-                                         ToggledColor="Color.Primary"/>
-                    
-                    <MudIconButton OnClick="@CopyToClipboard" Icon="@Icons.Material.Filled.Share" Color="Color.Default"/>
-                </MudCardActions>
-            }
-            
-        </MudCardActions>
-    </MudPaper>
+<MudPaper @onclick="@Click" Width="270px" Style="cursor: pointer">
+    <MudCardMedia Image="@(Model.DownloadUrl ?? "images/бусы.jpg")" Height="200"/>
+    <MudCardContent>
+        <MudText Typo="Typo.h6">@Model.Name</MudText>
+        @if (Model.HasDiscount)
+        {
+            <MudText Color="Color.Primary" Typo="Typo.body2">@Model.DiscountPrice ₽</MudText>
+            <MudText Typo="Typo.body2"><s>@Model.Price ₽</s></MudText>
+        }
+        else
+        {
+            <MudText Typo="Typo.body2">@Model.Price ₽</MudText>
+        }
+    </MudCardContent>
+    <MudCardActions>
+        @if (IsEditable)
+        {
+            <MudButton Href="@("product/" + Model.Uid)" Variant="Variant.Text" Color="Color.Primary">Изменить</MudButton>
+        }
+        else
+        {
+            <MudCardActions>
+                <MudToggleIconButton Toggled="ToggleValue" 
+                                     ToggledChanged="OnToggleChanged"
+                                     Icon="@Icons.Material.Filled.FavoriteBorder"
+                                     Color="Color.Primary"
+                                     ToggledIcon="@Icons.Material.Filled.Favorite"
+                                     ToggledColor="Color.Primary"/>
+                
+                <MudIconButton OnClick="@CopyToClipboard" Icon="@Icons.Material.Filled.Share" Color="Color.Default"/>
+            </MudCardActions>
+        }
+        
+    </MudCardActions>
+</MudPaper>
 

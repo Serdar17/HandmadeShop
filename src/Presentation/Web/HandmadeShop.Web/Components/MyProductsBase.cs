@@ -1,5 +1,4 @@
-﻿using HandmadeShop.SharedModel.Accounts.Models;
-using HandmadeShop.SharedModel.Catalogs.Models;
+﻿using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Pages.Profile.Services;
 using Microsoft.AspNetCore.Components;
 

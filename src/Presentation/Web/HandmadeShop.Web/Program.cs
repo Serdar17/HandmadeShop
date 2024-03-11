@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using HandmadeShop.Web;
 using HandmadeShop.Web.Services;
 using MudBlazor.Services;
+using MudExtensions.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -11,6 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddAuthorizationCore();
 builder.Services.AddMudServices();
+builder.Services.AddMudExtensions();
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

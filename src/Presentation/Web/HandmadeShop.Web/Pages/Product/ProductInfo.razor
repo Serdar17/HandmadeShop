@@ -1,10 +1,11 @@
 ﻿@page "/product/info/{ProductId:guid}"
 @inherits ProductInfoBase
 @layout MainLayout
+@attribute [Authorize]
 
 
-@* TODO: Тут будет детальная информация о продукте, надо разбить ОТЗЫВЫ, КАРУСЕЛЬ ФОТОК, ХАРАКТЕРИСТИКИ ТОВАРА на комполненты*@
-@* Сюда можно будет попасть только из основной страницы *@
+@* TODO: Тут будет детальная информация о продукте, надо разбить ОТЗЫВЫ, КАРУСЕЛЬ ФОТОК, ХАРАКТЕРИСТИКИ ТОВАРА на комполненты 
+Сюда можно будет попасть только из основной страницы *@
 
 @if (IsLoading)
 {
@@ -20,7 +21,7 @@ else if (Model is null)
 else
 {
     <MudText Class="mt-5 mb-5" Typo="Typo.h4" Style="font-weight: bold;" >Название товара</MudText>
-<div class="d-flex">
+<div class="d-flex align-items-center">
     <MudRating ReadOnly="true" SelectedValue="2" />
     <MudLink Class="ml-2" Href="@("/product/info/" + ProductId + "#reviews")">10 отзывов</MudLink>
     
@@ -40,7 +41,7 @@ else
             @if (Model.HasDiscount)
             {
                 <div class="product-price d-flex">
-                    <span class="current-price">@Model.DiscountPercentage ₽</span>
+                    <span class="current-price">@Model.DiscountPrice ₽</span>
                     <span class="d-flex justify-content-center align-items-center old-price">@Model.Price ₽</span>
                 </div>
                 
@@ -59,8 +60,27 @@ else
                 <span>Товара нет в наличии</span>
             }
             
-            <div class="d-flex justify-content-center mt-5" >
-                <MudButton Class="rounded-xl" Color="Color.Primary" Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.ShoppingCart">Добавить в корзину</MudButton>
+            <div class="d-flex justify-content-center mt-5">
+                @if (BasketTransferService.Data.BasketProducts.Contains(Model.Uid))
+                {
+                    <MudButton Class="rounded-xl" 
+                               Color="Color.Primary" 
+                               Href="/basket"
+                               Style="text-decoration: none;"
+                               Variant="Variant.Filled" >
+                        Перейти в корзину
+                    </MudButton>   
+                }
+               else
+               {
+                   <MudButton Class="rounded-xl" 
+                              Color="Color.Primary"
+                              OnClick="@(async () => await AddToBasket())"
+                              Variant="Variant.Filled" 
+                              EndIcon="@Icons.Material.Filled.ShoppingCart">
+                       Добавить в корзину
+                   </MudButton>    
+               }
             </div>
             
             <div class="d-flex justify-content-center mt-5">
@@ -87,9 +107,8 @@ else
     </MudItem>
     
     <MudItem xs="8" Class="mt-10">
-        @* <div id="reviews" class="reviews"></div> *@
-        <Reviews ProductId="Model.Uid" />
-    </MudItem>
+        <div id="reviews" class="reviews"><Reviews ProductId="Model.Uid" /></div>
+        </MudItem>
     <MudItem xs="4">
         
     </MudItem>

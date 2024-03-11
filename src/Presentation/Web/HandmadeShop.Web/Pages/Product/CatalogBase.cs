@@ -18,6 +18,8 @@ public class CatalogBase : ComponentBase
 
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
+    private const string Path = "/catalog";
+
     protected ProductQueryModel QueryModel;
 
     protected List<Guid> FavoriteProducts = new();
@@ -105,7 +107,6 @@ public class CatalogBase : ComponentBase
     private async Task ReloadData(ProductQueryModel queryModel)
     {
         IsLoading = true;
-        Console.WriteLine("reload data");
         var result = await ProductService.GetProductsByQueryAsync(queryModel);
             
         if (result.IsSuccess && result.Value != null)
@@ -114,34 +115,18 @@ public class CatalogBase : ComponentBase
             PageCount = (int)Math.Ceiling((double)PagedList.TotalCount / PageSize);
             StateHasChanged();
             IsLoading = false;
-            // if (PriceFrom == 0)
-            // {
-            //     PriceFrom = PagedList.MinPrice;
-            //     PriceTo = PagedList.MaxPrice;
-            // }
-
-            return;
+            if (PriceFrom == 0)
+            {
+                PriceFrom = PagedList.MinPrice;
+                PriceTo = PagedList.MaxPrice;
+            }
         }
     }
     
-    protected async Task Selected(int value)
+    protected async Task SelectedPage(int value)
     {
         Page = value;
-        IsLoading = true;
-        var query = GetQueryUrl("/catalog");
-        QueryModel = new ProductQueryModel()
-        {
-            Page = Page,
-            PageSize = PageCount,
-            SortColumn = SortColumn,
-            SortOrder = SortOrder,
-            PriceFrom = PriceFrom,
-            PriceTo = PriceTo,
-        };
-        QueryModel.CatalogName = CatalogName;
-        NavigationManager.NavigateTo($"/catalog/{CatalogName}{query}");
-        await ReloadData(QueryModel);
-        ShouldRender();
+        await SendAsync();
     }
 
     protected async Task SelectedSort(SortItem sortValue)
@@ -150,41 +135,45 @@ public class CatalogBase : ComponentBase
         SortColumn = values[0];
         SortOrder = values[1];
         SortItem = sortValue;
-        QueryModel = new ProductQueryModel()
+        await SendAsync();
+    }
+    
+    public void NotifyChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected async Task PriceChanged(int value, bool isUpperPrice = true)
+    {
+        if (isUpperPrice)
+        {
+            PriceTo = value;
+        }
+        else
+        {
+            PriceFrom = value;
+        }
+        
+        await SendAsync();
+    }
+
+    protected async Task SendAsync()
+    {
+        QueryModel = new ProductQueryModel
         {
             Page = Page,
-            PageSize = PageCount,
+            PageSize = PageSize,
             SortColumn = SortColumn,
             SortOrder = SortOrder,
             PriceFrom = PriceFrom,
             PriceTo = PriceTo,
+            CatalogName = CatalogName
         };
         QueryModel.CatalogName = CatalogName;
-        var query = GetQueryUrl("/catalog");
-        NavigationManager.NavigateTo($"/catalog/{CatalogName}{query}");
+        var query = GetQueryUrl(Path);
+        NavigationManager.NavigateTo($"{Path}/{CatalogName}{query}");
         await ReloadData(QueryModel);
         ShouldRender();
-    }
-    
-    protected async Task OnRangeChanged(Price price)
-    {
-        PriceFrom = price.From;
-        PriceTo = price.To;
-        // QueryModel = new ProductQueryModel()
-        // {
-        //     Page = Page,
-        //     PageSize = PageCount,
-        //     SortColumn = SortColumn,
-        //     SortOrder = SortOrder,
-        //     PriceFrom = PriceFrom,
-        //     PriceTo = PriceTo,
-        // };
-        // QueryModel.CatalogName = CatalogName;
-        // var query = GetQueryUrl("/catalog");
-        // NavigationManager.NavigateTo($"/catalog/{CatalogName}{query}");
-        // await ReloadData(QueryModel);
-        // ShouldRender();
-        
     }
     
     private string GetQueryUrl(string url)
@@ -206,17 +195,6 @@ public class CatalogBase : ComponentBase
     
         return queryUrl.Query;
     }
-    
-    public void NotifyChanged()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-}
-
-public class Price
-{
-    public int From { get; set; }
-    public int To { get; set; }
 }
 
 public class SortItem

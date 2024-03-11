@@ -1,6 +1,7 @@
 ﻿@page "/product/{ProductId:guid?}"
 @layout MainLayout
 @inherits ProductBase
+@attribute [Authorize]
 
 
 @if (ProductId is null || ProductModel == null)

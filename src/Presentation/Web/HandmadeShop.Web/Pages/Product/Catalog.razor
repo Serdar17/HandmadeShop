@@ -1,14 +1,11 @@
 ﻿@page "/catalog/{CatalogName}"
 @inherits CatalogBase
 @layout MainLayout
-
 @attribute [Authorize]
 
 @if (PagedList is null)
 {
-    <div class="spinner">
-        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
-    </div>  
+   <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true" />
     
     @* @for (var i = 0; i < @PageSize; i++) *@
     @* { *@
@@ -18,6 +15,7 @@
     @* } *@
 
 }
+
 else
 {
     <div class="d-flex mt-5 mb-5">
@@ -31,16 +29,7 @@ else
 
 
     <MudGrid>
-        <MudItem xs="2">
-            <MudPaper>Фильтрация</MudPaper>
-            
-            @* <MudSelect T="string" Value="SelectValue" ValueChanged="SelectedSort" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter"> *@
-            @*     @foreach (var item in SortList) *@
-            @*     { *@
-            @*         <MudSelectItem  T="string" Value="item.Item2">@item.Item1</MudSelectItem> *@
-            @*     } *@
-            @* </MudSelect> *@
-            
+        <MudItem xs="3">
             <MudSelect T="SortItem" Value="SortItem" ValueChanged="@SelectedSort" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
                 @foreach (var item in @SortItems)
                 {
@@ -48,32 +37,64 @@ else
                 }
             </MudSelect>
             
-            @* <div class="d-flex"> *@
-            @*     <MudSlider Value="50" Variant="Variant.Filled"/> *@
-            @*     <MudSlider Value="50" Variant="Variant.Filled"/> *@
-            @* </div> *@
+            <MudText Class="mt-4 mb-2" Typo="Typo.body1" Style="font-weight: bold;">Цена</MudText>
             
-            @* <DoubleRange MaxValue="PagedList.MaxPrice" From="PriceFrom" To="PriceTo" OnChangeCallback="OnRangeChanged" MinValue="PagedList.MinPrice" /> *@
+            <div class="d-flex justify-content-center align-items-center">
+                <MudNumericField T="int?"
+                                 HideSpinButtons="false"
+                                 Class="p-1"
+                                 Label="От"
+                                 Value="@PriceFrom"
+                                 Variant="Variant.Outlined"
+                                 ValueChanged="@(async (e) => await PriceChanged(e.Value, false))"
+                                 Min="@PagedList.MinPrice"
+                                 Max="@PagedList.MaxPrice"/>
+                
+                            
+                <MudNumericField T="int?"
+                                 Class="p-1"
+                                 HideSpinButtons="false"
+                                 Label="До"
+                                 Value="@PriceTo"
+                                 ValueChanged="@(async (e) => await PriceChanged(e.Value))"
+                                 Variant="Variant.Outlined"
+                                 Min="@PagedList.MinPrice"
+                                 Max="@PagedList.MaxPrice"/>
+            </div>
             
-            
+            <MudRangeSlider T="int?"
+                            @bind-Value="@PriceFrom" 
+                            @bind-UpperValue="@PriceTo" 
+                            Size="Size.Large" 
+                            Variant="Variant.Filled" 
+                            Range="true" 
+                            Step="100"
+                            @onchange="@(async (e) => await SendAsync())"
+                            Min="PagedList.MinPrice" 
+                            Max="PagedList.MaxPrice"/>
         </MudItem>
 
-        <MudItem xs="10">
-            <MudPaper>Список кард</MudPaper>
-            
+        <MudItem xs="9">
             <CascadingValue Value="this">
                 <CascadingValue Value="FavoriteProducts">
                     <ProductsView PagedList="PagedList"/>
                 </CascadingValue>
             </CascadingValue>
             
-            <div class="d-flex flex-column align-center mt-10">
-                <MudPagination Selected="Page" SelectedChanged="@Selected" Rectangular="true" Variant="Variant.Filled" Count="@PageCount" Class="my-4" />
-            </div>
+            @if (PagedList.Items.Count > 0)
+            {
+                <div class="d-flex flex-column align-center mt-10">
+                    <MudPagination Selected="Page" 
+                                   SelectedChanged="@SelectedPage"
+                                   Rectangular="true" 
+                                   Variant="Variant.Filled"
+                                   Count="@PageCount" 
+                                   Class="my-4" />
+                </div>
+            }
+            
         </MudItem>
         
     </MudGrid>
 
 }
-
-

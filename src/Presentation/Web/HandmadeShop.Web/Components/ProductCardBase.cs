@@ -27,7 +27,7 @@ public class ProductCardBase : ComponentBase
  
     [Inject] protected NavigationManager NavigationManager { get; set; }
 
-    protected bool ToggleValue => FavoriteProducts.Contains(Model.Uid);
+    protected bool ToggleValue => FavoriteProducts is not null && FavoriteProducts.Contains(Model.Uid);
     
     protected void Click()
     {
