@@ -48,7 +48,7 @@ public class AccountService : IAccountService
             return model;
         }
         
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<PagedList<ProductModel>>> GetUserProducts(ProductQueryModel model)
@@ -64,7 +64,7 @@ public class AccountService : IAccountService
                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<IEnumerable<Guid>>> GetAllFavoriteAsync()
@@ -83,7 +83,7 @@ public class AccountService : IAccountService
             return Result<IEnumerable<Guid>>.Success(model);
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<AccountInfoModel>> UpdateAccountInfoModel(AccountInfoModel model)
@@ -106,7 +106,7 @@ public class AccountService : IAccountService
             return newModel;
         }
         
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<AccountInfoModel>> UploadAvatarAsync(MultipartFormDataContent form)
@@ -121,7 +121,7 @@ public class AccountService : IAccountService
             return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<AccountInfoModel>> DeleteAvatarAsync()
@@ -136,7 +136,7 @@ public class AccountService : IAccountService
             return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
     
     private string GetUrlWithParams(string url, ProductQueryModel model)

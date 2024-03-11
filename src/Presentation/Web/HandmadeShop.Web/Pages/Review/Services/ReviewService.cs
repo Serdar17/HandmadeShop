@@ -33,7 +33,7 @@ public class ReviewService : IReviewService
             return Result<IEnumerable<ReviewInfoModel>>.Success(model);
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result<ReviewInfoModel>> AddReviewAsync(ReviewModel model, List<string> images)
@@ -55,7 +55,7 @@ public class ReviewService : IReviewService
 
         Console.WriteLine(content);
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result> RemoveReviewAsync(Guid reviewId)
@@ -63,13 +63,14 @@ public class ReviewService : IReviewService
         var url = $"{Settings.WebRoot}/{reviewId}";
 
         var response = await _httpClient.DeleteAsync(url);
+        var content = await response.Content.ReadAsStringAsync();
         
         if (response.IsSuccessStatusCode)
         {
             return Result.Success();
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result> AddFavoriteAsync(AddFavoriteModel model)
@@ -85,7 +86,7 @@ public class ReviewService : IReviewService
         if (response.IsSuccessStatusCode)
             return Result.Success();
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     public async Task<Result> RemoveFavoriteAsync(RemoveFavoriteModel model)
@@ -97,17 +98,18 @@ public class ReviewService : IReviewService
 
         var message = new HttpRequestMessage(HttpMethod.Delete, url) {Content = data};
         var response = await _httpClient.SendAsync(message);
+        var content = await response.Content.ReadAsStringAsync();
 
         if (response.IsSuccessStatusCode)
         {
             return Result.Success();
         }
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 
     protected async Task UploadImagesAsync(ReviewInfoModel model, List<string> images)
-    {;
+    {
         foreach (var image in images)
         {
             var form = new MultipartFormDataContent();

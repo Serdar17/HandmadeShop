@@ -137,10 +137,11 @@ public class AuthService : IAuthService
         var data = new StringContent(json, Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync(url, data);
-
+        var content = await response.Content.ReadAsStringAsync();
+        
         if (response.IsSuccessStatusCode)
             return Result.Success();
 
-        return await response.Content.ToErrorAsync();
+        return content.ToError();
     }
 }
