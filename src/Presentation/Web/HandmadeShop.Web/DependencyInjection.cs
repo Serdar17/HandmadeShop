@@ -24,6 +24,7 @@ public static class DependencyInjection
             .AddScoped<IClipboardService, ClipboardService>()
             .AddScoped<IBasketService, BasketService>()
             .AddScoped<IOrderService, OrderService>()
+            .AddScoped<ITokenService, TokenService>()
             .AddScoped<BasketTransferService>();
         
         

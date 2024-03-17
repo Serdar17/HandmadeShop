@@ -12,9 +12,9 @@ public class OrderService : IOrderService
     private static readonly string Root = $"{Settings.ApiRoot}/api/v1/orders";
     private readonly HttpClient _httpClient;
 
-    public OrderService(HttpClient httpClient)
+    public OrderService(IHttpClientFactory factory)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
     }
 
     public async Task<Result<List<OrderModel>>> GetOrdersAsync(OrderQueryModel model)

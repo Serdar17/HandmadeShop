@@ -12,9 +12,9 @@ public class ProductService : IProductService
 {
     private readonly HttpClient _httpClient;
 
-    public ProductService(HttpClient httpClient)
+    public ProductService(IHttpClientFactory factory)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
     }
 
     public async Task<Result<IEnumerable<CategoryModel>>> GetAllCatalogsAsync()

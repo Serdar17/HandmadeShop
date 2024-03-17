@@ -21,11 +21,11 @@ public class AuthService : IAuthService
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly ILocalStorageService _localStorage;
 
-    public AuthService(HttpClient httpClient,
+    public AuthService(IHttpClientFactory factory,
                        AuthenticationStateProvider authenticationStateProvider,
                        ILocalStorageService localStorage)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
         _authenticationStateProvider = authenticationStateProvider;
         _localStorage = localStorage;
     }
@@ -120,6 +120,40 @@ public class AuthService : IAuthService
         var result = JsonSerializer.Deserialize<ErrorResult>(error, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new ErrorResult();
 
         return result.Errors.First();
+    }
+
+    public async Task<LoginResult> RefreshTokenAsync()
+    {
+        var url = $"{Settings.IdentityRoot}/connect/token";
+        var refreshToken = await _localStorage.GetItemAsStringAsync(LocalStorageRefreshTokenKey);
+        refreshToken = refreshToken.Replace("\"", "");
+        Console.WriteLine($"Refresh token is {refreshToken}");
+        var formData = new[] 
+        {
+            new KeyValuePair<string, string>("grant_type", "refresh_token"),
+            new KeyValuePair<string, string>("client_id", Settings.ClientId),
+            new KeyValuePair<string, string>("client_secret", Settings.ClientSecret),
+            new KeyValuePair<string, string>("refresh_token", refreshToken.Replace("\"", ""))
+        };
+        
+        var requestContent = new FormUrlEncodedContent(formData);
+
+        var response = await _httpClient.PostAsync(url, requestContent);
+
+        var content = await response.Content.ReadAsStringAsync();
+
+        var loginResult = JsonSerializer.Deserialize<LoginResult>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new LoginResult();
+        loginResult.Successful = response.IsSuccessStatusCode;
+        
+        if (!response.IsSuccessStatusCode)
+        {
+            return loginResult;
+        }
+
+        await _localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
+        await _localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
+
+        return loginResult;
     }
 
     public async Task Logout()

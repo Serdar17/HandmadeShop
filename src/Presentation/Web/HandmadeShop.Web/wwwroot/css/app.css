@@ -210,7 +210,6 @@ code {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto auto;
 }
 
 .catalog-name {
@@ -334,4 +333,11 @@ code {
 .total{
     font-weight: bold;
     font-size: 20px;
+}
+
+.center{
+    display: flex;
+    height: 90vh;
+    justify-content: center;
+    align-items: center;
 }

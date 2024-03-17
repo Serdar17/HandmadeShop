@@ -17,9 +17,9 @@ public class AccountService : IAccountService
     private readonly IIdentityService _identityService;
     private readonly IAuthService _authService;
 
-    public AccountService(HttpClient httpClient, IIdentityService identityService, IAuthService authService)
+    public AccountService(IHttpClientFactory factory, IIdentityService identityService, IAuthService authService)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
         _identityService = identityService;
         _authService = authService;
     }

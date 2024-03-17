@@ -12,9 +12,9 @@ public class ReviewService : IReviewService
     private static readonly string Root = $"{Settings.ApiRoot}/api/v1/reviews";
     private readonly HttpClient _httpClient;
 
-    public ReviewService(HttpClient httpClient)
+    public ReviewService(IHttpClientFactory factory)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
     }
 
     public async Task<Result<IEnumerable<ReviewInfoModel>>> GetProductReviews(Guid productId)

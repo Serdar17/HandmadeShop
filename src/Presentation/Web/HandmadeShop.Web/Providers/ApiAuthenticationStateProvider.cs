@@ -11,9 +11,9 @@ public class ApiAuthenticationStateProvider : AuthenticationStateProvider
     private readonly HttpClient _httpClient;
     private readonly ILocalStorageService _localStorage;
 
-    public ApiAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService localStorage)
+    public ApiAuthenticationStateProvider(IHttpClientFactory factory, ILocalStorageService localStorage)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient(Settings.Api);
         _localStorage = localStorage;
     }
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()

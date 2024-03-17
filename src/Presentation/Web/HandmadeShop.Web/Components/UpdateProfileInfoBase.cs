@@ -38,5 +38,7 @@ public class UpdateProfileInfoBase : ComponentBase
             ErrorDetail = result.Error.Message;
             ShowErrors = true;
         }
+
+        IsSuccess = false;
     }
 }
