@@ -1,6 +1,10 @@
 ﻿@inherits ReviewsBase
 
 
+@* //TODO: тут надо будет добавить кнопки редактирования к отзывам конкретного пользователя, то есть пользовать *@
+@* может отредактировать только и только свой коммент, а к примеру, админ или менеджер сайта может редактировать все комменты *@
+
+
 <MudText Class="mb-4" Style="font-weight: bold;" Typo="Typo.h5">Отзывы</MudText>
 
 <MudDivider Class="mb-4" />
@@ -13,7 +17,7 @@ else
 {
    @if (Reviews.Count == 0)
     {
-        <MudItem xs="8" Class="mt-4 d-flex justify-content-center align-items-center">
+        <MudItem xs="12" Class="mt-4 d-flex justify-content-center align-items-center">
             <div class="mt-4">
                 <div class="mt-4 mb-2 d-flex justify-content-center align-items-center">
                     <MudIcon

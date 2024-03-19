@@ -3,9 +3,11 @@
 @layout MainLayout
 @attribute [Authorize]
 
-@if (PagedList is null)
+@if (PagedList is null || IsLoading)
 {
-   <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true" />
+    <div class="center">
+       <MudProgressCircular Color="Color.Default" Indeterminate="true" /> 
+    </div>
     
     @* @for (var i = 0; i < @PageSize; i++) *@
     @* { *@
@@ -30,48 +32,16 @@ else
 
     <MudGrid>
         <MudItem xs="3">
-            <MudSelect T="SortItem" Value="SortItem" ValueChanged="@SelectedSort" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
-                @foreach (var item in @SortItems)
-                {
-                    <MudSelectItem Value="item"/>
-                }
-            </MudSelect>
             
-            <MudText Class="mt-4 mb-2" Typo="Typo.body1" Style="font-weight: bold;">Цена</MudText>
+            <ProductFilter SortItem="SortItem" SelectedSortChanged="SelectedSort"/>
             
-            <div class="d-flex justify-content-center align-items-center">
-                <MudNumericField T="int?"
-                                 HideSpinButtons="false"
-                                 Class="p-1"
-                                 Label="От"
-                                 Value="@PriceFrom"
-                                 Variant="Variant.Outlined"
-                                 ValueChanged="@(async (e) => await PriceChanged(e.Value, false))"
-                                 Min="@PagedList.MinPrice"
-                                 Max="@PagedList.MaxPrice"/>
-                
-                            
-                <MudNumericField T="int?"
-                                 Class="p-1"
-                                 HideSpinButtons="false"
-                                 Label="До"
-                                 Value="@PriceTo"
-                                 ValueChanged="@(async (e) => await PriceChanged(e.Value))"
-                                 Variant="Variant.Outlined"
-                                 Min="@PagedList.MinPrice"
-                                 Max="@PagedList.MaxPrice"/>
-            </div>
-            
-            <MudRangeSlider T="int?"
-                            @bind-Value="@PriceFrom" 
-                            @bind-UpperValue="@PriceTo" 
-                            Size="Size.Large" 
-                            Variant="Variant.Filled" 
-                            Range="true" 
-                            Step="100"
-                            @onchange="@(async (e) => await SendAsync())"
-                            Min="PagedList.MinPrice" 
-                            Max="PagedList.MaxPrice"/>
+            <PriceFilter PagedList="PagedList"
+                         PriceFrom="PriceFrom"
+                         PriceTo="PriceTo"
+                         UpperPriceChanged="UpperPriceChanged"
+                         LowerPriceChanged="LowerPriceChanged"
+                         RangeChanged="SendAsync"/>
+
         </MudItem>
 
         <MudItem xs="9">

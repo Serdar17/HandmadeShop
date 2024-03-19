@@ -1,5 +1,6 @@
 ﻿using HandmadeShop.SharedModel.Catalogs.Models;
 using HandmadeShop.Web.Extensions;
+using HandmadeShop.Web.Pages.Product.Models;
 using HandmadeShop.Web.Pages.Product.Services;
 using HandmadeShop.Web.Pages.Profile.Services;
 using Microsoft.AspNetCore.Components;
@@ -143,6 +144,16 @@ public class CatalogBase : ComponentBase
         InvokeAsync(StateHasChanged);
     }
 
+    protected async Task UpperPriceChanged(int value)
+    {
+        await PriceChanged(value);
+    }
+
+    protected async Task LowerPriceChanged(int value)
+    {
+        await PriceChanged(value, false);
+    }
+
     protected async Task PriceChanged(int value, bool isUpperPrice = true)
     {
         if (isUpperPrice)
@@ -157,8 +168,14 @@ public class CatalogBase : ComponentBase
         await SendAsync();
     }
 
-    protected async Task SendAsync()
+    protected async Task SendAsync(PriceChangeModel? model = null)
     {
+        if (model is not null)
+        {
+            PriceFrom = model.PriceFrom;
+            PriceTo = model.PriceTo;
+        }
+        
         QueryModel = new ProductQueryModel
         {
             Page = Page,

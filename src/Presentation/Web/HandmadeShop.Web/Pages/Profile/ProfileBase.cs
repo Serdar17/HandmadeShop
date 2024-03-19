@@ -31,6 +31,7 @@ public class ProfileBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
+        await Task.Delay(4000);
         var result = await AccountService.GetAccountInfoAsync();
         
         if (result.IsFailure)

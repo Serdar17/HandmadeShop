@@ -1,15 +1,19 @@
 ﻿@inherits MyProductsBase
 
-<MudText Typo="Typo.h5" Align="Align.Center">Список моих товаров</MudText>
-<div class="mb-8">
-    @if (Products is null)
-    {
+<MudText Typo="Typo.h5" Style="font-weight: bold;" Align="Align.Center">Список моих товаров</MudText>
+
+@if (Products is null)
+{
+    <div class="center">
         <MudProgressCircular Color="Color.Default" Indeterminate="true" />
-    }
-    else
-    {
+    </div>
+}
+else
+{
+    <div class="mb-8">
+    
         <InfiniteScroll ObserverTargetId="observerTarget" ObservableTargetReached="@(async e => await LoadProducts())">
-            <MudGrid Spacing="5" Justify="Justify.FlexStart" Class="mt-8">
+            <MudGrid Spacing="5" Justify="Justify.Center" Class="mt-8">
                 @foreach (var product in Products.Items)
                 {
                     <MudItem>
@@ -20,13 +24,9 @@
                 <div id="observerTarget"></div>
             </MudGrid>
         </InfiniteScroll>
-    }
 
-    <div class="d-flex justify-content-center">
-        <MudButton Class="mt-6" Href="product" Variant="Variant.Filled" Color="Color.Primary">Создать</MudButton>
+        <div class="d-flex justify-content-center">
+            <MudButton Class="mt-6" Href="product" Variant="Variant.Filled" Color="Color.Primary">Создать</MudButton>
+        </div>
     </div>
-</div>
-
-
-
-
+}

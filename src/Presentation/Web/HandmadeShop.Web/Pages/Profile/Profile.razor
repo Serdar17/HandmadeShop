@@ -9,10 +9,18 @@
         <MudText Class="mb-4" Typo="Typo.h4">Мой профиль</MudText>
         <MudTabs Class="mb-8" Elevation="2" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6 mb-8">
             <MudTabPanel Text="Личный данные">
+                @if (Model is null)
+                {
+                    <div class="center">
+                        <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true"/>
+                    </div>
+                }
                 <MudGrid>
                     @if (Model is null)
                     {
-                        <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true" />
+                        <div class="center">
+                            <MudProgressCircular Class="spinner" Color="Color.Default" Indeterminate="true"/>
+                        </div>
                     }
                     else
                     {
@@ -22,13 +30,13 @@
                                 <div class="d-flex justify-content-center">
                                     <MudImage ObjectFit="ObjectFit.Cover"
                                               ObjectPosition="ObjectPosition.Center"
-                                              Class="rounded-circle" 
-                                              Width="200" Height="200" 
+                                              Class="rounded-circle"
+                                              Width="200" Height="200"
                                               Src="@Model.DownloadPath"/>
-                                
+
                                 </div>
-                            
-                            
+
+
                                 <div class="d-flex justify-content-center mt-4">
                                     <MudButton Variant="Variant.Filled"
                                                StartIcon="@Icons.Material.Filled.Delete"
@@ -47,16 +55,16 @@
                                     <div class="d-flex justify-content-center">
                                         <div class="d-inline-block position-relative">
                                             <MudImage ObjectFit="ObjectFit.Cover"
-                                                      Class="rounded-circle" 
-                                                      Width="200" Height="200" 
+                                                      Class="rounded-circle"
+                                                      Width="200" Height="200"
                                                       Src="@DataUrl"/>
-                                                                        
+
                                             <div class="remove-image" @onclick="@(RemoveFile)">
                                                 <span class="remove-image-icon">&times;</span>
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                     <div class="d-flex justify-content-center">
                                         <MudButton OnClick="@UploadAsync"
                                                    Disabled="@Processing"
@@ -74,9 +82,9 @@
                                             }
 
                                         </MudButton>
-                                   
-                                    </div> 
-                                
+
+                                    </div>
+
                                 }
                                 else
                                 {
@@ -93,9 +101,9 @@
                                                                for="@context.Id">
                                                 </MudIconButton>
                                             </ButtonTemplate>
-                                       
+
                                         </MudFileUpload>
-                                    
+
                                     </div>
                                 }
                             }
@@ -104,11 +112,9 @@
                             <UpdateProfileInfo Model="@Model"/>
                         </MudItem>
                     }
-                   
+
                 </MudGrid>
-                
-                
-                
+
             </MudTabPanel>
     
             <MudTabPanel Text="Смена пароля">

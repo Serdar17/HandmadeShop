@@ -1,0 +1,28 @@
+﻿<MudSelect T="SortItem" Value="SortItem"
+           ValueChanged="@SelectedSort"
+           Variant="Variant.Outlined"
+           AnchorOrigin="Origin.BottomCenter">
+    @foreach (var item in @SortItems)
+    {
+        <MudSelectItem Value="item"/>
+    }
+</MudSelect>
+
+
+@code {
+    [Parameter] public SortItem SortItem { get; set; }
+    [Parameter] public EventCallback<SortItem> SelectedSortChanged { get; set; }
+    
+    protected List<SortItem> SortItems = new()
+    {
+        new SortItem("Последние", "date,desc"),
+        new SortItem("Популярные", "popular,desc"),
+        new SortItem("Сначала дорогие", "price,desc"),
+        new SortItem("Сначала дешевле", "price,asc"),
+    };
+
+    private async Task SelectedSort(SortItem item)
+    {
+        await SelectedSortChanged.InvokeAsync(item);
+    }
+}

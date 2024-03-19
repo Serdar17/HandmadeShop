@@ -1,0 +1,61 @@
+﻿<MudText Class="mt-4 mb-2" Typo="Typo.body1" Style="font-weight: bold;">Цена</MudText>
+
+<div class="d-flex justify-content-center align-items-center">
+    <MudNumericField T="int?"
+                     HideSpinButtons="false"
+                     Class="p-1"
+                     Label="От"
+                     Value="@PriceFrom"
+                     Variant="Variant.Outlined"
+                     ValueChanged="@(async (e) => await LowerChange(e.Value))"
+                     Min="@PagedList.MinPrice"
+                     Max="@PagedList.MaxPrice"/>
+
+
+    <MudNumericField T="int?"
+                     Class="p-1"
+                     HideSpinButtons="false"
+                     Label="До"
+                     Value="@PriceTo"
+                     ValueChanged="@(async (e) => await UpperChange(e.Value))"
+                     Variant="Variant.Outlined"
+                     Min="@PagedList.MinPrice"
+                     Max="@PagedList.MaxPrice"/>
+</div>
+
+<MudRangeSlider T="int?"
+                @bind-Value="@PriceFrom"
+                @bind-UpperValue="@PriceTo"
+                Size="Size.Medium"
+                Variant="Variant.Filled"
+                Range="true"
+                Step="100"
+                @onchange="@(async (e) => await SendAsync())"
+                Min="PagedList.MinPrice"
+                Max="PagedList.MaxPrice"/>
+
+@code {
+    [Parameter] public PagedList<ProductModel> PagedList { get; set; }
+    
+    [Parameter] public int? PriceFrom { get; set; }
+    [Parameter] public int? PriceTo { get; set; }
+    [Parameter] public EventCallback<int> UpperPriceChanged { get; set; }
+    [Parameter] public EventCallback<int> LowerPriceChanged { get; set; }
+    [Parameter] public EventCallback<PriceChangeModel> RangeChanged { get; set; }
+
+    private async Task SendAsync()
+    {
+        var model = new PriceChangeModel { PriceFrom = PriceFrom.Value, PriceTo = PriceTo.Value };
+        await RangeChanged.InvokeAsync(model);
+    }
+
+    private async Task UpperChange(int value)
+    {
+        await UpperPriceChanged.InvokeAsync(value);
+    }
+
+    private async Task LowerChange(int value)
+    {
+        await LowerPriceChanged.InvokeAsync(value);
+    }
+}

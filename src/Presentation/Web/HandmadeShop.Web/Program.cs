@@ -2,7 +2,6 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using HandmadeShop.Web;
-using HandmadeShop.Web.Services;
 using MudBlazor.Services;
 using MudExtensions.Services;
 
@@ -15,9 +14,9 @@ builder.Services.AddMudServices();
 builder.Services.AddMudExtensions();
 builder.Services.AddBlazoredLocalStorage();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+builder.Services.AddHttpClients(builder);
 
-builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
+// builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.RegisterServices();
 

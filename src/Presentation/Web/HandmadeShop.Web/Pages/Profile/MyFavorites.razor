@@ -1,12 +1,16 @@
 ﻿@page "/my/favorites"
 @layout MainLayout
 @inherits MyFavoritesBase
+@attribute [Authorize]
 
 <MudText Class="mt-4" Style="font-weight: bold" Typo="Typo.h4">Избранные товары</MudText>
 
 @if (Products is null)
 {
-    <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    <div class="center">
+        <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+    </div>
+    
 }
 else
 {

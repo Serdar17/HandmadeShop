@@ -52,7 +52,6 @@ public class OrdersBase : ComponentBase
     private async Task ReloadDataAsync()
     {
         Processing = true;
-        await Task.Delay(5000);
         var result = await OrderService.GetOrdersAsync(new OrderQueryModel { Status = Status });
 
         if (result.IsSuccess && result.Value != null)

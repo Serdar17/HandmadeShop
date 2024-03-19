@@ -30,7 +30,6 @@ public class ReviewsBase : ComponentBase
 
     protected override async Task OnParametersSetAsync()
     {
-        Console.WriteLine("parameterSet");
         Processing = true;
         var result = await ReviewService.GetProductReviews(ProductId);
         
