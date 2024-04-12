@@ -22,14 +22,17 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
 
     public async Task<Result<PagedList<ProductModel>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
+        //TODO: Collations and Case Sensitivity EF CORE
         var productQuery = _context.Products
             .Include(x => x.Catalog)
+            .Include(x => x.Like)
+            .Include(x => x.Reviews)
             .AsQueryable();
-
+        
         var maxPrice = await productQuery.MaxAsync(x => x.Price);
         var minPrice = await productQuery.MinAsync(x => x.Price);
-        
-        if (!string.IsNullOrEmpty(request.Query.CatalogName))
+
+       if (!string.IsNullOrEmpty(request.Query.CatalogName))
         {
             productQuery = productQuery
                 .Where(x => x.Catalog.Name.ToLower().Equals(request.Query.CatalogName.ToLower()));
@@ -37,7 +40,7 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
         
         if (!string.IsNullOrEmpty(request.Query.Search))
         {
-            productQuery = productQuery.Where(x => x.Name.Contains(request.Query.Search));
+            productQuery = productQuery.Where(x => x.Name.ToLower().Contains(request.Query.Search.ToLower()));
         }
 
         if (request.Query.SortOrder?.ToLower() == "desc")
@@ -58,7 +61,7 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
         {
             productQuery = productQuery.Where(x => x.Price <= request.Query.PriceTo);
         }
-
+        
         var productResponseQuery = productQuery
             .Select(x => _mapper.Map<ProductModel>(x));
 

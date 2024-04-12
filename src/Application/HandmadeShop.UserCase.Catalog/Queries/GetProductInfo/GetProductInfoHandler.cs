@@ -4,7 +4,6 @@ using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.SharedModel.Catalogs.Models;
-using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProductInfo;
 

@@ -58,6 +58,8 @@ public static class SwaggerConfiguration
             if (File.Exists(xmlPath))
                 options.IncludeXmlComments(xmlPath);
 
+            var identityUri = new Uri(identitySettings.Url);
+
             options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
             {
                 Name = "Bearer",
@@ -69,7 +71,7 @@ public static class SwaggerConfiguration
                 {
                     ClientCredentials = new OpenApiOAuthFlow
                     {
-                        TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
+                        TokenUrl = new Uri($"http://localhost:{identityUri.Port}/connect/token"),
                         Scopes = new Dictionary<string, string>
                         {
                             { AppScopes.BooksRead, "Read" },
@@ -79,7 +81,7 @@ public static class SwaggerConfiguration
 
                     Password = new OpenApiOAuthFlow
                     {
-                        TokenUrl = new Uri($"{identitySettings.Url}/connect/token"),
+                        TokenUrl = new Uri($"http://localhost:{identityUri.Port}/connect/token"),
                         Scopes = new Dictionary<string, string>
                         {
                             { AppScopes.BooksRead, "Read" },

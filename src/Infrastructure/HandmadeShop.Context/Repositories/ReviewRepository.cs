@@ -15,14 +15,14 @@ public class ReviewRepository : IReviewRepository
         _context = context;
     }
 
-    public Task<IQueryable<Review>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IQueryable<Review>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return _context.Reviews.AsQueryable();
     }
 
-    public Task<IQueryable<Review>> GetAllAsync(Expression<Func<Review, bool>> predicate)
+    public async Task<IQueryable<Review>> GetAllAsync(Expression<Func<Review, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return _context.Reviews.Where(predicate);
     }
 
     public async Task<Review?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -32,9 +32,9 @@ public class ReviewRepository : IReviewRepository
             .FirstOrDefaultAsync(x => x.Uid == id, cancellationToken: cancellationToken);
     }
 
-    public Task InsertAsync(Review model, CancellationToken cancellationToken = default)
+    public async Task InsertAsync(Review model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Reviews.Add(model);
     }
 
     public async Task UpdateAsync(Review model, CancellationToken cancellationToken = default)
@@ -42,9 +42,9 @@ public class ReviewRepository : IReviewRepository
         await Task.FromResult(_context.Reviews.Update(model));
     }
 
-    public Task DeleteAsync(Review model, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Review model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Reviews.Remove(model);
     }
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)

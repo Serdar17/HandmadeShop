@@ -44,6 +44,8 @@ DbInitializer.Execute(app.Services);
 //
 // DbSeeder.Execute(app.Services);
 
+app.MapGet("/", () => Results.Redirect("/docs")).ExcludeFromDescription();
+
 logger.Information("The HandmadeShop.API has started");
 
 app.Run();

@@ -9,6 +9,10 @@ public class ProductInfoModel
     public double Price { get; set; }
     public bool HasDiscount { get; set; }
     public double DiscountPrice { get; set; }
+    public int ReviewCount { get; set; }
+    public int Rating { get; set; }
+
+    public IList<string> ImageUrls { get; set; } = new List<string>();
 
     public DateTime CreatedAt { get; set; }
     

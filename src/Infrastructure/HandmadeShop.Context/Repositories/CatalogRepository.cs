@@ -17,37 +17,40 @@ public class CatalogRepository : ICatalogRepository
 
     public async Task<IQueryable<Catalog>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return _context.Catalogs;
+        return _context.Catalogs.AsQueryable();
     }
 
-    public Task<IQueryable<Catalog>> GetAllAsync(Expression<Func<Catalog, bool>> predicate)
+    public async Task<IQueryable<Catalog>> GetAllAsync(Expression<Func<Catalog, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return _context.Catalogs.Where(predicate);
     }
 
-    public Task<Catalog?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Catalog?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await _context.Catalogs
+            .FirstOrDefaultAsync(x => x.Uid.Equals(id),cancellationToken: cancellationToken);
+    }
+    
+    public async Task InsertAsync(Catalog model, CancellationToken cancellationToken = default)
+    {
+        _context.Catalogs.Add(model);
     }
 
-    public Task InsertAsync(Catalog model, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(Catalog model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Catalogs.Update(model);
     }
 
-    public Task UpdateAsync(Catalog model, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Catalog model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Catalogs.Remove(model);
     }
 
-    public Task DeleteAsync(Catalog model, CancellationToken cancellationToken = default)
+    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
+        await _context.Catalogs
+            .Where(x => x.Uid.Equals(id))
+            .ExecuteDeleteAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<Catalog?> GetByNameAsync(string name)

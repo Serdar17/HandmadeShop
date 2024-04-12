@@ -107,7 +107,7 @@ public class ProductController : ControllerBase
     /// Get product info by id
     /// </summary>
     /// <param name="productId">Unique product id</param>
-    /// <returns></returns>
+    /// <returns>Product model</returns>
     [HttpGet("info/{productId}")]
     [ProducesResponseType(typeof(ProductInfoModel), 200)]
     public async Task<IResult> GetProductInfoAsync([FromRoute] Guid productId)

@@ -46,9 +46,9 @@ public class OrderRepository : IOrderRepository
         await Task.FromResult(_context.Orders.Update(model));
     }
 
-    public Task DeleteAsync(Order model, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Order model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Orders.Remove(model);
     }
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)

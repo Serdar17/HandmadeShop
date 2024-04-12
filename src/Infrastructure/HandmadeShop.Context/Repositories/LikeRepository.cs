@@ -15,39 +15,39 @@ public class LikeRepository : ILikeRepository
         _context = context;
     }
 
-    public Task<IQueryable<Like>> GetAllAsync(CancellationToken cancellationToken = default)
+    public async Task<IQueryable<Like>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return _context.Likes.AsQueryable();
     }
 
-    public Task<IQueryable<Like>> GetAllAsync(Expression<Func<Like, bool>> predicate)
+    public async Task<IQueryable<Like>> GetAllAsync(Expression<Func<Like, bool>> predicate)
     {
-        throw new NotImplementedException();
+        return _context.Likes.Where(predicate);
     }
 
-    public Task<Like?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Like?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await _context.Likes.FirstOrDefaultAsync(x => x.Uid.Equals(id), cancellationToken: cancellationToken);
     }
 
-    public Task InsertAsync(Like model, CancellationToken cancellationToken = default)
+    public async Task InsertAsync(Like model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Likes.Add(model);
     }
 
-    public Task UpdateAsync(Like model, CancellationToken cancellationToken = default)
+    public async Task UpdateAsync(Like model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Likes.Update(model);
     }
 
-    public Task DeleteAsync(Like model, CancellationToken cancellationToken = default)
+    public async Task DeleteAsync(Like model, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        _context.Likes.Remove(model);
     }
 
-    public Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await _context.Likes.Where(x => x.Uid.Equals(id)).ExecuteDeleteAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<bool> HasLikeAsync(Guid userId, int likeId)
@@ -55,11 +55,6 @@ public class LikeRepository : ILikeRepository
         return await _context.UserLikes
             .Where(x => x.LikeId.Equals(likeId) && x.UserId.Equals(userId))
             .AnyAsync();
-        // return await _context.Likes
-        //     .Include(x => x.Users)
-        //     .Where(x => x.Users.Any(u => u.Id.Equals(userId)))
-            // .AnyAsync();
-            // return true;
     }
 
     public async Task RemoveLikeAsync(Guid userId, int likeId)
@@ -71,6 +66,5 @@ public class LikeRepository : ILikeRepository
         if (entity is null)
             return;
         _context.UserLikes.Remove(entity);
-        
     }
 }

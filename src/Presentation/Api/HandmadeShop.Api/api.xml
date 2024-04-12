@@ -896,7 +896,7 @@
             Get product info by id
             </summary>
             <param name="productId">Unique product id</param>
-            <returns></returns>
+            <returns>Product model</returns>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.CreateProductAsync(HandmadeShop.Api.Controllers.Catalog.Models.CreateProductRequest)">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using HandmadeShop.Application.Abstraction.Messaging;
 using HandmadeShop.Domain;
 using HandmadeShop.Domain.Common;
+using HandmadeShop.Infrastructure.Abstractions.Caching;
 using HandmadeShop.Infrastructure.Abstractions.Context;
 using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 
@@ -11,7 +12,9 @@ public class DeleteProductImageHandler : ICommandHandler<DeleteProductImageComma
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFileStorage _fileStorage;
 
-    public DeleteProductImageHandler(IUnitOfWork unitOfWork, IFileStorage fileStorage)
+    public DeleteProductImageHandler(
+        IUnitOfWork unitOfWork, 
+        IFileStorage fileStorage)
     {
         _unitOfWork = unitOfWork;
         _fileStorage = fileStorage;

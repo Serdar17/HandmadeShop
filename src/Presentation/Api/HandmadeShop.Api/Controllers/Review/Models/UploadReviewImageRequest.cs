@@ -20,8 +20,6 @@ public class UploadReviewImageRequest
     public required IFormFile Image { get; set; }
 }
 
-// TODO: Заинжектить main настройки в ctor и валидирвоать размер файла из настроек
-
 /// <summary>
 /// Valiadtion rules for <see cref="UploadReviewImageRequest"/>
 /// </summary>

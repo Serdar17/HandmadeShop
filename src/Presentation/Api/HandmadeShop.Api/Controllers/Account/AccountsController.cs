@@ -65,8 +65,7 @@ public class AccountsController : ControllerBase
 
         return result.ToProblemDetails();
     }
-
-    // TODO: Добавить пагинацию
+    
     /// <summary>
     ///  Get all user products
     /// </summary>
