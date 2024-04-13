@@ -50,7 +50,7 @@ public class CheckoutBase : ComponentBase
             Snackbar.Add(result.Error.Message, Severity.Error);
         }
         // TODO: navigate to the my-orders page
-        await Task.Delay(2000);
+        await Task.Delay(500);
 
         Processing = false;
     }

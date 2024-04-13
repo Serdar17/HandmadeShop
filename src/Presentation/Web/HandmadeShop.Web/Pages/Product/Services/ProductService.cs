@@ -59,7 +59,7 @@ public class ProductService : IProductService
 
     public async Task<Result<PagedList<ProductModel>?>> GetProductsByQueryAsync(ProductQueryModel query)
     {
-        var url = GetUrlWithParams($"{Settings.ApiRoot}/api/v1/products", query);
+        var url = new Uri($"{Settings.ApiRoot}/api/v1/products").GetUrlWithParams(query);
 
         var response = await _httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
@@ -204,20 +204,5 @@ public class ProductService : IProductService
         }
 
         return content.ToError();
-    }
-
-    private string GetUrlWithParams(string url, ProductQueryModel model)
-    {
-        var uri = new Uri(url);
-
-        return uri.AddParameter("catalogName", model.CatalogName)
-            .AddParameter("pageSize", model.PageSize.ToString())
-            .AddParameter("page", model.Page.ToString())
-            .AddParameter("sortOrder", model.SortOrder)
-            .AddParameter("sortColumn", model.SortColumn)
-            .AddParameter("search", model.Search)
-            .AddParameter("priceFrom", model.PriceFrom.ToString())
-            .AddParameter("priceTo", model.PriceTo.ToString())
-            .ToString();
     }
 }

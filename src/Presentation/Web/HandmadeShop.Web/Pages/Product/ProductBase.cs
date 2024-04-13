@@ -95,8 +95,7 @@ public class ProductBase : ComponentBase
 
     protected async Task EditProduct()
     {
-        var parameters = new DialogParameters { };
-        parameters.Add("Model", ProductModel);
+        var parameters = new DialogParameters { { "Model", ProductModel } };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true };
 
         var dialog = await DialogService.ShowAsync<ProductDialog>("Изменить продукт", parameters, options);
@@ -112,11 +111,16 @@ public class ProductBase : ComponentBase
 
     protected async Task DeleteProduct()
     {
-        var parameters = new DialogParameters();
-        parameters.Add("ContentText", "Вы действительно хотите удалить товар? Данное действие нельзя будет отменить после удаления." +
-                                      "Также при удалении пропадет рейтинг товара и все отзывы!");
-        parameters.Add("ButtonText", "Delete");
-        parameters.Add("Color", Color.Error);
+        var parameters = new DialogParameters
+        {
+            {
+                "ContentText",
+                "Вы действительно хотите удалить товар? Данное действие нельзя будет отменить после удаления." +
+                "Также при удалении пропадет рейтинг товара и все отзывы!"
+            },
+            { "ButtonText", "Delete" },
+            { "Color", Color.Error }
+        };
 
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
 

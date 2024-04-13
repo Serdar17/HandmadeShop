@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using HandmadeShop.SharedModel.Catalogs.Models;
 
 namespace HandmadeShop.Web.Extensions;
 
@@ -19,5 +20,19 @@ public static class UriExtensions
         uriBuilder.Query = query.ToString();
 
         return uriBuilder.Uri;
+    }
+
+    public static string GetUrlWithParams(this Uri uri, ProductQueryModel model)
+    {
+        return uri.AddParameter("catalogName", model.CatalogName)
+            .AddParameter("pageSize", model.PageSize.ToString())
+            .AddParameter("page", model.Page.ToString())
+            .AddParameter("sortOrder", model.SortOrder)
+            .AddParameter("sortColumn", model.SortColumn)
+            .AddParameter("search", model.Search)
+            .AddParameter("priceFrom", model.PriceFrom.ToString())
+            .AddParameter("priceTo", model.PriceTo.ToString())
+            .AddParameter("isFavorite", model.IsFavorite.ToString())
+            .ToString();
     }
 }

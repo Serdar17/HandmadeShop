@@ -28,9 +28,6 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
             .Include(x => x.Like)
             .Include(x => x.Reviews)
             .AsQueryable();
-        
-        var maxPrice = await productQuery.MaxAsync(x => x.Price);
-        var minPrice = await productQuery.MinAsync(x => x.Price);
 
        if (!string.IsNullOrEmpty(request.Query.CatalogName))
         {
@@ -42,6 +39,9 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
         {
             productQuery = productQuery.Where(x => x.Name.ToLower().Contains(request.Query.Search.ToLower()));
         }
+        
+        var maxPrice = await productQuery.MaxAsync(x => x.Price);
+        var minPrice = await productQuery.MinAsync(x => x.Price);
 
         if (request.Query.SortOrder?.ToLower() == "desc")
         {

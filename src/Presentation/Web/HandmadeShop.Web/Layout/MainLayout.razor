@@ -13,44 +13,42 @@
     <MudAppBar Class="d-flex justify-content-center align-items-center" Elevation="1">
 
            <MudLink Href="/" Class="ml-4 mr-4" Color="Color.Inherit" Style="text-decoration: none; font-size: 20px;">Handmade Shop</MudLink>
+           
            <MudButton StartIcon="@(_drawerOpen ? Icons.Material.Filled.Close : Icons.Material.Filled.Menu)"
                       Color="Color.Inherit" IconSize="Size.Large"
                       OnClick="@DrawerToggleAsync">
                Каталог
            </MudButton>
-   
-           @* <MudItem Class="rounded-circle ml-5"> *@
-
-           @* </MudItem> *@
            
-               @* <MudText Align="Align.Center">.rounded-pill</MudText> *@
+           @if (!string.IsNullOrEmpty(SearchValueTransferService.Data))
+           {
                <MudTextField
-                   @bind-Value="TextValue"
+                   @bind-Value="@SearchValueTransferService.Data"
                    Placeholder="Поиск товаров"
                    Class="rounded mr-4 ml-4"
                    Style="@(_isDarkMode ? _sizeStyles : _inputStyles + _sizeStyles)"
                    Variant="Variant.Outlined"
                    Adornment="Adornment.End"
                    AdornmentIcon="@Icons.Material.Filled.Search"
-                   AdornmentColor="Color.Secondary"
-                   OnAdornmentClick="Search"/>
-               
-   
+                   AdornmentColor="Color.Inherit"
+                   OnAdornmentClick="Search"
+                   @onkeyup="@OnSearchClick"/>
+           }
+           else
+           {
+               <MudTextField
+                   @bind-Value="@_searchValue"
+                   Placeholder="Поиск товаров"
+                   Class="rounded mr-4 ml-4"
+                   Style="@(_isDarkMode ? _sizeStyles : _inputStyles + _sizeStyles)"
+                   Variant="Variant.Outlined"
+                   Adornment="Adornment.End"
+                   AdornmentIcon="@Icons.Material.Filled.Search"
+                   AdornmentColor="Color.Inherit"
+                   OnAdornmentClick="Search"
+                   @onkeyup="@OnSearchClick"/>
+           }
            
-           @* <MudTextField T="string"  *@
-           @*                *@
-           @*               Class="rounded-input" *@
-           @*               Placeholder="Поиск товаров" *@
-           @*               AdornmentIcon="@Icons.Material.Filled.Search" *@
-           @*               AdornmentColor="Color.Default" *@
-           @*               Variant="Variant.Outlined"/> *@
-           
-           @* <MudAutocomplete Placeholder="Поиск товаров" *@
-           @*                  T="string" *@
-           @*                  Immediate="true" *@
-           @*                  AdornmentIcon="@Icons.Material.Filled.Search"  *@
-           @*                  AdornmentColor="Color.Primary"/> *@
-            
            <MudLink Href="/my/favorites">
                <MudIconButton Icon="@Icons.Material.Filled.FavoriteBorder" Style="color: white;" Size="Size.Medium"/>
            </MudLink>
@@ -69,8 +67,6 @@
                   </MudBadge>
               }
            </MudLink>   
-           
-               
            
            <MudDivider Class="mt-2" Style="height: 70%;" DividerType="DividerType.Middle" Vertical="true" FlexItem="true" />
            
@@ -100,10 +96,12 @@
 
 @code {
     [Inject] BasketTransferService BasketTransferService { get; set; }
+    [Inject] SearchValueTransferService SearchValueTransferService { get; set; }
     [Inject] IBasketService BasketService { get; set; }
-    private string _inputStyles = $"background: {Colors.Blue.Lighten5};";
+    [Inject] NavigationManager NavigationManager { get; set; }
+    private string _inputStyles = "background: white;";
     private string _sizeStyles = "width: 400px; height: 50px";
-    private string TextValue;
+    private string _searchValue;
     private bool _processing;
     
     private bool _drawerOpen = true;
@@ -118,6 +116,8 @@
         var data = (await BasketService.GetUserBasketAsync()).Value;
         BasketTransferService.Data = data;
         BasketTransferService.DataChanged += OnBasketChanged;
+        SearchValueTransferService.Data = _searchValue;
+        SearchValueTransferService.DataChanged += OnSearchValueChanged;
         _processing = false;
     }
     
@@ -133,16 +133,32 @@
         await ConfigurationService.SetDarkModeAsync(_isDarkMode);
     }
 
-    public void OnBasketChanged(object? sender, BasketModel model)
+    private void OnBasketChanged(object? sender, BasketModel model)
     {
         InvokeAsync(StateHasChanged);
     }
 
-    private void Search() { }
+    private void OnSearchValueChanged(object? sender, string searchValue)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void Search()
+    {
+        NavigationManager.NavigateTo($"/search?searchValue={_searchValue}", true);
+    }
+
+    private void OnSearchClick(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            Search();
+        }
+    }
 
     public void Dispose()
     {
         BasketTransferService.DataChanged -= OnBasketChanged;
+        SearchValueTransferService.DataChanged -= OnSearchValueChanged;
     }
-
 }

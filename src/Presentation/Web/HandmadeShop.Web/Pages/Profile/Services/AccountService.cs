@@ -40,7 +40,8 @@ public class AccountService : IAccountService
         
         if (response.IsSuccessStatusCode)
         {
-            var model = JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var model = JsonSerializer.Deserialize<AccountInfoModel>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (model is null)
                 return UserErrors.NotFound(Guid.Parse(id));
@@ -51,9 +52,9 @@ public class AccountService : IAccountService
         return content.ToError();
     }
 
-    public async Task<Result<PagedList<ProductModel>>> GetUserProducts(ProductQueryModel model)
+    public async Task<Result<PagedList<ProductModel>?>> GetUserProducts(ProductQueryModel model)
     {
-        var url = GetUrlWithParams($"{Settings.ApiRoot}/api/v1/accounts/my-products", model);
+        var url = new Uri($"{Settings.ApiRoot}/api/v1/accounts/my-products").GetUrlWithParams(model);
 
         var response = await _httpClient.GetAsync(url);
         var content = await response.Content.ReadAsStringAsync();
@@ -98,7 +99,8 @@ public class AccountService : IAccountService
         
         if (response.IsSuccessStatusCode)
         {
-            var newModel = JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            var newModel = JsonSerializer.Deserialize<AccountInfoModel>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (newModel is null)
                 return model;
@@ -109,7 +111,7 @@ public class AccountService : IAccountService
         return content.ToError();
     }
 
-    public async Task<Result<AccountInfoModel>> UploadAvatarAsync(MultipartFormDataContent form)
+    public async Task<Result<AccountInfoModel>?> UploadAvatarAsync(MultipartFormDataContent form)
     {
         var url = $"{Settings.ApiRoot}/api/v1/accounts/avatar/upload";
         
@@ -118,13 +120,14 @@ public class AccountService : IAccountService
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return JsonSerializer.Deserialize<AccountInfoModel>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         }
 
         return content.ToError();
     }
 
-    public async Task<Result<AccountInfoModel>> DeleteAvatarAsync()
+    public async Task<Result<AccountInfoModel>?> DeleteAvatarAsync()
     {
         var url = $"{Settings.ApiRoot}/api/v1/accounts/avatar/delete";
 
@@ -133,26 +136,11 @@ public class AccountService : IAccountService
 
         if (response.IsSuccessStatusCode)
         { 
-            return JsonSerializer.Deserialize<AccountInfoModel>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            return JsonSerializer.Deserialize<AccountInfoModel>(content, 
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
         }
 
         return content.ToError();
     }
     
-    private string GetUrlWithParams(string url, ProductQueryModel model)
-    {
-        // TODO сделать extension
-        var uri = new Uri(url);
-
-        return uri.AddParameter("catalogName", model.CatalogName)
-            .AddParameter("pageSize", model.PageSize.ToString())
-            .AddParameter("page", model.Page.ToString())
-            .AddParameter("sortOrder", model.SortOrder)
-            .AddParameter("sortColumn", model.SortColumn)
-            .AddParameter("search", model.Search)
-            .AddParameter("priceFrom", model.PriceFrom.ToString())
-            .AddParameter("priceTo", model.PriceTo.ToString())
-            .AddParameter("isFavorite", model.IsFavorite.ToString())
-            .ToString();
-    }
 }

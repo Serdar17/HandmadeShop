@@ -1,0 +1,160 @@
+﻿@using HandmadeShop.Web.Extensions
+@using HandmadeShop.Web.Pages.Profile.Services
+
+<MudGrid>
+    <MudItem xs="3">
+        @if (Model.AvatarUrl is not null)
+        {
+            <div class="d-flex justify-content-center">
+                <MudImage ObjectFit="ObjectFit.Cover"
+                          ObjectPosition="ObjectPosition.Center"
+                          Class="rounded-circle"
+                          Width="200" Height="200"
+                          Src="@Model.DownloadPath"/>
+
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                <MudButton Variant="Variant.Filled"
+                           StartIcon="@Icons.Material.Filled.Delete"
+                           Color="Color.Error"
+                           Class="justify-content-center"
+                           OnClick="@DeleteAsync">
+                    Удалить
+                </MudButton>
+
+            </div>
+        }
+        else
+        {
+            if (Avatar is not null)
+            {
+                <div class="d-flex justify-content-center">
+                    <div class="d-inline-block position-relative">
+                        <MudImage ObjectFit="ObjectFit.Cover"
+                                  Class="rounded-circle"
+                                  Width="200" Height="200"
+                                  Src="@DataUrl"/>
+
+                        <div class="remove-image" @onclick="@(RemoveFile)">
+                            <span class="remove-image-icon">&times;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <MudButton OnClick="@UploadAsync"
+                               Disabled="@Processing"
+                               Class="mt-4"
+                               Color="Color.Primary"
+                               Variant="Variant.Filled">
+                        @if (Processing)
+                        {
+                            <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                            <MudText Class="ms-2">Загружается...</MudText>
+                        }
+                        else
+                        {
+                            <MudText Class="ms-2">Загрузить</MudText>
+                        }
+
+                    </MudButton>
+
+                </div>
+
+            }
+            else
+            {
+                <div class="d-flex">
+                    <MudFileUpload T="IBrowserFile"
+                                   Class="d-flex justify-content-center align-items-center"
+                                   Accept=".png, .jpg, .svg, .gif"
+                                   MaximumFileCount="1"
+                                   OnFilesChanged="UploadFiles">
+                        <ButtonTemplate>
+                            <MudIconButton HtmlTag="label"
+                                           Color="Color.Info"
+                                           Icon="@Icons.Material.Filled.PhotoCamera"
+                                           for="@context.Id">
+                            </MudIconButton>
+                        </ButtonTemplate>
+
+                    </MudFileUpload>
+
+                </div>
+            }
+        }
+    </MudItem>
+    <MudItem xs="9">
+        <UpdateProfileInfo Model="@Model"/>
+    </MudItem>
+</MudGrid>
+
+@code
+{
+    [Parameter] public AccountInfoModel? Model { get; set; }
+    [Inject] private IAuthService AuthService { get; set; }
+    [Inject] private IAccountService AccountService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private ISnackbar Snackbar { get; set; }
+    private IBrowserFile? Avatar;
+    private bool Processing { get; set; }
+    private string DataUrl = string.Empty;
+    
+    private async Task UploadFiles(InputFileChangeEventArgs args)
+    {
+        Avatar = args.File;
+        DataUrl = await Avatar.GetDataUrl();
+    }
+
+    private async Task DeleteAsync()
+    {
+        var parameters = new DialogParameters<Dialog>
+        {
+            { x => x.ContentText, "Вы действительно хотите удалить Аватар?" },
+            { x => x.ButtonText, "Delete" },
+            { x => x.Color, Color.Error }
+        };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = await DialogService.ShowAsync<Dialog>("Удаление", parameters, options);
+        
+        if ((await dialog.Result).Canceled)
+            return;
+        
+        var result = await AccountService.DeleteAvatarAsync();
+
+        if (result.IsSuccess && result.Value is not null)
+        {
+            Model = result.Value;
+            return;
+        }
+    }
+
+    private async Task UploadAsync()
+    {
+        Processing = true;
+
+        var imageBytes = Convert.FromBase64String(DataUrl.Split(',')[1]);
+        using MemoryStream ms = new MemoryStream(imageBytes);
+        using var stream1 = new StreamContent(ms);
+        var form = new MultipartFormDataContent();
+        form.Add(stream1,"avatar", Avatar.Name);
+        var result = await AccountService.UploadAvatarAsync(form);
+        
+        if (result.IsSuccess)
+        {
+            Model = result.Value;
+            Snackbar.Add("Аватар загружен успешно!", Severity.Success);
+            Avatar = null;
+        }
+
+        Processing = false;
+    }
+
+    private void RemoveFile()
+    {
+        Avatar = null;
+    }
+}

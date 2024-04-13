@@ -28,7 +28,8 @@ public static class DependencyInjection
             .AddScoped<IOrderService, OrderService>()
             .AddScoped<ITokenService, TokenService>()
             .AddScoped<IConfigurationService, ConfigurationService>()
-            .AddScoped<BasketTransferService>();
+            .AddScoped<BasketTransferService>()
+            .AddScoped<SearchValueTransferService>();
         
         
         return services;

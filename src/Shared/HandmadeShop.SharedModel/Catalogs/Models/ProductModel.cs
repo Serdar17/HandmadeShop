@@ -9,6 +9,8 @@ public class ProductModel
     public double Price { get; set; }
     public bool HasDiscount { get; set; }
     public double DiscountPrice { get; set; }
+    public int ReviewCount { get; set; }
+    public int Rating { get; set; }
     
     public string? CatalogName { get; set; }
     public string DownloadUrl { get; set; }

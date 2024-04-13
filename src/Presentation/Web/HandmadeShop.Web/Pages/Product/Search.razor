@@ -1,0 +1,63 @@
+﻿@page "/search"
+@layout MainLayout
+@inherits SearchBase
+@attribute [Authorize]
+
+@if (PagedList is null || IsLoading)
+{
+    <div class="center">
+       <MudProgressCircular Color="Color.Default" Indeterminate="true" /> 
+    </div>
+}
+else if (PagedList.Items.Count == 0)
+{
+    <MudText Typo="Typo.h5" Class="mt-5 ml-4" Style="font-weight: bold">Результат поиска</MudText>
+    <div class="d-flex mt-4">
+        <MudIcon Class="mr-4 ml-4" Icon="@Icons.Material.Filled.ErrorOutline" Size="Size.Large"/>
+        <div>
+           <MudText Typo="Typo.body1">К сожалению, по вашему запросу "<b>@SearchValue</b>" ничего не найдено</MudText>
+           <MudText Typo="Typo.body2">Попробуйте изменить условие поиска или проверьте слова на ошибки</MudText> 
+        </div>
+    </div>
+}
+else
+{
+    <MudText Class="mt-4">По запросу "<b>@SearchValue</b>" найдено</MudText>
+    
+    <MudGrid>
+        <MudItem xs="3">
+            
+            <ProductFilter SortItem="SortItem" SelectedSortChanged="SelectedSort"/>
+            
+            <PriceFilter PagedList="PagedList"
+                         PriceFrom="PriceFrom"
+                         PriceTo="PriceTo"
+                         UpperPriceChanged="UpperPriceChanged"
+                         LowerPriceChanged="LowerPriceChanged"
+                         RangeChanged="SendAsync"/>
+
+        </MudItem>
+
+        <MudItem xs="9">
+            <CascadingValue Value="this">
+                <CascadingValue Value="FavoriteProducts">
+                    <ProductsView PagedList="PagedList"/>
+                </CascadingValue>
+            </CascadingValue>
+            
+            @if (PagedList.Items.Count > 0)
+            {
+                <div class="d-flex flex-column align-center mt-10">
+                    <MudPagination Selected="Page" 
+                                   SelectedChanged="@SelectedPage"
+                                   Rectangular="true" 
+                                   Variant="Variant.Filled"
+                                   Count="@PageCount" 
+                                   Class="my-4" />
+                </div>
+            }
+            
+        </MudItem>
+        
+    </MudGrid>
+}

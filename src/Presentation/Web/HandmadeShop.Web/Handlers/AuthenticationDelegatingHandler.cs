@@ -26,7 +26,7 @@ public class AuthenticationDelegatingHandler : DelegatingHandler
     
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        Console.WriteLine("called interceptor");
+        Console.WriteLine("interceptor called");
         var accessToken = await _localStorage.GetItemAsStringAsync("authToken", cancellationToken);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken?.Replace("\"", ""));
         var response = await base.SendAsync(request, cancellationToken);
@@ -58,29 +58,6 @@ public class AuthenticationDelegatingHandler : DelegatingHandler
             }
             
         }
-
-        // if (response.StatusCode != HttpStatusCode.Unauthorized)
-        //     return response;
-        //
-        //
-        // try
-        // {
-        //     var tokenResult = await _tokenService.RefreshTokenAsync();
-        //     if (tokenResult.Successful)
-        //     {
-        //         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", tokenResult.AccessToken);
-        //         response = await base.SendAsync(request, cancellationToken);
-        //     }
-        //     else
-        //     {
-        //         _navigationManager.NavigateTo("/logout");
-        //     }
-        // }
-        // catch (Exception e)
-        // {
-        //     Console.WriteLine(e);
-        // }
-            
         
         return response;
     }

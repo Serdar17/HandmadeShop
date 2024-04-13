@@ -27,7 +27,7 @@ public class ProductInfoBase : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         IsLoading = true;
-        await Task.Delay(2000);
+        await Task.Delay(500);
         var result = await ProductService.GetProductInfoModel(ProductId);
         
         if (result.IsSuccess && result.Value != null)

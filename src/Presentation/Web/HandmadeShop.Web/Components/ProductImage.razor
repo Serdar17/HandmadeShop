@@ -1,12 +1,9 @@
 ﻿@inherits ProductImageBase
 
-@* TODO: Здесь будет карусель из фотографии товаров *@
-
-
 <MudCarousel
 	Class="mud-width-full"
 	@ref="_carousel"
-	ItemsSource="@_source"
+	ItemsSource="@ImageUrls"
 	Style="height:400px;"
 	ShowArrows="true"
 	ShowBullets="true"
@@ -17,7 +14,7 @@
 				<MudImage ObjectPosition="ObjectPosition.Center" 
 				          Width="400"
 				          Height="400"
-				          Src="/images/бусы.jpg" 
+				          Src="@context" 
 				          Elevation="25" 
 				          Class="rounded-lg ma-4"/>
 			</div>
@@ -30,25 +27,5 @@
 
 @code {
 	private MudCarousel<string> _carousel;
-	private IList<string> _source = new List<string>() { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-	private int selectedIndex = 2;
-
-	private async Task AddAsync()
-	{
-		_source.Add($"Item {_source.Count + 1}");
-		await Task.Delay(1);
-		_carousel.MoveTo(_source.Count - 1);
-	}
-
-	private async Task DeleteAsync(int index)
-	{
-		if (_source.Any())
-		{
-			_source.RemoveAt(index);
-			await Task.Delay(1);
-			_carousel.MoveTo(System.Math.Max(System.Math.Min(index, _source.Count - 1), 0));
-		}
-
-	}
-
+	[Parameter] public IList<string> ImageUrls { get; set; }
 }

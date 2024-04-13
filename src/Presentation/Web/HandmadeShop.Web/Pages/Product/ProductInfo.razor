@@ -3,13 +3,9 @@
 @layout MainLayout
 @attribute [Authorize]
 
-
-@* TODO: Тут будет детальная информация о продукте, надо разбить ОТЗЫВЫ, КАРУСЕЛЬ ФОТОК, ХАРАКТЕРИСТИКИ ТОВАРА на комполненты 
-Сюда можно будет попасть только из основной страницы *@
-
 @if (IsLoading)
 {
-    <div class="spinner">
+    <div class="center">
         <MudProgressCircular Color="Color.Default" Indeterminate="true" />
     </div>
     
@@ -20,19 +16,19 @@ else if (Model is null)
 }
 else
 {
-    <MudText Class="mt-5 mb-5" Typo="Typo.h4" Style="font-weight: bold;" >Название товара</MudText>
+    <MudText Class="mt-5 mb-5" Typo="Typo.h4" Style="font-weight: bold;" >@Model.Name</MudText>
 <div class="d-flex align-items-center">
-    <MudRating ReadOnly="true" SelectedValue="2" />
-    <MudLink Class="ml-2" Href="@("/product/info/" + ProductId + "#reviews")">10 отзывов</MudLink>
+    <MudRating ReadOnly="true" SelectedValue="@Model.Rating" />
+    <MudLink Class="ml-2" Href="@("/product/info/" + ProductId + "#reviews")">@Model.ReviewCount отзывов</MudLink>
     
-    <MudText Class="ml-2 p-1" Typo="Typo.inherit">Дата публикации: 10.09.2023</MudText>
+    <MudText Class="ml-2 p-1" Typo="Typo.inherit">Дата публикации: @Model.CreatedAt.ToString("dd.MM.yyyy")</MudText>
 </div>
 
 
 <MudGrid Justify="Justify.Center" Class="mt-5">
     <MudItem xs="7">
         <MudPaper Class="d-flex flex-column align-center justify-center mud-width-full py-8">
-            <ProductImage/>
+            <ProductImage ImageUrls="@Model.ImageUrls"/>
         </MudPaper>
     </MudItem>
     
@@ -53,7 +49,7 @@ else
             
             @if (true)
             {
-                <span class="quantity">В наличии: <b>10</b> шт.</span>
+                <span class="quantity">В наличии: <b>@Model.Quantity</b> шт.</span>
             }
             else
             {
@@ -71,16 +67,16 @@ else
                         Перейти в корзину
                     </MudButton>   
                 }
-               else
-               {
-                   <MudButton Class="rounded-xl" 
-                              Color="Color.Primary"
-                              OnClick="@(async () => await AddToBasket())"
-                              Variant="Variant.Filled" 
-                              EndIcon="@Icons.Material.Filled.ShoppingCart">
-                       Добавить в корзину
-                   </MudButton>    
-               }
+                else
+                {
+                    <MudButton Class="rounded-xl" 
+                               Color="Color.Primary"
+                               OnClick="@(async () => await AddToBasket())"
+                               Variant="Variant.Filled" 
+                               EndIcon="@Icons.Material.Filled.ShoppingCart">
+                        Добавить в корзину
+                    </MudButton>    
+                }
             </div>
             
             <div class="d-flex justify-content-center mt-5">
@@ -95,32 +91,20 @@ else
         <MudText Class="mb-4" Style="font-weight: bold;" Typo="Typo.h5">Описание товара</MudText>
         <MudDivider/>
     </MudItem>
-
     
-    <MudItem xs="6">
-            <h4 Class="mb-4 product-description-title">Характеристики</h4>
-    </MudItem>
-    
-    <MudItem xs="6">
-        <h4 Class="mb-4 product-description-title">Описание</h4>
-        <MudText>какое-то очень большое и полезное описание товара</MudText>
+    <MudItem xs="12">
+        <MudItem xs="6">
+            <h4 Class="mb-4 product-description-title">Описание</h4>
+            <MudText>@Model.Description</MudText>
+        </MudItem>
     </MudItem>
     
     <MudItem xs="8" Class="mt-10">
         <div id="reviews" class="reviews"><Reviews ProductId="Model.Uid" /></div>
-        </MudItem>
+    </MudItem>
     <MudItem xs="4">
         
     </MudItem>
-    
-    
-    
 </MudGrid>
-
-
-
-
-
-
 
 }
