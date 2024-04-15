@@ -13,7 +13,10 @@ internal sealed class ForgotPasswordHandler : ICommandHandler<ForgotPasswordComm
     private readonly IEmailService _emailService;
     private readonly IAction _action;
 
-    public ForgotPasswordHandler(UserManager<User> userManager, IEmailService emailService, IAction action)
+    public ForgotPasswordHandler(
+        UserManager<User> userManager,
+        IEmailService emailService,
+        IAction action)
     {
         _userManager = userManager;
         _emailService = emailService;

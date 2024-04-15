@@ -11,7 +11,9 @@ public class ResetProfilePasswordHandler : ICommandHandler<ResetProfilePasswordC
     private readonly UserManager<User> _userManager;
     private readonly IIdentityService _identityService;
 
-    public ResetProfilePasswordHandler(UserManager<User> userManager, IIdentityService identityService)
+    public ResetProfilePasswordHandler(
+        UserManager<User> userManager,
+        IIdentityService identityService)
     {
         _userManager = userManager;
         _identityService = identityService;

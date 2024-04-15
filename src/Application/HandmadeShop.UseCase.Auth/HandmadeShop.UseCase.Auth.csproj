@@ -15,4 +15,14 @@
       <ProjectReference Include="..\HandmadeShop.Application\HandmadeShop.Application.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>Application.UseCase.Auth.UnitTests</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Application.UseCase.Auth.UnitTests" />
+    </ItemGroup>
+
 </Project>
