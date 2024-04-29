@@ -43,3 +43,7 @@ msbuild.wrn
 .docker/
 .idea/
 rabbitmq
+src/Presentation/Worker/HandmadeShop.Worker/appsettings.Development.json
+src/Presentation/Api/HandmadeShop.Api/appsettings.Development.json
+src/Presentation/Identity/HandmadeShop.Identity/appsettings.Development.json
+env*
