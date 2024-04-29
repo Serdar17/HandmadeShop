@@ -17,7 +17,7 @@ public class LoginBase : ComponentBase
 
     protected LoginModel Model = new()
     {
-        Email = "useinovserdar23@gmail.com",
+        Email = "buyer@mail.com",
         Password = "1234"
     };
 

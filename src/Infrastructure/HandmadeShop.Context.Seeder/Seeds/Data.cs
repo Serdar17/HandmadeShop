@@ -14,6 +14,7 @@ public static class SeedData
         Name = "Seller",
         Status = UserStatus.Active,
         Gender = Gender.Male,
+        UserName = "seller@mail.com", 
         Email = "seller@mail.com",
         EmailConfirmed = true,
         PasswordHash = "1234",
@@ -27,9 +28,10 @@ public static class SeedData
         Name = "Buyer",
         Status = UserStatus.Active,
         Gender = Gender.Male,
+        UserName = "buyer@mail.com",
         Email = "buyer@mail.com",
         EmailConfirmed = true,
-        PasswordHash = "1234",
+        PasswordHash = "1234",  
         AvatarUrl = "/users/avatars/24ebc6a2-0f24-440a-9094-60500001dca4/wiit1koc.4k4.jpg",
         BirthDate = new DateTime(2002, 02, 02)
     };
@@ -53,7 +55,7 @@ public static class SeedData
             Quantity = 10,
             Price = 4000,
             HasDiscount = false,
-            Images = ["/products/images/198cfe6b-3cce-467c-8080-4900875fa3bb/vsdzlgrt.pke.jpg"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/k5vsma1d.m4b.jfif"],
         },
         
         new Product
@@ -64,7 +66,7 @@ public static class SeedData
             Price = 3000,
             HasDiscount = true,
             DiscountPrice = 2699,
-            Images = ["/products/images/198cfe6b-3cce-467c-8080-4900875fa3bb/cwbnsgvj.tep.jpg"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/gdd5adyv.sim.jfif"],
         },
         
         new Product
@@ -74,7 +76,7 @@ public static class SeedData
             Quantity = 10,
             Price = 1500,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/u4xtmmti.wnu.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/ni5sjtcr.t3b.jfif"],
         },
         
         new Product
@@ -84,7 +86,7 @@ public static class SeedData
             Quantity = 10,
             Price = 4000,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/euu5exw1.wa5.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/34yqi4xn.wfz.jfif"],
         },
         
         new Product
@@ -94,7 +96,7 @@ public static class SeedData
             Quantity = 10,
             Price = 4000,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/euu5exw1.wa5.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/nqaiihjd.rii.jfif"],
         },
     ];
 
@@ -107,7 +109,7 @@ public static class SeedData
             Quantity = 30,
             Price = 500,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/el32dwhg.vx2.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/kpneopcr.djt.jfif"],
         },
         
         new Product
@@ -118,7 +120,7 @@ public static class SeedData
             Price = 650,
             HasDiscount = true,
             DiscountPrice = 599,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/atnjfyh4.vyj.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/23gtepj4.5uo.jfif"],
         },
         
         new Product
@@ -128,7 +130,7 @@ public static class SeedData
             Quantity = 15,
             Price = 5000,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/p0arubzg.zuh.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/4ljuh53o.nt5.jfif"],
         },
         
         new Product
@@ -139,7 +141,7 @@ public static class SeedData
             Price = 400,
             HasDiscount = true,
             DiscountPrice = 299,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/2zchduip.4kj.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/yybj1rg0.zn2.jfif"],
         },
         
         new Product
@@ -149,7 +151,7 @@ public static class SeedData
             Quantity = 20,
             Price = 1500,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/nbd0jgq3.dry.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/okk141fe.14h.jfif"],
         },
     ];
 
@@ -162,7 +164,7 @@ public static class SeedData
             Quantity = 15,
             Price = 1500,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/ft4ghg34.cty.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/tip1wisz.p4p.jfif"],
         },
         
         new Product
@@ -172,7 +174,7 @@ public static class SeedData
             Quantity = 28,
             Price = 6000,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/hwrxqq2p.g2c.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/sjn4nqqx.5jd.jfif"],
         },
         
         new Product
@@ -183,7 +185,7 @@ public static class SeedData
             Price = 1000,
             HasDiscount = true,
             DiscountPrice = 899,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/ldmf3xvx.egu.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/5l55vv1s.j0r.jfif"],
         },
     ];
 
@@ -196,7 +198,7 @@ public static class SeedData
             Quantity = 10,
             Price = 5000,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/3mqei1it.mi0.webp"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/g5kz3abv.jtk.jfif"],
             Catalog = TestCatalogs[3],
         },
         
@@ -207,7 +209,7 @@ public static class SeedData
             Quantity = 23,
             Price = 800,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/dbar5jww.xep.webp"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/soix1h5u.4ac.jfif"],
             Catalog = TestCatalogs[3],
         },
         
@@ -218,7 +220,7 @@ public static class SeedData
             Quantity = 12,
             Price = 500,
             HasDiscount = false,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/rqpnhmiy.0qy.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/hspht3na.xo0.jfif"],
             Catalog = TestCatalogs[3],
         },
         
@@ -230,7 +232,7 @@ public static class SeedData
             Price = 1500,
             HasDiscount = true,
             DiscountPrice = 1299,
-            Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/wvce3lee.uql.jfif"],
+            Images = ["/products/images/d53c8eb8-304a-4974-96f3-f490a548ca55/kf3ppx51.bev.jfif"],
             Catalog = TestCatalogs[3],
         },
     ];

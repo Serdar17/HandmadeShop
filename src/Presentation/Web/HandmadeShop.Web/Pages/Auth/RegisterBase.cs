@@ -19,9 +19,9 @@ public class RegisterBase : ComponentBase
 
     protected RegisterModel Model = new()
     {
-        Name = "Serdar",
-        Email = "useinovserdar23@gmail.com",
-        Password = "12345"
+        Name = "Buyer",
+        Email = "buyer@mail.com",
+        Password = "1234"
     };
 
     protected bool PasswordVisibility;

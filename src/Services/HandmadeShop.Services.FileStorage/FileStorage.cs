@@ -29,7 +29,7 @@ public class FileStorage : IFileStorage
         
         var uploadLink =
             await _diskApi.Files.GetUploadLinkAsync(filePath, 
-                true, cancellationToken);
+                false, cancellationToken);
 
         await _diskApi.Files.UploadAsync(uploadLink, image.OpenReadStream(), cancellationToken);
 

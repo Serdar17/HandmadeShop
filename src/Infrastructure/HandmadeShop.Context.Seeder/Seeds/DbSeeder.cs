@@ -53,25 +53,33 @@ public static class DbSeeder
         
         if (await context.Users.AnyAsync())
             return;
+        
+        await CreateUser(userManager);
 
         var catalogs = SeedData.TestCatalogs;
         catalogs[0].Products = SeedData.TestProduct1;
         catalogs[1].Products = SeedData.TestProduct2;
         catalogs[2].Products = SeedData.TestProduct3;
         catalogs[3].Products = SeedData.TestProduct4;
+
+        var seller = await userManager.FindByEmailAsync(SeedData.Seller.Email);
         
         context.Catalogs.AddRange(catalogs);
+
+        seller.Products = SeedData.TestProducts;
+        await userManager.UpdateAsync(seller);
         
+    }
+
+    private static async Task CreateUser(UserManager<User> userManager)
+    {
         var seller = SeedData.Seller;
         seller.PasswordHash = userManager.PasswordHasher.HashPassword(seller, seller.PasswordHash);
         
         var buyer = SeedData.Buyer;
         buyer.PasswordHash = userManager.PasswordHasher.HashPassword(buyer, buyer.PasswordHash);
-        
-        seller.Products = SeedData.TestProducts;
-        context.Users.Add(seller);
-        context.Users.Add(buyer);
-        
-        await context.SaveChangesAsync();
+
+        await userManager.CreateAsync(seller);
+        await userManager.CreateAsync(buyer);
     }
 }
