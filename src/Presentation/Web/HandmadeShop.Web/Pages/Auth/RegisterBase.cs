@@ -1,4 +1,5 @@
-﻿using HandmadeShop.Web.Pages.Auth.Models;
+﻿using HandmadeShop.Web.Components;
+using HandmadeShop.Web.Pages.Auth.Models;
 using HandmadeShop.Web.Pages.Auth.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
@@ -11,6 +12,7 @@ public class RegisterBase : ComponentBase
     private  IAuthService AuthService { get; set; }
     [Inject] 
     private NavigationManager NavigationManager { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
  
     protected bool Success;
     protected MudForm Form;
@@ -29,6 +31,30 @@ public class RegisterBase : ComponentBase
     protected bool ShowErrors;
     protected string Error = string.Empty;
     protected string ErrorDetail = string.Empty;
+    
+    protected async Task DeleteProduct()
+    {
+        var parameters = new DialogParameters
+        {
+            {
+                "ContentText",
+                "Вы действительно хотите удалить товар? Данное действие нельзя будет отменить после удаления." +
+                "Также при удалении пропадет рейтинг товара и все отзывы!"
+            },
+            { "ButtonText", "Delete" },
+            { "Color", Color.Error }
+        };
+
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+        var dialog = await DialogService.ShowAsync<Dialog>("Удаление продукта", parameters, options);
+        var result = await dialog.Result;
+
+        if (result.Canceled)
+        {
+            return;
+        }
+    }
     
     protected void TogglePasswordVisibility()
     {

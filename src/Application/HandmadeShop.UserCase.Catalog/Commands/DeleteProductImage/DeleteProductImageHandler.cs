@@ -11,13 +11,16 @@ public class DeleteProductImageHandler : ICommandHandler<DeleteProductImageComma
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IFileStorage _fileStorage;
+    private readonly ICacheService _cacheService;
 
     public DeleteProductImageHandler(
         IUnitOfWork unitOfWork, 
-        IFileStorage fileStorage)
+        IFileStorage fileStorage, 
+        ICacheService cacheService)
     {
         _unitOfWork = unitOfWork;
         _fileStorage = fileStorage;
+        _cacheService = cacheService;
     }
 
     public async Task<Result> Handle(DeleteProductImageCommand request, CancellationToken cancellationToken)
@@ -32,6 +35,9 @@ public class DeleteProductImageHandler : ICommandHandler<DeleteProductImageComma
         await _fileStorage.DeleteFileAsync(request.Model.PathToImage, cancellationToken);
 
         product.Images.Remove(request.Model.PathToImage);
+        
+        var cacheKey = $"product-{product.Uid}";
+        await _cacheService.RemoveAsync(cacheKey, cancellationToken);
 
         await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

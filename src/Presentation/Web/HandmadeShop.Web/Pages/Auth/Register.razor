@@ -1,7 +1,11 @@
 ﻿@page "/register"
 @inherits RegisterBase
 @layout SimpleLayout
+@inject IDialogService DialogService
 
+<MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
+    Open Simple Dialog
+</MudButton>
 @if (!Success)
 {
     <MudStack Row="true" Justify="Justify.Center" Class="pa-6 mt-6">
@@ -60,5 +64,14 @@
 else
 {
     <SuccessRegister/>
+}
+
+@code {
+
+    private void OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true };
+        DialogService.Show<DialogUsageExample_Dialog>("Simple Dialog", options);
+    }
 }
 

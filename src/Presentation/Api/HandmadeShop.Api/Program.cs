@@ -2,6 +2,7 @@ using HandmadeShop.Api;
 using HandmadeShop.Api.Configuration;
 using HandmadeShop.Common.Settings;
 using HandmadeShop.Context;
+using HandmadeShop.Context.Seeder.Seeds;
 using HandmadeShop.Context.Setup;
 using HandmadeShop.Services.Logger.Logger;
 
@@ -41,8 +42,8 @@ app.UseAppControllerAndViews();
 app.UseAppMiddlewares();
 
 DbInitializer.Execute(app.Services);
-//
-// DbSeeder.Execute(app.Services);
+
+DbSeeder.Execute(app.Services);
 
 app.MapGet("/", () => Results.Redirect("/docs")).ExcludeFromDescription();
 

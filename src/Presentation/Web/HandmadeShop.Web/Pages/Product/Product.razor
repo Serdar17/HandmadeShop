@@ -46,14 +46,14 @@ else
 			                 @ref="@Carousel" 
 			                 ItemsSource="@Images"
 			                 @bind-SelectedIndex="SelectedIndex"
-			                 Style="height:200px;" 
+			                 Style="height:300px; width: 600px" 
 			                 ShowArrows="true"
 			                 ShowBullets="true" 
 			                 EnableSwipeGesture="true" 
 			                 AutoCycle="false">
 				    <ItemTemplate>
 					    <div class="d-flex flex-column flex-column justify-center" style="height:100%">
-						    <MudImage Src="@context.DownloadUrl" Elevation="25" Class="rounded-lg"/>
+						    <MudImage Src="@context.DownloadUrl" ObjectFit="ObjectFit.Cover" Elevation="25" Class="rounded-lg"/>
 					    </div>
 				    </ItemTemplate>
 			    </MudCarousel>
