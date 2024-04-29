@@ -16,7 +16,7 @@ public static class SeedData
         Gender = Gender.Male,
         Email = "seller@mail.com",
         EmailConfirmed = true,
-        PasswordHash = "AQAAAAIAAYagAAAAEB8kAAxVFnEyo3DnfmjkVgBDt/06SqL0zbDpCs0ckvahI9PHswQ/qlvCwAyOEFDEDw==",
+        PasswordHash = "1234",
         AvatarUrl = "/users/avatars/24ebc6a2-0f24-440a-9094-60500001dca4/wiit1koc.4k4.jpg",
         BirthDate = new DateTime(2002, 02, 02)
     };
@@ -29,10 +29,12 @@ public static class SeedData
         Gender = Gender.Male,
         Email = "buyer@mail.com",
         EmailConfirmed = true,
-        PasswordHash = "AQAAAAIAAYagAAAAEB8kAAxVFnEyo3DnfmjkVgBDt/06SqL0zbDpCs0ckvahI9PHswQ/qlvCwAyOEFDEDw==",
+        PasswordHash = "1234",
         AvatarUrl = "/users/avatars/24ebc6a2-0f24-440a-9094-60500001dca4/wiit1koc.4k4.jpg",
         BirthDate = new DateTime(2002, 02, 02)
     };
+
+    public static List<Product> TestProducts => [..TestProduct1, ..TestProduct2, ..TestProduct3, ..TestProduct4];
 
     public static List<Catalog> TestCatalogs =>
     [
@@ -42,7 +44,7 @@ public static class SeedData
         new Catalog("Выпечка и сладости")
     ];
 
-    public static List<Product> TestProducts =
+    public static List<Product> TestProduct1 =
     [
         new Product
         {
@@ -52,8 +54,6 @@ public static class SeedData
             Price = 4000,
             HasDiscount = false,
             Images = ["/products/images/198cfe6b-3cce-467c-8080-4900875fa3bb/vsdzlgrt.pke.jpg"],
-            Catalog = TestCatalogs[0],
-            User = Seller,
         },
         
         new Product
@@ -65,8 +65,6 @@ public static class SeedData
             HasDiscount = true,
             DiscountPrice = 2699,
             Images = ["/products/images/198cfe6b-3cce-467c-8080-4900875fa3bb/cwbnsgvj.tep.jpg"],
-            Catalog = TestCatalogs[0],
-            User = Seller,
         },
         
         new Product
@@ -77,8 +75,6 @@ public static class SeedData
             Price = 1500,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/u4xtmmti.wnu.jfif"],
-            Catalog = TestCatalogs[0],
-            User = Seller,
         },
         
         new Product
@@ -89,8 +85,6 @@ public static class SeedData
             Price = 4000,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/euu5exw1.wa5.jfif"],
-            Catalog = TestCatalogs[0],
-            User = Seller,
         },
         
         new Product
@@ -101,10 +95,11 @@ public static class SeedData
             Price = 4000,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/euu5exw1.wa5.jfif"],
-            Catalog = TestCatalogs[0],
-            User = Seller,
         },
-        
+    ];
+
+    public static List<Product> TestProduct2 = 
+    [
         new Product
         {
             Name = "Разделочный доски",
@@ -113,8 +108,6 @@ public static class SeedData
             Price = 500,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/el32dwhg.vx2.jfif"],
-            Catalog = TestCatalogs[1],
-            User = Seller,
         },
         
         new Product
@@ -126,8 +119,6 @@ public static class SeedData
             HasDiscount = true,
             DiscountPrice = 599,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/atnjfyh4.vyj.jfif"],
-            Catalog = TestCatalogs[1],
-            User = Seller,
         },
         
         new Product
@@ -138,8 +129,6 @@ public static class SeedData
             Price = 5000,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/p0arubzg.zuh.jfif"],
-            Catalog = TestCatalogs[1],
-            User = Seller,
         },
         
         new Product
@@ -151,8 +140,6 @@ public static class SeedData
             HasDiscount = true,
             DiscountPrice = 299,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/2zchduip.4kj.jfif"],
-            Catalog = TestCatalogs[1],
-            User = Seller,
         },
         
         new Product
@@ -163,10 +150,11 @@ public static class SeedData
             Price = 1500,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/nbd0jgq3.dry.jfif"],
-            Catalog = TestCatalogs[1],
-            User = Seller,
         },
-        
+    ];
+
+    public static List<Product> TestProduct3 = 
+    [
         new Product
         {
             Name = "Керамические чашки",
@@ -175,8 +163,6 @@ public static class SeedData
             Price = 1500,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/ft4ghg34.cty.jfif"],
-            Catalog = TestCatalogs[2],
-            User = Seller,
         },
         
         new Product
@@ -187,8 +173,6 @@ public static class SeedData
             Price = 6000,
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/hwrxqq2p.g2c.jfif"],
-            Catalog = TestCatalogs[2],
-            User = Seller,
         },
         
         new Product
@@ -200,10 +184,11 @@ public static class SeedData
             HasDiscount = true,
             DiscountPrice = 899,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/ldmf3xvx.egu.jfif"],
-            Catalog = TestCatalogs[2],
-            User = Seller,
         },
-        
+    ];
+
+    public static List<Product> TestProduct4 =
+    [
         new Product
         {
             Name = "Шоколад ручной работы",
@@ -213,7 +198,6 @@ public static class SeedData
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/3mqei1it.mi0.webp"],
             Catalog = TestCatalogs[3],
-            User = Seller,
         },
         
         new Product
@@ -225,7 +209,6 @@ public static class SeedData
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/dbar5jww.xep.webp"],
             Catalog = TestCatalogs[3],
-            User = Seller,
         },
         
         new Product
@@ -237,7 +220,6 @@ public static class SeedData
             HasDiscount = false,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/rqpnhmiy.0qy.jfif"],
             Catalog = TestCatalogs[3],
-            User = Seller,
         },
         
         new Product
@@ -250,7 +232,6 @@ public static class SeedData
             DiscountPrice = 1299,
             Images = ["/products/images/de014a0d-1448-4f74-bc59-94599302ae7e/wvce3lee.uql.jfif"],
             Catalog = TestCatalogs[3],
-            User = Seller,
         },
     ];
 }

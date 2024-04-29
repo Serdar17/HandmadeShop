@@ -13,7 +13,7 @@ public class Product : BaseEntity
     public List<string> Images { get; set; } = new();
 
     public int CatalogId { get; set; }
-    public virtual required Catalog Catalog { get; set; }
+    public virtual Catalog Catalog { get; set; }
 
     public int LikeId { get; set; }
     public virtual Like? Like { get; set; }

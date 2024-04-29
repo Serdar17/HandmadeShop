@@ -15,6 +15,7 @@ public static class DependencyInjection
             .AddEmailSender()
             .AddEmailSettings()
             .AddMainSettings()
+            .AddWebSettings()
             ;
 
         services.AddSingleton<ITaskExecutor, TaskExecutor>();

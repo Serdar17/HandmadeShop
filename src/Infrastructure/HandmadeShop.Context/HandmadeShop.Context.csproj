@@ -25,6 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Application\HandmadeShop.UseCase.Auth\HandmadeShop.UseCase.Auth.csproj" />
       <ProjectReference Include="..\..\Domain\HandmadeShop.Domain\HandmadeShop.Domain.csproj" />
       <ProjectReference Include="..\..\Domain\HandmadeShop.Infrastructure.Abstractions\HandmadeShop.Infrastructure.Abstractions.csproj" />
       <ProjectReference Include="..\..\Shared\HandmadeShop.Common\HandmadeShop.Common.csproj" />
