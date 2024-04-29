@@ -52,6 +52,12 @@ services:
       - shared_handmade_shop
     env_file:
       - env.api
+  
+  handmade_shop_web:
+    ports:
+      - "10002:80"
+    networks:
+      - shared_handmade_shop
 
 networks:
   shared_handmade_shop:

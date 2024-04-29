@@ -38,4 +38,13 @@ services:
       - handmade_shop_rabbitmq
       - handmade_shop_redis
   
+  handmade_shop_web:
+    image: ${DOCKER_REGISTRY-}handmade_shop_web
+    build:
+      context: .
+      dockerfile: src/Presentation/Web/HandmadeShop.Web/Dockerfile
+    depends_on:
+      - handmade_shop_api
+      - handmade_shop_porstgresql
+  
   
