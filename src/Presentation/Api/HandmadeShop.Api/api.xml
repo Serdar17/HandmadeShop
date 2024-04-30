@@ -129,7 +129,7 @@
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Account.AccountsController.UpdateAccountInfoAsync(HandmadeShop.Api.Controllers.Account.Models.UpdateAccountInfoRequest)">
             <summary>
-            
+            Update user info endpoint
             </summary>
             <param name="request"></param>
             <returns></returns>
@@ -222,7 +222,7 @@
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.#ctor(AutoMapper.IMapper,MediatR.ISender,HandmadeShop.Infrastructure.Abstractions.Identity.IIdentityService)">
             <summary>
-            
+            Constructor
             </summary>
             <param name="mapper"></param>
             <param name="sender"></param>
@@ -230,14 +230,14 @@
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.RegisterAsync(HandmadeShop.Api.Controllers.Auth.Models.RegistrationUserRequest)">
             <summary>
-            
+            Register user endpoint
             </summary>
             <param name="request"></param>
             <returns></returns>
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.VerifyEmailAsync(HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest)">
             <summary>
-            
+            Verify email endpoint
             </summary>
             <param name="request"></param>
             <returns></returns>
@@ -265,7 +265,7 @@
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Auth.AuthController.ResetPasswordFromProfileAsync(HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest)">
             <summary>
-            
+            Reset password from profile endpoint 
             </summary>
             <param name="request"></param>
             <returns></returns>
@@ -422,7 +422,7 @@
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest">
             <summary>
-            
+            Reset profile password request
             </summary>
         </member>
         <member name="P:HandmadeShop.Api.Controllers.Auth.Models.ResetProfilePasswordRequest.Password">
@@ -457,7 +457,7 @@
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest">
             <summary>
-            
+            Verify email request
             </summary>
         </member>
         <member name="P:HandmadeShop.Api.Controllers.Auth.Models.VerifyEmailRequest.UserId">
@@ -866,7 +866,7 @@
         </member>
         <member name="M:HandmadeShop.Api.Controllers.Catalog.ProductController.#ctor(AutoMapper.IMapper,MediatR.ISender)">
             <summary>
-            
+            Constructor
             </summary>
             <param name="mapper"></param>
             <param name="sender"></param>
@@ -994,8 +994,7 @@
         </member>
         <member name="T:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest">
             <summary>
-            
-            Confirm order id
+            Confirm order request
             </summary>
         </member>
         <member name="P:HandmadeShop.Api.Controllers.Order.Models.ConfirmOrderRequest.OrderId">
@@ -1352,21 +1351,21 @@
         </member>
         <member name="T:HandmadeShop.Api.Services.IdentityService">
             <summary>
-            
+            Identity service
             </summary>
         </member>
         <member name="M:HandmadeShop.Api.Services.IdentityService.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <summary>
-            
+            Constructor
             </summary>
-            <param name="context"></param>
-            <exception cref="T:System.ArgumentNullException"></exception>
+            <param name="context">IHttpContextAccessor</param>
+            <exception cref="T:System.ArgumentNullException">ArgumentNullException</exception>
         </member>
         <member name="M:HandmadeShop.Api.Services.IdentityService.GetUserIdentity">
             <summary>
-            
+            Get the user id if user is logged in
             </summary>
-            <returns></returns>
+            <returns>Guid</returns>
         </member>
     </members>
 </doc>

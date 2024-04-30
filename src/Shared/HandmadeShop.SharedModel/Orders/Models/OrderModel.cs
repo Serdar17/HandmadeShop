@@ -13,7 +13,7 @@ public class OrderModel
     public string Description { get; set; }
     public OrderStatus OrderStatus { get; set; }
 
-    public List<OrderItemModel> Items { get; set; }
+    public IEnumerable<OrderItemModel> Items { get; set; } = Enumerable.Empty<OrderItemModel>();
 
     public double Sum => Items.Select(x => x.Price * x.Quantity).Sum();
 

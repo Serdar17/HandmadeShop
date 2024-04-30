@@ -5,6 +5,7 @@ using HandmadeShop.Web.Pages.Basket.Services;
 using HandmadeShop.Web.Pages.Order.Services;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using ZXing.QrCode.Internal;
 using Severity = MudBlazor.Severity;
 
 namespace HandmadeShop.Web.Pages.Order;
@@ -40,6 +41,7 @@ public class CheckoutBase : ComponentBase
             return;
         }
 
+        Model.Order.Buyer = Model.Buyer;
         var result = await OrderService.CreateOrderAsync(Model);
         if (result.IsSuccess)
         {
