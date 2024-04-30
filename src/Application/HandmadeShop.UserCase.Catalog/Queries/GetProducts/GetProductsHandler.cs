@@ -22,7 +22,6 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
 
     public async Task<Result<PagedList<ProductModel>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        //TODO: Collations and Case Sensitivity EF CORE
         var productQuery = _context.Products
             .Include(x => x.Catalog)
             .Include(x => x.Like)

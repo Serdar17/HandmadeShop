@@ -54,8 +54,6 @@ internal sealed class CreateOrderHandler : ICommandHandler<CreateOrderCommand>
         var orderItems = _mapper.Map<IEnumerable<OrderItem>>(cart.Items);
         order.Buyer = buyer;
         order.Items = orderItems.ToList();
-        
-        //TODO: Send notification to the seller 
 
         await _unitOfWork.OrderRepository.InsertAsync(order, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

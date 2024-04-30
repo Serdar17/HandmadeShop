@@ -2,14 +2,24 @@
 @layout MainLayout
 @attribute [Authorize]
 
-
-@* TODO: Основная страница с товарами с фильтрацией и пагинацией *@
 <PageTitle>Home</PageTitle>
 
 
-<div class="center">
-    <div>1234</div>
+<div class="main-text">
+    <MudText><b>HandMade Shop</b> - онлайн магазин, где вы можете публиковать и продавать изделия
+        сделанные своими руками!!!</MudText>
+    
+    <MudText Class="mt-4">Краткий обзор по страницам:</MudText>
+
+    <MudList Clickable="true">
+        <MudListItem Style="color: #594AE2" Href="@("/product")">Создание продукта</MudListItem>
+        <MudListItem Style="color: #594AE2" Href="@("/basket")">Корзина</MudListItem>
+        <MudListItem Style="color: #594AE2" Href="@("/my/favorites")">Избранные товары</MudListItem>
+        <MudListItem Style="color: #594AE2" Href="@("/profile")">Профиль</MudListItem>
+        <MudListItem Style="color: #594AE2" Href="@("/orders")">Список заказов</MudListItem>
+    </MudList>
 </div>
+
 
 
 

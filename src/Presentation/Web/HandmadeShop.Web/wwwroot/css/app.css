@@ -341,3 +341,7 @@ code {
     justify-content: center;
     align-items: center;
 }
+
+.main-text {
+    margin: 20px;
+}

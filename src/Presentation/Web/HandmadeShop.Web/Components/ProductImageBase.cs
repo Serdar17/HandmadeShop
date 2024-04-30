@@ -11,6 +11,5 @@ public class ProductImageBase : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        // TODO: fetch product images by id
     }
 }
