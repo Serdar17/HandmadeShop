@@ -6,28 +6,19 @@ using Microsoft.AspNetCore.Components;
 
 namespace HandmadeShop.Web.Handlers;
 
-public class AuthenticationDelegatingHandler : DelegatingHandler
+public class AuthenticationDelegatingHandler(
+    ILocalStorageService localStorage,
+    NavigationManager navigationManager,
+    ITokenService tokenService)
+    : DelegatingHandler
 {
-    private readonly ILocalStorageService _localStorage;
-    private readonly NavigationManager _navigationManager;
-    private readonly ITokenService _tokenService;
     private bool _isRefreshed;
-    
-    public AuthenticationDelegatingHandler(
-        ILocalStorageService localStorage,
-        NavigationManager navigationManager, 
-        ITokenService tokenService)
-    {
-        _localStorage = localStorage;
-        _navigationManager = navigationManager;
-        _tokenService = tokenService;
-    }
-    
-    
+
+
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         Console.WriteLine("interceptor called");
-        var accessToken = await _localStorage.GetItemAsStringAsync("authToken", cancellationToken);
+        var accessToken = await localStorage.GetItemAsStringAsync("authToken", cancellationToken);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken?.Replace("\"", ""));
         var response = await base.SendAsync(request, cancellationToken);
         
@@ -36,7 +27,7 @@ public class AuthenticationDelegatingHandler : DelegatingHandler
             try
             {
                 _isRefreshed = true;
-                var tokenResult = await _tokenService.RefreshTokenAsync();
+                var tokenResult = await tokenService.RefreshTokenAsync();
         
                 if (tokenResult.Successful)
                 {
@@ -45,7 +36,7 @@ public class AuthenticationDelegatingHandler : DelegatingHandler
                 }
                 else
                 {
-                    _navigationManager.NavigateTo("/logout");
+                    navigationManager.NavigateTo("/logout");
                 }
             }
             catch (Exception e)

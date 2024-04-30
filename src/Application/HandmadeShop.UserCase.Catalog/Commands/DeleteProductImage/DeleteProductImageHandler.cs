@@ -7,40 +7,30 @@ using HandmadeShop.Infrastructure.Abstractions.FileStorage;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.DeleteProductImage;
 
-public class DeleteProductImageHandler : ICommandHandler<DeleteProductImageCommand>
+public class DeleteProductImageHandler(
+    IUnitOfWork unitOfWork,
+    IFileStorage fileStorage,
+    ICacheService cacheService)
+    : ICommandHandler<DeleteProductImageCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileStorage _fileStorage;
-    private readonly ICacheService _cacheService;
-
-    public DeleteProductImageHandler(
-        IUnitOfWork unitOfWork, 
-        IFileStorage fileStorage, 
-        ICacheService cacheService)
-    {
-        _unitOfWork = unitOfWork;
-        _fileStorage = fileStorage;
-        _cacheService = cacheService;
-    }
-
     public async Task<Result> Handle(DeleteProductImageCommand request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
             return ProductErrors.NotFound(request.ProductId);
         }
 
-        await _fileStorage.DeleteFileAsync(request.Model.PathToImage, cancellationToken);
+        await fileStorage.DeleteFileAsync(request.Model.PathToImage, cancellationToken);
 
         product.Images.Remove(request.Model.PathToImage);
         
         var cacheKey = $"product-{product.Uid}";
-        await _cacheService.RemoveAsync(cacheKey, cancellationToken);
+        await cacheService.RemoveAsync(cacheKey, cancellationToken);
 
-        await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         
         return Result.Success();
     }

@@ -1,13 +1,7 @@
 ﻿namespace HandmadeShop.SharedModel.Basket.Models;
 
-public class UpdateCartItemModel
+public class UpdateCartItemModel(Guid productId, int quantity)
 {
-    public Guid ProductId { get; set; }
-    public int Quantity { get; set; }
-
-    public UpdateCartItemModel(Guid productId, int quantity)
-    {
-        ProductId = productId;
-        Quantity = quantity;
-    }
+    public Guid ProductId { get; set; } = productId;
+    public int Quantity { get; set; } = quantity;
 }

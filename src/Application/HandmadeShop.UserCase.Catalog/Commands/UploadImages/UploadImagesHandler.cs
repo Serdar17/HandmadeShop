@@ -10,28 +10,18 @@ using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.UploadImages;
 
-internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand, UploadedImageModel>
+internal sealed class UploadImagesHandler(
+    IUnitOfWork unitOfWork,
+    IMapper mapper,
+    IFileStorage fileStorage,
+    ICacheService cacheService)
+    : ICommandHandler<UploadImagesCommand, UploadedImageModel>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileStorage _fileStorage;
-    private readonly IMapper _mapper;
-    private readonly ICacheService _cacheService;
-
-    public UploadImagesHandler(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper, 
-        IFileStorage fileStorage,
-        ICacheService cacheService)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-        _fileStorage = fileStorage;
-        _cacheService = cacheService;
-    }
+    private readonly IMapper _mapper = mapper;
 
     public async Task<Result<UploadedImageModel>> Handle(UploadImagesCommand request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
@@ -39,22 +29,22 @@ internal sealed class UploadImagesHandler : ICommandHandler<UploadImagesCommand,
         }
 
         var cacheKey = $"product-{product.Uid}";
-        await _cacheService.RemoveAsync(cacheKey, cancellationToken);
+        await cacheService.RemoveAsync(cacheKey, cancellationToken);
 
-        var path = await _fileStorage.UploadAsync(
+        var path = await fileStorage.UploadAsync(
             product.Uid,
             request.Model.Image,
             FolderPaths.PathToProductImagesFolder, cancellationToken);
             
         product.Images.Add(path);
         
-        await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         var model = new UploadedImageModel()
         {
             ImagePath = path,
-            DownloadUrl = await _fileStorage.GetDownloadLinkAsync(path, cancellationToken)
+            DownloadUrl = await fileStorage.GetDownloadLinkAsync(path, cancellationToken)
         };
         
         return model;

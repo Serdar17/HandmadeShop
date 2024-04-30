@@ -214,17 +214,11 @@ public class CatalogBase : ComponentBase
     }
 }
 
-public class SortItem
+public class SortItem(string name, string value)
 {
-    public string Name { get; }
+    public string Name { get; } = name;
 
-    public string Value { get; }
-
-    public SortItem(string name, string value)
-    {
-        Name = name;
-        Value = value;
-    }
+    public string Value { get; } = value;
 
     public override bool Equals(object? obj)
     {

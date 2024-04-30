@@ -2,14 +2,7 @@
 
 namespace HandmadeShop.Context.Factories;
 
-public class DbContextFactory
+public class DbContextFactory(DbContextOptions<AppDbContext> options)
 {
-    private readonly DbContextOptions<AppDbContext> _options;
-
-    public DbContextFactory(DbContextOptions<AppDbContext> options)
-    {
-        _options = options;
-    }
-
-    public AppDbContext Create() => new (_options);
+    public AppDbContext Create() => new (options);
 }

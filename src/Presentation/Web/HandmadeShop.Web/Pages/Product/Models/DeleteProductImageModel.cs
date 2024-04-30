@@ -1,11 +1,6 @@
 ﻿namespace HandmadeShop.Web.Pages.Product.Models;
 
-public class DeleteProductImageModel
+public class DeleteProductImageModel(string pathToImage)
 {
-    public string PathToImage { get; set; }
-    
-    public DeleteProductImageModel(string pathToImage)
-    {
-        PathToImage = pathToImage;
-    }
+    public string PathToImage { get; set; } = pathToImage;
 }

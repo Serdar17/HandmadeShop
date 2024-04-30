@@ -6,20 +6,13 @@ using HandmadeShop.Services.Settings.Settings;
 
 namespace HandmadeShop.Services.EmailSender;
 
-public class EmailService : IEmailService
+public class EmailService(MainSettings mainSettings, WebSettings webSettings) : IEmailService
 {
-    private readonly MainSettings _mainSettings;
-    private readonly WebSettings _webSettings;
-    
-    public EmailService(MainSettings mainSettings, WebSettings webSettings)
-    {
-        _mainSettings = mainSettings;
-        _webSettings = webSettings;
-    }
-    
+    private readonly MainSettings _mainSettings = mainSettings;
+
     public Task<EmailModel> GetVerificationEmail(User user, string token)
     {
-        var confirmationLink = new Uri($"{_webSettings.Url}/verify-email")
+        var confirmationLink = new Uri($"{webSettings.Url}/verify-email")
             .AddParameter("userId", user.Id.ToString())
             .AddParameter("token", token);
 
@@ -32,7 +25,7 @@ public class EmailService : IEmailService
 
     public Task<EmailModel> GetResetPasswordEmail(User user, string token)
     {
-        var uri = new Uri($"{_webSettings.Url}/reset-password")
+        var uri = new Uri($"{webSettings.Url}/reset-password")
             .AddParameter("email", user.Email)
             .AddParameter("token", token);
         

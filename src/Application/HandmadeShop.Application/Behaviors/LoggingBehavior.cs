@@ -3,17 +3,11 @@ using Microsoft.Extensions.Logging;
 
 namespace HandmadeShop.Application.Behaviors;
 
-public class LoggingBehavior<TRequest, TResponse> 
-    : IPipelineBehavior<TRequest, TResponse> where TRequest 
+public class LoggingBehavior<TRequest, TResponse>(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest
     : IRequest<TResponse>
 {
-    private readonly ILogger<LoggingBehavior<TRequest, TResponse>> _logger;
-
-    public LoggingBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
-    {
-        _logger = logger;
-    }
-    
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, 
         CancellationToken cancellationToken)
     {
@@ -24,7 +18,7 @@ public class LoggingBehavior<TRequest, TResponse>
 
         var response = await next();
     
-        _logger.LogInformation("Handled {Name} object {@Response}", typeof(TResponse).Name, typeof(TResponse));
+        logger.LogInformation("Handled {Name} object {@Response}", typeof(TResponse).Name, typeof(TResponse));
                 
         return response;
     }

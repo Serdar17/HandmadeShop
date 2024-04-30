@@ -10,28 +10,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Auth.Commands.RegisterUser;
 
-internal sealed class RegisterUserHandler : ICommandHandler<RegisterUserCommand, UserAccountModel>
+internal sealed class RegisterUserHandler(
+    UserManager<User> userManager,
+    IMapper mapper,
+    IAction action,
+    IEmailService emailService)
+    : ICommandHandler<RegisterUserCommand, UserAccountModel>
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IMapper _mapper;
-    private readonly IAction _action;
-    private readonly IEmailService _emailService;
-
-    public RegisterUserHandler(
-        UserManager<User> userManager, 
-        IMapper mapper,
-        IAction action, 
-        IEmailService emailService)
-    {
-        _userManager = userManager;
-        _mapper = mapper;
-        _action = action;
-        _emailService = emailService;
-    }
-
     public async Task<Result<UserAccountModel>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
-        var existUser = await _userManager.FindByEmailAsync(request.Model.Email);
+        var existUser = await userManager.FindByEmailAsync(request.Model.Email);
     
         if (existUser is not null)
         {
@@ -48,9 +36,9 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUserCommand,
             Gender = Gender.Unknown,
         };
     
-        user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, user.PasswordHash);
+        user.PasswordHash = userManager.PasswordHasher.HashPassword(user, user.PasswordHash);
     
-        var result = await _userManager.CreateAsync(user);
+        var result = await userManager.CreateAsync(user);
     
         if (!result.Succeeded)
         {
@@ -59,12 +47,12 @@ internal sealed class RegisterUserHandler : ICommandHandler<RegisterUserCommand,
             return UserErrors.CreateError(message);
         }
         
-        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
-        var email = await _emailService.GetVerificationEmail(user, token);
+        var email = await emailService.GetVerificationEmail(user, token);
 
-        await _action.SendEmail(email);
+        await action.SendEmail(email);
     
-        return _mapper.Map<UserAccountModel>(user);
+        return mapper.Map<UserAccountModel>(user);
     }
 }

@@ -38,7 +38,7 @@ public class AuthController : ControllerBase
     private readonly IIdentityService _identityService;
 
     /// <summary>
-    /// 
+    /// Constructor
     /// </summary>
     /// <param name="mapper"></param>
     /// <param name="sender"></param>
@@ -51,7 +51,7 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Register user endpoint
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -70,7 +70,7 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// 
+    /// Verify email endpoint
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
@@ -152,7 +152,7 @@ public class AuthController : ControllerBase
 
 
     /// <summary>
-    /// 
+    /// Reset password from profile endpoint 
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

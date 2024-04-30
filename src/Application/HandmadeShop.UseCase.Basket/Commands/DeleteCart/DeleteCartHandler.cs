@@ -9,33 +9,23 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Basket.Commands.DeleteCart;
 
-internal sealed class DeleteCartHandler : ICommandHandler<DeleteCartCommand, BasketModel>
+internal sealed class DeleteCartHandler(
+    ICacheService cache,
+    IIdentityService identityService,
+    UserManager<User> userManager)
+    : ICommandHandler<DeleteCartCommand, BasketModel>
 {
-    private readonly ICacheService _cache;
-    private readonly IIdentityService _identityService;
-    private readonly UserManager<User> _userManager;
-
-    public DeleteCartHandler(
-        ICacheService cache,
-        IIdentityService identityService,
-        UserManager<User> userManager)
-    {
-        _cache = cache;
-        _identityService = identityService;
-        _userManager = userManager;
-    }
-
     public async Task<Result<BasketModel>> Handle(DeleteCartCommand request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
 
-        var data = await _cache.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
+        var data = await cache.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
         var model = new BasketModel { UserId = userId };
         
         if (data is null)
@@ -49,7 +39,7 @@ internal sealed class DeleteCartHandler : ICommandHandler<DeleteCartCommand, Bas
             data.Items.Remove(item);
         }
 
-        await _cache.PutAsync(userId.ToString(), data, cancellationToken: cancellationToken);
+        await cache.PutAsync(userId.ToString(), data, cancellationToken: cancellationToken);
         model.BasketProducts = data.Items.Select(x => x.ProductId).ToList();
         return model;
     }

@@ -9,20 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProducts;
 
-public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<ProductModel>>
+public class GetProductsHandler(IAppDbContext context, IMapper mapper)
+    : IQueryHandler<GetProductsQuery, PagedList<ProductModel>>
 {
-    private readonly IAppDbContext _context;
-    private readonly IMapper _mapper;
-
-    public GetProductsHandler(IAppDbContext context, IMapper mapper)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
-
     public async Task<Result<PagedList<ProductModel>>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
     {
-        var productQuery = _context.Products
+        var productQuery = context.Products
             .Include(x => x.Catalog)
             .Include(x => x.Like)
             .Include(x => x.Reviews)
@@ -62,7 +54,7 @@ public class GetProductsHandler : IQueryHandler<GetProductsQuery, PagedList<Prod
         }
         
         var productResponseQuery = productQuery
-            .Select(x => _mapper.Map<ProductModel>(x));
+            .Select(x => mapper.Map<ProductModel>(x));
 
         var products = await 
             PagedList<ProductModel>.CreateAsync(

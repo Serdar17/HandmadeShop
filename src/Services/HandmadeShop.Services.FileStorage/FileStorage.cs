@@ -7,14 +7,9 @@ using YandexDisk.Client.Protocol;
 
 namespace HandmadeShop.Services.FileStorage;
 
-public class FileStorage : IFileStorage
+public class FileStorage(FileStorageSettings settings) : IFileStorage
 {
-    private readonly IDiskApi _diskApi;
-
-    public FileStorage(FileStorageSettings settings)
-    {
-        _diskApi = new DiskHttpApi(settings.OAuthToken);
-    }
+    private readonly IDiskApi _diskApi = new DiskHttpApi(settings.OAuthToken);
 
     public async Task<string> UploadAsync(Guid id, 
         IFormFile image, 

@@ -6,21 +6,13 @@ using Microsoft.Extensions.Logging;
 
 namespace HandmadeShop.Services.Action;
 
-public class Action : IAction
+public class Action(
+    IRabbitMq rabbitMq,
+    ILogger<Action> logger) : IAction
 {
-    private readonly IRabbitMq _rabbitMq;
-    private readonly ILogger<Action> _logger;
-
-    public Action(IRabbitMq rabbitMq, 
-        ILogger<Action> logger)
-    {
-        _rabbitMq = rabbitMq;
-        _logger = logger;
-    }
-
     public async Task SendEmail(EmailModel email)
     {
-        _logger.LogInformation("The message {@email} was sent to the queue", email);
-        await _rabbitMq.PushAsync(RabbitMqTaskQueueNames.SendEmail, email);
+        logger.LogInformation("The message {@email} was sent to the queue", email);
+        await rabbitMq.PushAsync(RabbitMqTaskQueueNames.SendEmail, email);
     }
 }

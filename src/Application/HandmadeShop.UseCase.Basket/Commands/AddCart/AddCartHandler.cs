@@ -11,47 +11,34 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Basket.Commands.AddCart;
 
-internal sealed class AddCartHandler : ICommandHandler<AddCartCommand, BasketModel>
+internal sealed class AddCartHandler(
+    ICacheService cache,
+    IUnitOfWork unitOfWork,
+    IIdentityService identityService,
+    UserManager<User> userManager,
+    IMapper mapper)
+    : ICommandHandler<AddCartCommand, BasketModel>
 {
-    private readonly ICacheService _cache;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IIdentityService _identityService;
-    private readonly UserManager<User> _userManager;
-    private readonly IMapper _mapper;
-
-    public AddCartHandler(
-        ICacheService cache,
-        IUnitOfWork unitOfWork,
-        IIdentityService identityService, 
-        UserManager<User> userManager, IMapper mapper)
-    {
-        _cache = cache;
-        _unitOfWork = unitOfWork;
-        _identityService = identityService;
-        _userManager = userManager;
-        _mapper = mapper;
-    }
-
     public async Task<Result<BasketModel>> Handle(AddCartCommand request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
 
         if (product is null)
         {
             return ProductErrors.NotFound(request.Model.ProductId);
         }
         
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
 
-        var cartItem = _mapper.Map<CartItem>(product);
+        var cartItem = mapper.Map<CartItem>(product);
         cartItem.Quantity = 1;
-        var data = await _cache.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
+        var data = await cache.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
         Cart cart;
             
         if (data is null)
@@ -68,7 +55,7 @@ internal sealed class AddCartHandler : ICommandHandler<AddCartCommand, BasketMod
             cart.Items.Add(cartItem);
         }
         
-        await _cache.PutAsync(userId.ToString(), cart, cancellationToken: cancellationToken);
+        await cache.PutAsync(userId.ToString(), cart, cancellationToken: cancellationToken);
 
         return new BasketModel
         {

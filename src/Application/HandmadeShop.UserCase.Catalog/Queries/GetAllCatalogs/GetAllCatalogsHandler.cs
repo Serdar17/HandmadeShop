@@ -6,23 +6,15 @@ using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetAllCatalogs;
 
-internal sealed class GetAllCatalogsHandler : IQueryHandler<GetAllCatalogsQuery, IEnumerable<CatalogModel>>
+internal sealed class GetAllCatalogsHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IQueryHandler<GetAllCatalogsQuery, IEnumerable<CatalogModel>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-
-    public GetAllCatalogsHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-    }
-
     public async Task<Result<IEnumerable<CatalogModel>>> Handle(
         GetAllCatalogsQuery request, 
         CancellationToken cancellationToken)
     {
-        var catalog = await _unitOfWork.CatalogRepository.GetAllAsync(cancellationToken);
+        var catalog = await unitOfWork.CatalogRepository.GetAllAsync(cancellationToken);
         
-        return Result<IEnumerable<CatalogModel>>.Success(_mapper.Map<IEnumerable<CatalogModel>>(catalog));
+        return Result<IEnumerable<CatalogModel>>.Success(mapper.Map<IEnumerable<CatalogModel>>(catalog));
     }
 }

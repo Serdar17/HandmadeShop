@@ -11,27 +11,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UseCase.Account.Queries.GetMyProducts;
 
-internal sealed class GetMyProductHandler : IQueryHandler<GetMyProductQuery, PagedList<ProductModel>>
+internal sealed class GetMyProductHandler(
+    UserManager<User> userManager,
+    IMapper mapper,
+    IIdentityService identityService)
+    : IQueryHandler<GetMyProductQuery, PagedList<ProductModel>>
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IMapper _mapper;
-    private readonly IIdentityService _identityService;
-
-    public GetMyProductHandler(
-        UserManager<User> userManager,
-        IMapper mapper,
-        IIdentityService identityService)
-    {
-        _userManager = userManager;
-        _mapper = mapper;
-        _identityService = identityService;
-    }
-
     public async Task<Result<PagedList<ProductModel>>> Handle(GetMyProductQuery request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
+        var userId = identityService.GetUserIdentity();
         
-        var userQuery = _userManager.Users
+        var userQuery = userManager.Users
             .Include(x => x.Products)
                 .ThenInclude(x => x.Catalog)
             .Where(x => x.Id == userId);
@@ -61,7 +51,7 @@ internal sealed class GetMyProductHandler : IQueryHandler<GetMyProductQuery, Pag
         var p = productQuery.ToList();
 
         var productQueryResponse = productQuery
-            .Select(x => _mapper.Map<ProductModel>(x));
+            .Select(x => mapper.Map<ProductModel>(x));
 
         var products = await PagedList<ProductModel>.CreateAsync(
             productQueryResponse,

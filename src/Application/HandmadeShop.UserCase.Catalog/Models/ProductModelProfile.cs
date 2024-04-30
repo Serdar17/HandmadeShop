@@ -14,22 +14,15 @@ public class ProductModelProfile : Profile
             .AfterMap<ProductModelActions>();
     }
     
-    public class ProductModelActions : IMappingAction<Product, ProductModel>
+    public class ProductModelActions(IFileStorage fileStorage) : IMappingAction<Product, ProductModel>
     {
-        private readonly IFileStorage _fileStorage;
-    
-        public ProductModelActions(IFileStorage fileStorage)
-        {
-            _fileStorage = fileStorage;
-        }
-
         public void Process(Product source, ProductModel destination, ResolutionContext context)
         {
             if (source.Images.Count == 0)
                 return;
 
             var path = source.Images.First();
-            destination.DownloadUrl = _fileStorage.GetDownloadLinkAsync(path).GetAwaiter().GetResult();
+            destination.DownloadUrl = fileStorage.GetDownloadLinkAsync(path).GetAwaiter().GetResult();
         }
     }
 }

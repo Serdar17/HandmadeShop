@@ -5,8 +5,7 @@ using HandmadeShop.SharedModel.Orders.Models;
 namespace HandmadeShop.Api.Controllers.Order.Models;
 
 /// <summary>
-/// 
-/// Confirm order id
+/// Confirm order request
 /// </summary>
 public class ConfirmOrderRequest
 {

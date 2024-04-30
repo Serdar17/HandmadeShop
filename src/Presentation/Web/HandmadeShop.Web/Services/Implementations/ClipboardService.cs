@@ -2,17 +2,10 @@
 
 namespace HandmadeShop.Web.Services;
 
-public class ClipboardService : IClipboardService
+public class ClipboardService(IJSRuntime jsInterop) : IClipboardService
 {
-    private readonly IJSRuntime _jsInterop;
-    
-    public ClipboardService(IJSRuntime jsInterop)
-    {
-        _jsInterop = jsInterop;
-    }
-    
     public async Task CopyToClipboard(string text)
     {
-        await _jsInterop.InvokeVoidAsync("navigator.clipboard.writeText", text);
+        await jsInterop.InvokeVoidAsync("navigator.clipboard.writeText", text);
     }
 }

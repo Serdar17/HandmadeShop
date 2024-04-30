@@ -6,28 +6,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.Context.Repositories;
 
-public class ProductRepository : IProductRepository
+public class ProductRepository(IAppDbContext context) : IProductRepository
 {
-    private readonly IAppDbContext _context;
-
-    public ProductRepository(IAppDbContext context)
-    {
-        _context = context;
-    }
-
     public async Task<IQueryable<Product>> GetAllAsync(CancellationToken cancellationToken = default)
     {
-        return _context.Products.AsQueryable();
+        return context.Products.AsQueryable();
     }
 
     public async Task<IQueryable<Product>> GetAllAsync(Expression<Func<Product, bool>> predicate)
     {
-        return _context.Products.Where(predicate);
+        return context.Products.Where(predicate);
     }
 
     public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Products
+        return await context.Products
             .Where(x => x.Uid.Equals(id))
             .Include(x => x.Catalog)
             .Include(x => x.Like)
@@ -37,22 +30,22 @@ public class ProductRepository : IProductRepository
 
     public async Task InsertAsync(Product model, CancellationToken cancellationToken = default)
     {
-        _context.Products.Add(model);
+        context.Products.Add(model);
     }
 
     public async Task UpdateAsync(Product model, CancellationToken cancellationToken = default)
     {
-        _context.Products.Update(model);
+        context.Products.Update(model);
     }
 
     public async Task DeleteAsync(Product model, CancellationToken cancellationToken = default)
     {
-        _context.Products.Remove(model);
+        context.Products.Remove(model);
     }
 
     public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        await _context.Products
+        await context.Products
             .Where(x => x.Uid.Equals(id))
             .ExecuteDeleteAsync(cancellationToken);
     }

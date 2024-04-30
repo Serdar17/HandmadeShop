@@ -6,30 +6,21 @@ using HandmadeShop.Infrastructure.Abstractions.Context;
 
 namespace HandmadeShop.UserCase.Catalog.Commands.DeleteProduct;
 
-internal sealed class DeleteProductHandler : ICommandHandler<DeleteProductCommand>
+internal sealed class DeleteProductHandler(
+    IUnitOfWork unitOfWork,
+    ICacheService cacheService) : ICommandHandler<DeleteProductCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ICacheService _cacheService;
-
-    public DeleteProductHandler(
-        IUnitOfWork unitOfWork,
-        ICacheService cacheService)
-    {
-        _unitOfWork = unitOfWork;
-        _cacheService = cacheService;
-    }
-
     public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
         
         if (product is null)
         {
             return ProductErrors.NotFound(request.ProductId);
         }
 
-        await _unitOfWork.ProductRepository.DeleteByIdAsync(request.ProductId, cancellationToken);
-        await _cacheService.RemoveAsync($"product-{request.ProductId}", cancellationToken);
+        await unitOfWork.ProductRepository.DeleteByIdAsync(request.ProductId, cancellationToken);
+        await cacheService.RemoveAsync($"product-{request.ProductId}", cancellationToken);
         
         return Result.Success();
     }

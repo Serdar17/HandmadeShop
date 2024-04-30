@@ -5,25 +5,18 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Auth.Commands.VerifyEmail;
 
-internal sealed class VerifyEmailHandler : ICommandHandler<VerifyEmailCommand>
+internal sealed class VerifyEmailHandler(UserManager<User> userManager) : ICommandHandler<VerifyEmailCommand>
 {
-    private readonly UserManager<User> _userManager;
-
-    public VerifyEmailHandler(UserManager<User> userManager)
-    {
-        _userManager = userManager;
-    }
-
     public async Task<Result> Handle(VerifyEmailCommand request, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(request.Model.UserId.ToString());
+        var user = await userManager.FindByIdAsync(request.Model.UserId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(request.Model.UserId);
         }
 
-        var result = await _userManager.ConfirmEmailAsync(user, request.Model.Token);
+        var result = await userManager.ConfirmEmailAsync(user, request.Model.Token);
 
         if (!result.Succeeded)
         {

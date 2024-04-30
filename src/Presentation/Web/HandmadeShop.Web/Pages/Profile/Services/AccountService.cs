@@ -11,22 +11,15 @@ using HandmadeShop.Web.Services;
 
 namespace HandmadeShop.Web.Pages.Profile.Services;
 
-public class AccountService : IAccountService
+public class AccountService(IHttpClientFactory factory, IIdentityService identityService, IAuthService authService)
+    : IAccountService
 {
-    private readonly HttpClient _httpClient;
-    private readonly IIdentityService _identityService;
-    private readonly IAuthService _authService;
-
-    public AccountService(IHttpClientFactory factory, IIdentityService identityService, IAuthService authService)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-        _identityService = identityService;
-        _authService = authService;
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
+    private readonly IAuthService _authService = authService;
 
     public async Task<Result<AccountInfoModel>> GetAccountInfoAsync()
     {
-        var id = await _identityService.GetClaimsPrincipalData();
+        var id = await identityService.GetClaimsPrincipalData();
 
         if (string.IsNullOrEmpty(id))
         {

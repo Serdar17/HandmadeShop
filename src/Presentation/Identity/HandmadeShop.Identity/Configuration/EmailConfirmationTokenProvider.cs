@@ -4,15 +4,13 @@ using Microsoft.Extensions.Options;
 
 namespace HandmadeShop.Identity.Configuration;
 
-public class EmailConfirmationTokenProvider<TUser> : DataProtectorTokenProvider<TUser> where TUser : class
+public class EmailConfirmationTokenProvider<TUser>(
+    IDataProtectionProvider dataProtectionProvider,
+    IOptions<EmailConfirmationTokenProviderOptions> options,
+    ILogger<DataProtectorTokenProvider<TUser>> logger)
+    : DataProtectorTokenProvider<TUser>(dataProtectionProvider, options, logger)
+    where TUser : class
 {
-    public EmailConfirmationTokenProvider(IDataProtectionProvider dataProtectionProvider, 
-        IOptions<EmailConfirmationTokenProviderOptions> options, 
-        ILogger<DataProtectorTokenProvider<TUser>> logger)
-        : base(dataProtectionProvider, options, logger)
-    {
-    }
-
     // public override async Task<string> GenerateAsync(string purpose, UserManager<TUser> manager, TUser user)
     // {
     //     if (user == null)

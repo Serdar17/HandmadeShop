@@ -10,51 +10,40 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Review.Commands.AddReview;
 
-internal sealed class AddReviewHandler : ICommandHandler<AddReviewCommand, ReviewInfoModel>
+internal sealed class AddReviewHandler(
+    IUnitOfWork unitOfWork,
+    UserManager<User> userManager,
+    IIdentityService identityService,
+    IMapper mapper,
+    IFileStorage fileStorage)
+    : ICommandHandler<AddReviewCommand, ReviewInfoModel>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
-    private readonly IIdentityService _identityService;
-    private readonly IMapper _mapper;
-    private readonly IFileStorage _fileStorage;
-    
-    public AddReviewHandler(
-        IUnitOfWork unitOfWork,
-        UserManager<User> userManager,
-        IIdentityService identityService,
-        IMapper mapper, IFileStorage fileStorage)
-    {
-        _unitOfWork = unitOfWork;
-        _userManager = userManager;
-        _identityService = identityService;
-        _mapper = mapper;
-        _fileStorage = fileStorage;
-    }
+    private readonly IFileStorage _fileStorage = fileStorage;
 
     public async Task<Result<ReviewInfoModel>> Handle(AddReviewCommand request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
         
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
 
         if (product is null)
         {
             return ProductErrors.NotFound(request.Model.ProductId);
         }
 
-        var review = _mapper.Map<Domain.Review>(request.Model);
+        var review = mapper.Map<Domain.Review>(request.Model);
         review.Owner = user;
         product.Reviews.Add(review);
 
-        await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<ReviewInfoModel>(review);
+        return mapper.Map<ReviewInfoModel>(review);
     }
 }

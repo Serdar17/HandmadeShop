@@ -7,26 +7,18 @@ using HandmadeShop.SharedModel.Catalogs.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProductInfo;
 
-internal sealed class GetProductInfoHandler : IQueryHandler<GetProductInfoQuery, ProductInfoModel>
+internal sealed class GetProductInfoHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    : IQueryHandler<GetProductInfoQuery, ProductInfoModel>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-
-    public GetProductInfoHandler(IUnitOfWork unitOfWork, IMapper mapper)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-    }
-
     public async Task<Result<ProductInfoModel>> Handle(GetProductInfoQuery request, CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
             return ProductErrors.NotFound(request.ProductId);
         }
 
-        return _mapper.Map<ProductInfoModel>(product);
+        return mapper.Map<ProductInfoModel>(product);
     }
 }

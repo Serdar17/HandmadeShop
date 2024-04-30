@@ -6,19 +6,14 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace HandmadeShop.Web.Providers;
 
-public class ApiAuthenticationStateProvider : AuthenticationStateProvider
+public class ApiAuthenticationStateProvider(IHttpClientFactory factory, ILocalStorageService localStorage)
+    : AuthenticationStateProvider
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILocalStorageService _localStorage;
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
-    public ApiAuthenticationStateProvider(IHttpClientFactory factory, ILocalStorageService localStorage)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-        _localStorage = localStorage;
-    }
     public override async Task<AuthenticationState> GetAuthenticationStateAsync()
     {
-        var savedToken = await _localStorage.GetItemAsync<string>("authToken");
+        var savedToken = await localStorage.GetItemAsync<string>("authToken");
 
         if (string.IsNullOrWhiteSpace(savedToken))
         {

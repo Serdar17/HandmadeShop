@@ -1,14 +1,8 @@
 ﻿namespace HandmadeShop.UserCase.Catalog.Models;
 
-public class ProductImageModel
+public class ProductImageModel(string imagePath, string downloadUrl)
 {
-    public string ImagePath { get; set; }
-    
-    public string DownloadUrl { get; set; }
+    public string ImagePath { get; set; } = imagePath;
 
-    public ProductImageModel(string imagePath, string downloadUrl)
-    {
-        ImagePath = imagePath;
-        DownloadUrl = downloadUrl;
-    }
+    public string DownloadUrl { get; set; } = downloadUrl;
 }

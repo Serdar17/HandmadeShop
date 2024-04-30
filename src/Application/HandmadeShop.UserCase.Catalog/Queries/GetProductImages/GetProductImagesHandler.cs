@@ -7,21 +7,13 @@ using HandmadeShop.UserCase.Catalog.Models;
 
 namespace HandmadeShop.UserCase.Catalog.Queries.GetProductImages;
 
-public class GetProductImagesHandler : IQueryHandler<GetProductImagesQuery, IEnumerable<ProductImageModel>>
+public class GetProductImagesHandler(IUnitOfWork unitOfWork, IFileStorage fileStorage)
+    : IQueryHandler<GetProductImagesQuery, IEnumerable<ProductImageModel>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileStorage _fileStorage;
-
-    public GetProductImagesHandler(IUnitOfWork unitOfWork, IFileStorage fileStorage)
-    {
-        _unitOfWork = unitOfWork;
-        _fileStorage = fileStorage;
-    }
-
     public async Task<Result<IEnumerable<ProductImageModel>>> Handle(GetProductImagesQuery request, 
         CancellationToken cancellationToken)
     {
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
@@ -39,7 +31,7 @@ public class GetProductImagesHandler : IQueryHandler<GetProductImagesQuery, IEnu
     {
         foreach (var image in product.Images)
         {
-            var path = await _fileStorage.GetDownloadLinkAsync(image);
+            var path = await fileStorage.GetDownloadLinkAsync(image);
             images.Add(new ProductImageModel(image, path));
         }
     }

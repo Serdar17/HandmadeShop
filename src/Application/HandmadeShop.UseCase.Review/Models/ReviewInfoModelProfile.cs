@@ -14,20 +14,13 @@ public class ReviewInfoModelProfile : Profile
         CreateMap<User, OwnerModel>();
     }
     
-    public class ReviewInfoModelActions : IMappingAction<Domain.Review, ReviewInfoModel>
+    public class ReviewInfoModelActions(IFileStorage fileStorage) : IMappingAction<Domain.Review, ReviewInfoModel>
     {
-        private readonly IFileStorage _fileStorage;
-    
-        public ReviewInfoModelActions(IFileStorage fileStorage)
-        {
-            _fileStorage = fileStorage;
-        }
-    
         public void Process(Domain.Review source, ReviewInfoModel destination, ResolutionContext context)
         {
             foreach (var image in source.Images)
             {
-                var downloadUrl = _fileStorage.GetDownloadLinkAsync(image).GetAwaiter().GetResult();
+                var downloadUrl = fileStorage.GetDownloadLinkAsync(image).GetAwaiter().GetResult();
                 destination.ImageUrls.Add(downloadUrl);
             }
         }

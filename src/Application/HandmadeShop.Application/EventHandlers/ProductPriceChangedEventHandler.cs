@@ -8,24 +8,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.Application.EventHandlers;
 
-public class ProductPriceChangedEventHandler : INotificationHandler<ProductPriceChangedEvent>
+public class ProductPriceChangedEventHandler(ICacheService cacheService, IAppDbContext context)
+    : INotificationHandler<ProductPriceChangedEvent>
 {
-    private readonly IAppDbContext _context;
-    private readonly ICacheService _cacheService;
-
-    public ProductPriceChangedEventHandler(ICacheService cacheService, IAppDbContext context)
-    {
-        _cacheService = cacheService;
-        _context = context;
-    }
-
     public async Task Handle(ProductPriceChangedEvent notification, CancellationToken cancellationToken)
     {
-        var userIds = await _context.Users.Select(x => x.Id.ToString()).ToListAsync(cancellationToken);
+        var userIds = await context.Users.Select(x => x.Id.ToString()).ToListAsync(cancellationToken);
 
         foreach (var userId in userIds)
         {
-            var cart = await _cacheService.GetAsync<Cart>(userId, cancellationToken: cancellationToken);
+            var cart = await cacheService.GetAsync<Cart>(userId, cancellationToken: cancellationToken);
             
             await UpdateCartItemAsync(cart, notification.Model);
         }
@@ -47,6 +39,6 @@ public class ProductPriceChangedEventHandler : INotificationHandler<ProductPrice
             item.MaxQuantity = model.Quantity;
         }
 
-        await _cacheService.PutAsync(cart.UserId.ToString(), cart);
+        await cacheService.PutAsync(cart.UserId.ToString(), cart);
     }
 }

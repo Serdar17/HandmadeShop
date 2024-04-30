@@ -10,36 +10,24 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Basket.Commands.UpdateCartItem;
 
-internal sealed class UpdateCartItemHandler : ICommandHandler<UpdateCartItemCommand, CartItemModel>
+internal sealed class UpdateCartItemHandler(
+    ICacheService cacheService,
+    IMapper mapper,
+    IIdentityService identityService,
+    UserManager<User> userManager)
+    : ICommandHandler<UpdateCartItemCommand, CartItemModel>
 {
-    private readonly ICacheService _cacheService;
-    private readonly IMapper _mapper;
-    private readonly IIdentityService _identityService;
-    private readonly UserManager<User> _userManager;
-
-    public UpdateCartItemHandler(
-        ICacheService cacheService,
-        IMapper mapper,
-        IIdentityService identityService,
-        UserManager<User> userManager)
-    {
-        _cacheService = cacheService;
-        _mapper = mapper;
-        _identityService = identityService;
-        _userManager = userManager;
-    }
-
     public async Task<Result<CartItemModel>> Handle(UpdateCartItemCommand request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
 
-        var cart = await _cacheService.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
+        var cart = await cacheService.GetAsync<Cart>(userId.ToString(), cancellationToken: cancellationToken);
 
         if (cart is null)
         {
@@ -57,8 +45,8 @@ internal sealed class UpdateCartItemHandler : ICommandHandler<UpdateCartItemComm
             ? cartItem.MaxQuantity
             : request.Model.Quantity;
 
-        await _cacheService.PutAsync(userId.ToString(), cart, cancellationToken: cancellationToken);
+        await cacheService.PutAsync(userId.ToString(), cart, cancellationToken: cancellationToken);
 
-        return _mapper.Map<CartItemModel>(cartItem);
+        return mapper.Map<CartItemModel>(cartItem);
     }
 }

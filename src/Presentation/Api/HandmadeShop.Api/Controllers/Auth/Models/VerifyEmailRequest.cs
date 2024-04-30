@@ -5,7 +5,7 @@ using HandmadeShop.UseCase.Auth.Models;
 namespace HandmadeShop.Api.Controllers.Auth.Models;
 
 /// <summary>
-/// 
+/// Verify email request
 /// </summary>
 public class VerifyEmailRequest
 {

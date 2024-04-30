@@ -1,15 +1,8 @@
 ﻿namespace HandmadeShop.Domain.Email;
 
-public class EmailModel
+public class EmailModel(string subject, string body, string destinationEmail)
 {
-    public string Subject { get; }
-    public string Body { get; }
-    public string DestinationEmail { get; set; }
-
-    public EmailModel(string subject, string body, string destinationEmail)
-    {
-        Subject = subject;
-        Body = body;
-        DestinationEmail = destinationEmail;
-    }
+    public string Subject { get; } = subject;
+    public string Body { get; } = body;
+    public string DestinationEmail { get; set; } = destinationEmail;
 }

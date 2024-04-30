@@ -2,33 +2,23 @@
 
 namespace HandmadeShop.SharedModel.Catalogs.Models;
 
-public class PagedList<T>
+public class PagedList<T>(List<T> items, int page, int pageSize, int totalCount, int maxPrice, int minPrice)
 {
-    public List<T> Items { get; }
+    public List<T> Items { get; } = items;
 
-    public int Page { get; }
+    public int Page { get; } = page;
 
-    public int PageSize { get; }
+    public int PageSize { get; } = pageSize;
 
-    public int TotalCount { get; }
+    public int TotalCount { get; } = totalCount;
 
-    public int MaxPrice { get; set; }
-    
-    public int MinPrice { get; set; }
+    public int MaxPrice { get; set; } = maxPrice;
+
+    public int MinPrice { get; set; } = minPrice;
 
     public bool HasNextPage => PageSize * Page < TotalCount;
 
     public bool HasPreviousPage => Page > 1;
-
-    public PagedList(List<T> items, int page, int pageSize, int totalCount, int maxPrice, int minPrice)
-    {
-        Items = items;
-        Page = page;
-        PageSize = pageSize;
-        TotalCount = totalCount;
-        MaxPrice = maxPrice;
-        MinPrice = minPrice;
-    }
 
     public static async Task<PagedList<T>> CreateAsync(IQueryable<T> query, int page, int pageSize, int maxPrice, int minPrice)
     {

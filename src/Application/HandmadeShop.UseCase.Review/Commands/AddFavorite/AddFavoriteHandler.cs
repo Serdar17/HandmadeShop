@@ -7,48 +7,38 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Review.Commands.AddFavorite;
 
-internal sealed class AddFavoriteHandler : ICommandHandler<AddFavoriteCommand>
+internal sealed class AddFavoriteHandler(
+    IUnitOfWork unitOfWork,
+    IIdentityService identityService,
+    UserManager<User> userManager)
+    : ICommandHandler<AddFavoriteCommand>
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IIdentityService _identityService;
-
-    public AddFavoriteHandler(
-        IUnitOfWork unitOfWork,
-        IIdentityService identityService,
-        UserManager<User> userManager)
-    {
-        _unitOfWork = unitOfWork;
-        _identityService = identityService;
-        _userManager = userManager;
-    }
-
     public async Task<Result> Handle(AddFavoriteCommand request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
 
-        var product = await _unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
+        var product = await unitOfWork.ProductRepository.GetByIdAsync(request.Model.ProductId, cancellationToken);
 
         if (product is null)
         {
             return ProductErrors.NotFound(request.Model.ProductId);
         }
 
-        if (product.Like is not null && await _unitOfWork.LikeRepository.HasLikeAsync(userId, product.Like.Id))
+        if (product.Like is not null && await unitOfWork.LikeRepository.HasLikeAsync(userId, product.Like.Id))
         {
             return Result.Success();
         }
         
         product.AddLike(user);
 
-        await _unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.ProductRepository.UpdateAsync(product, cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         
         return Result.Success();
     }

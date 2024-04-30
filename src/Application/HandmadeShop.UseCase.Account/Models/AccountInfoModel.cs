@@ -24,21 +24,14 @@ public class AccountInfoModelProfile : Profile
             .AfterMap<AccountInfoModelActions>();
     }
     
-    public class AccountInfoModelActions : IMappingAction<User, AccountInfoModel>
+    public class AccountInfoModelActions(IFileStorage fileStorage) : IMappingAction<User, AccountInfoModel>
     {
-        private readonly IFileStorage _fileStorage;
-
-        public AccountInfoModelActions(IFileStorage fileStorage)
-        {
-            _fileStorage = fileStorage;
-        }
-
         public void Process(User source, AccountInfoModel destination, ResolutionContext context)
         {
             if (source.AvatarUrl is null)
                 return;
             
-            var url =  _fileStorage.GetDownloadLinkAsync(source.AvatarUrl)
+            var url =  fileStorage.GetDownloadLinkAsync(source.AvatarUrl)
                 .GetAwaiter()
                 .GetResult();
             

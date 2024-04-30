@@ -7,19 +7,13 @@ using RabbitMQ.Client.Exceptions;
 
 namespace HandmadeShop.Services.RabbitMq.RabbitMq;
 
-public class RabbitMq : IRabbitMq, IDisposable
+public class RabbitMq(RabbitMqSettings settings) : IRabbitMq, IDisposable
 {
     private const int ConnectRetriesCount = 10;
 
     private readonly object _connectionLock = new();
-    private readonly RabbitMqSettings _settings;
     private IModel _channel;
     private IConnection _connection;
-
-    public RabbitMq(RabbitMqSettings settings)
-    {
-        _settings = settings;
-    }
 
     public void Dispose()
     {
@@ -67,9 +61,9 @@ public class RabbitMq : IRabbitMq, IDisposable
 
             var factory = new ConnectionFactory
             {
-                Uri = new Uri(_settings.Uri),
-                UserName = _settings.UserName,
-                Password = _settings.Password,
+                Uri = new Uri(settings.Uri),
+                UserName = settings.UserName,
+                Password = settings.Password,
 
                 AutomaticRecoveryEnabled = true,
                 NetworkRecoveryInterval = TimeSpan.FromSeconds(5)

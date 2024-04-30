@@ -14,21 +14,14 @@ public class CartModelProfile : Profile
             .AfterMap<CartModelProfileActions>();
     }
 
-    public class CartModelProfileActions : IMappingAction<CartItem, CartItemModel>
+    public class CartModelProfileActions(IFileStorage fileStorage) : IMappingAction<CartItem, CartItemModel>
     {
-        private readonly IFileStorage _fileStorage;
-
-        public CartModelProfileActions(IFileStorage fileStorage)
-        {
-            _fileStorage = fileStorage;
-        }
-
         public void Process(CartItem source, CartItemModel destination, ResolutionContext context)
         {
             if (string.IsNullOrEmpty(source.ImageUrl))
                 return;
 
-            destination.DownloadUrl = _fileStorage.GetDownloadLinkAsync(source.ImageUrl).GetAwaiter().GetResult();
+            destination.DownloadUrl = fileStorage.GetDownloadLinkAsync(source.ImageUrl).GetAwaiter().GetResult();
         }
     }
 }

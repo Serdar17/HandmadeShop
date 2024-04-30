@@ -9,36 +9,24 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Order.Queries.GetOrders;
 
-internal sealed class GetOrdersHandler : IQueryHandler<GetOrdersQuery, IEnumerable<OrderModel>>
+internal sealed class GetOrdersHandler(
+    IUnitOfWork unitOfWork,
+    IIdentityService identityService,
+    IMapper mapper,
+    UserManager<User> userManager)
+    : IQueryHandler<GetOrdersQuery, IEnumerable<OrderModel>>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-    private readonly IIdentityService _identityService;
-    private readonly UserManager<User> _userManager;
-
-    public GetOrdersHandler(
-        IUnitOfWork unitOfWork, 
-        IIdentityService identityService,
-        IMapper mapper,
-        UserManager<User> userManager)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-        _identityService = identityService;
-        _userManager = userManager;
-    }
-
     public async Task<Result<IEnumerable<OrderModel>>> Handle(GetOrdersQuery request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
         
-        var orderQuery = await _unitOfWork.OrderRepository
+        var orderQuery = await unitOfWork.OrderRepository
             .GetAllAsync(p => p.Buyer.UserId == userId);
 
         if (request.Model.Status != null)
@@ -56,7 +44,7 @@ internal sealed class GetOrdersHandler : IQueryHandler<GetOrdersQuery, IEnumerab
             }
         }
         
-        var model =_mapper.Map<IEnumerable<OrderModel>>(orderQuery.ToList());
+        var model =mapper.Map<IEnumerable<OrderModel>>(orderQuery.ToList());
         return Result<IEnumerable<OrderModel>>.Success(model);
     }
 }

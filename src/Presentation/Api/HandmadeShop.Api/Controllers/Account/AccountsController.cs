@@ -124,7 +124,7 @@ public class AccountsController : ControllerBase
     }
     
     /// <summary>
-    /// 
+    /// Update user info endpoint
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>

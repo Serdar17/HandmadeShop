@@ -8,18 +8,11 @@ using MimeKit;
 
 namespace HandmadeShop.Services.EmailSender;
 
-public class EmailSender : IEmailSender
+public class EmailSender(
+    ILogger<EmailSender> logger,
+    EmailSettings emailSettings)
+    : IEmailSender
 {
-    private readonly ILogger<EmailSender> _logger;
-    private readonly EmailSettings _emailSettings;
-
-    public EmailSender(ILogger<EmailSender> logger,
-        EmailSettings emailSettings)
-    {
-        _logger = logger;
-        _emailSettings = emailSettings;
-    }
-
     public async Task Send(EmailModel email)
     {
         var emailMessage = CreateEmailMessage(email);
@@ -30,7 +23,7 @@ public class EmailSender : IEmailSender
     private MimeMessage CreateEmailMessage(EmailModel email)
     {
         var emailMessage = new MimeMessage();
-        emailMessage.From.Add(new MailboxAddress(email.Subject, _emailSettings.From));
+        emailMessage.From.Add(new MailboxAddress(email.Subject, emailSettings.From));
         emailMessage.To.Add(new MailboxAddress("", email.DestinationEmail));
         emailMessage.Subject = email.Subject;
         emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
@@ -46,10 +39,10 @@ public class EmailSender : IEmailSender
         using var client = new SmtpClient();
         try
         {
-            await client.ConnectAsync(_emailSettings.SmtpServer, _emailSettings.Port, _emailSettings.EnableSsl);
-            await client.AuthenticateAsync(_emailSettings.UserName, _emailSettings.Password);
+            await client.ConnectAsync(emailSettings.SmtpServer, emailSettings.Port, emailSettings.EnableSsl);
+            await client.AuthenticateAsync(emailSettings.UserName, emailSettings.Password);
             await client.SendAsync(mailMessage);
-            _logger.LogInformation("Email to {EmailMessage}", mailMessage);
+            logger.LogInformation("Email to {EmailMessage}", mailMessage);
         }
         catch (Exception e)
         {

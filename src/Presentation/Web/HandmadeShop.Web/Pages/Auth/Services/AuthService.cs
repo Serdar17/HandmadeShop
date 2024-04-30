@@ -12,23 +12,16 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 namespace HandmadeShop.Web.Pages.Auth.Services;
 
-public class AuthService : IAuthService
+public class AuthService(
+    IHttpClientFactory factory,
+    AuthenticationStateProvider authenticationStateProvider,
+    ILocalStorageService localStorage)
+    : IAuthService
 {
     private const string LocalStorageAuthTokenKey = "authToken";
     private const string LocalStorageRefreshTokenKey = "refreshToken";
     
-    private readonly HttpClient _httpClient;
-    private readonly AuthenticationStateProvider _authenticationStateProvider;
-    private readonly ILocalStorageService _localStorage;
-
-    public AuthService(IHttpClientFactory factory,
-                       AuthenticationStateProvider authenticationStateProvider,
-                       ILocalStorageService localStorage)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-        _authenticationStateProvider = authenticationStateProvider;
-        _localStorage = localStorage;
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
     public async Task<LoginResult> LoginAsync(LoginModel loginModel)
     {
@@ -57,10 +50,10 @@ public class AuthService : IAuthService
             return loginResult;
         }
 
-        await _localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
-        await _localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
+        await localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
+        await localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
 
-        ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
+        ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
 
         _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult.AccessToken);
 
@@ -125,7 +118,7 @@ public class AuthService : IAuthService
     public async Task<LoginResult> RefreshTokenAsync()
     {
         var url = $"{Settings.IdentityRoot}/connect/token";
-        var refreshToken = await _localStorage.GetItemAsStringAsync(LocalStorageRefreshTokenKey);
+        var refreshToken = await localStorage.GetItemAsStringAsync(LocalStorageRefreshTokenKey);
         refreshToken = refreshToken.Replace("\"", "");
         Console.WriteLine($"Refresh token is {refreshToken}");
         var formData = new[] 
@@ -150,18 +143,18 @@ public class AuthService : IAuthService
             return loginResult;
         }
 
-        await _localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
-        await _localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
+        await localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
+        await localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
 
         return loginResult;
     }
 
     public async Task Logout()
     {
-        await _localStorage.RemoveItemAsync(LocalStorageAuthTokenKey);
-        await _localStorage.RemoveItemAsync(LocalStorageRefreshTokenKey);
+        await localStorage.RemoveItemAsync(LocalStorageAuthTokenKey);
+        await localStorage.RemoveItemAsync(LocalStorageRefreshTokenKey);
 
-        ((ApiAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
+        ((ApiAuthenticationStateProvider)authenticationStateProvider).MarkUserAsLoggedOut();
 
         _httpClient.DefaultRequestHeaders.Authorization = null;
     }

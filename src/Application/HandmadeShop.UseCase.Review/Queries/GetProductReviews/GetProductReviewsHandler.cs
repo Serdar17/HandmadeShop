@@ -8,20 +8,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UseCase.Review.Queries.GetProductReviews;
 
-internal sealed class GetProductReviewsHandler : IQueryHandler<GetProductReviewQuery, IEnumerable<ReviewInfoModel>>
+internal sealed class GetProductReviewsHandler(IAppDbContext context, IMapper mapper)
+    : IQueryHandler<GetProductReviewQuery, IEnumerable<ReviewInfoModel>>
 {
-    private readonly IAppDbContext _context;
-    private readonly IMapper _mapper;
-
-    public GetProductReviewsHandler(IAppDbContext context, IMapper mapper)
-    {
-        _context = context;
-        _mapper = mapper;
-    }
-
     public async Task<Result<IEnumerable<ReviewInfoModel>>> Handle(GetProductReviewQuery request, CancellationToken cancellationToken)
     {
-        var productQuery = _context.Products
+        var productQuery = context.Products
             .Where(x => x.Uid == request.ProductId);
 
         if (! await productQuery.AnyAsync(cancellationToken: cancellationToken))
@@ -33,7 +25,7 @@ internal sealed class GetProductReviewsHandler : IQueryHandler<GetProductReviewQ
             .Include(x => x.Reviews)
                 .ThenInclude(x => x.Owner)
             .SelectMany(x => x.Reviews)
-            .Select(x => _mapper.Map<ReviewInfoModel>(x))
+            .Select(x => mapper.Map<ReviewInfoModel>(x))
             .ToListAsync(cancellationToken: cancellationToken);
 
         return reviews;

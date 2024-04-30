@@ -7,15 +7,10 @@ using HandmadeShop.Web.Extensions;
 
 namespace HandmadeShop.Web.Pages.Review.Services;
 
-public class ReviewService : IReviewService
+public class ReviewService(IHttpClientFactory factory) : IReviewService
 {
     private static readonly string Root = $"{Settings.ApiRoot}/api/v1/reviews";
-    private readonly HttpClient _httpClient;
-
-    public ReviewService(IHttpClientFactory factory)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
     public async Task<Result<IEnumerable<ReviewInfoModel>>> GetProductReviews(Guid productId)
     {

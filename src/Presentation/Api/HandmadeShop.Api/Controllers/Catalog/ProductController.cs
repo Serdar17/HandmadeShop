@@ -39,7 +39,7 @@ public class ProductController : ControllerBase
     private readonly ISender _sender;
 
     /// <summary>
-    /// 
+    /// Constructor
     /// </summary>
     /// <param name="mapper"></param>
     /// <param name="sender"></param>

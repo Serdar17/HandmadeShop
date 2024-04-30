@@ -16,15 +16,8 @@ public class ProductInfoModelProfile : Profile
             .AfterMap<ProductInfoModelActions>();
     }
 
-    public class ProductInfoModelActions : IMappingAction<Product, ProductInfoModel>
+    public class ProductInfoModelActions(IFileStorage fileStorage) : IMappingAction<Product, ProductInfoModel>
     {
-        private readonly IFileStorage _fileStorage;
-    
-        public ProductInfoModelActions(IFileStorage fileStorage)
-        {
-            _fileStorage = fileStorage;
-        }
-
         public void Process(Product source, ProductInfoModel destination, ResolutionContext context)
         {
             if (source.Images.Count == 0)
@@ -32,7 +25,7 @@ public class ProductInfoModelProfile : Profile
 
             foreach (var image in source.Images)
             {
-                destination.ImageUrls.Add(_fileStorage.GetDownloadLinkAsync(image).GetAwaiter().GetResult());
+                destination.ImageUrls.Add(fileStorage.GetDownloadLinkAsync(image).GetAwaiter().GetResult());
             }
         }
     }

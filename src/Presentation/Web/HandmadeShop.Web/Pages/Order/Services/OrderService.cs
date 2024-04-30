@@ -7,15 +7,10 @@ using HandmadeShop.Web.Extensions;
 
 namespace HandmadeShop.Web.Pages.Order.Services;
 
-public class OrderService : IOrderService
+public class OrderService(IHttpClientFactory factory) : IOrderService
 {
     private static readonly string Root = $"{Settings.ApiRoot}/api/v1/orders";
-    private readonly HttpClient _httpClient;
-
-    public OrderService(IHttpClientFactory factory)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
     public async Task<Result<List<OrderModel>>> GetOrdersAsync(OrderQueryModel model)
     {

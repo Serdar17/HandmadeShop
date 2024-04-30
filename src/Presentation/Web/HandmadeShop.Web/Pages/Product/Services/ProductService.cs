@@ -8,14 +8,9 @@ using HandmadeShop.Web.Pages.Product.Models;
 
 namespace HandmadeShop.Web.Pages.Product.Services;
 
-public class ProductService : IProductService
+public class ProductService(IHttpClientFactory factory) : IProductService
 {
-    private readonly HttpClient _httpClient;
-
-    public ProductService(IHttpClientFactory factory)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
     public async Task<Result<IEnumerable<CategoryModel>>> GetAllCatalogsAsync()
     {

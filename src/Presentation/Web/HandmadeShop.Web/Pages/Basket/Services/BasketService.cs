@@ -7,16 +7,11 @@ using HandmadeShop.Web.Extensions;
 
 namespace HandmadeShop.Web.Pages.Basket.Services;
 
-public class BasketService : IBasketService
+public class BasketService(IHttpClientFactory factory) : IBasketService
 {
     private static readonly string Root = $"{Settings.ApiRoot}/api/v1/basket";
     
-    private readonly HttpClient _httpClient;
-    
-    public BasketService(IHttpClientFactory factory)
-    {
-        _httpClient = factory.CreateClient(Settings.Api);
-    }
+    private readonly HttpClient _httpClient = factory.CreateClient(Settings.Api);
 
     public async Task<Result<BasketModel>> GetUserBasketAsync()
     {

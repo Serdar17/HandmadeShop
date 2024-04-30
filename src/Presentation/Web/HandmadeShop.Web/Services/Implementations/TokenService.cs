@@ -5,25 +5,18 @@ using Microsoft.VisualBasic;
 
 namespace HandmadeShop.Web.Services;
 
-public class TokenService : ITokenService
+public class TokenService(
+    ILocalStorageService localStorage,
+    IHttpClientFactory clientFactory)
+    : ITokenService
 {
     private const string LocalStorageAuthTokenKey = "authToken";
     private const string LocalStorageRefreshTokenKey = "refreshToken";
 
-    private readonly IHttpClientFactory _clientFactory;
-    private readonly ILocalStorageService _localStorage;
-
-    public TokenService(ILocalStorageService localStorage,
-        IHttpClientFactory clientFactory)
-    {
-        _localStorage = localStorage;
-        _clientFactory = clientFactory;
-    }
-
     public async Task<LoginResult> RefreshTokenAsync()
     {
-        var httpClient = _clientFactory.CreateClient(Settings.Identity);
-        var refreshToken = await _localStorage.GetItemAsStringAsync(LocalStorageRefreshTokenKey);
+        var httpClient = clientFactory.CreateClient(Settings.Identity);
+        var refreshToken = await localStorage.GetItemAsStringAsync(LocalStorageRefreshTokenKey);
         refreshToken = refreshToken.Replace("\"", "");
         Console.WriteLine($"Refresh token is {refreshToken}");
         var formData = new[] 
@@ -48,8 +41,8 @@ public class TokenService : ITokenService
             return loginResult;
         }
 
-        await _localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
-        await _localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
+        await localStorage.SetItemAsync(LocalStorageAuthTokenKey, loginResult.AccessToken);
+        await localStorage.SetItemAsync(LocalStorageRefreshTokenKey, loginResult.RefreshToken);
 
         return loginResult;
     }

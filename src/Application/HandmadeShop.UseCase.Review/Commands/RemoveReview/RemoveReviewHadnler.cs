@@ -6,23 +6,15 @@ using HandmadeShop.Infrastructure.Abstractions.Identity;
 
 namespace HandmadeShop.UseCase.Review.Commands.RemoveReview;
 
-internal sealed class RemoveReviewHandler : ICommandHandler<RemoveReviewCommand>
+internal sealed class RemoveReviewHandler(
+    IUnitOfWork unitOfWork,
+    IIdentityService identityService)
+    : ICommandHandler<RemoveReviewCommand>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IIdentityService _identityService;
-
-    public RemoveReviewHandler(
-        IUnitOfWork unitOfWork, 
-        IIdentityService identityService)
-    {
-        _unitOfWork = unitOfWork;
-        _identityService = identityService;
-    }
-
     public async Task<Result> Handle(RemoveReviewCommand request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var review = await _unitOfWork.ReviewRepository.GetByIdAsync(request.ReviewId, cancellationToken);
+        var userId = identityService.GetUserIdentity();
+        var review = await unitOfWork.ReviewRepository.GetByIdAsync(request.ReviewId, cancellationToken);
         
         if (review is null)
         {
@@ -34,7 +26,7 @@ internal sealed class RemoveReviewHandler : ICommandHandler<RemoveReviewCommand>
             return ReviewErrors.Prohibition();
         }
 
-        await _unitOfWork.ReviewRepository.DeleteByIdAsync(review.Uid, cancellationToken);
+        await unitOfWork.ReviewRepository.DeleteByIdAsync(review.Uid, cancellationToken);
 
         return Result.Success();
     }

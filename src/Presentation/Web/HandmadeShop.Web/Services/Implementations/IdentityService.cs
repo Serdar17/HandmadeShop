@@ -2,15 +2,10 @@
 
 namespace HandmadeShop.Web.Services;
 
-public class IdentityService : IIdentityService
+public class IdentityService(AuthenticationStateProvider provider) : IIdentityService
 {
-    private AuthenticationStateProvider _provider;
+    private AuthenticationStateProvider _provider = provider ?? throw new ArgumentNullException(nameof(provider));
 
-    public IdentityService(AuthenticationStateProvider provider)
-    {
-        _provider = provider ?? throw new ArgumentNullException(nameof(provider));
-    }
-    
     public async Task<string?> GetClaimsPrincipalData()
     {
         var authState = await _provider.GetAuthenticationStateAsync();

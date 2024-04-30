@@ -7,21 +7,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HandmadeShop.UseCase.Account.Queries.GetAllFavorite;
 
-internal sealed class GetAllFavoriteHandler : IQueryHandler<GetAllFavoriteQuery, IEnumerable<Guid>>
+internal sealed class GetAllFavoriteHandler(UserManager<User> userManager, IIdentityService identityService)
+    : IQueryHandler<GetAllFavoriteQuery, IEnumerable<Guid>>
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IIdentityService _identityService;
-
-    public GetAllFavoriteHandler(UserManager<User> userManager, IIdentityService identityService)
-    {
-        _userManager = userManager;
-        _identityService = identityService;
-    }
-
     public async Task<Result<IEnumerable<Guid>>> Handle(GetAllFavoriteQuery request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
 
         if (user is null)
         {

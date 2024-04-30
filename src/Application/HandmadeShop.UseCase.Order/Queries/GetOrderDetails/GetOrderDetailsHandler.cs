@@ -9,36 +9,24 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HandmadeShop.UseCase.Order.Queries.GetOrderDetails;
 
-internal sealed class GetOrderDetailsHandler : IQueryHandler<GetOrderDetailsQuery, OrderModel>
+internal sealed class GetOrderDetailsHandler(
+    IUnitOfWork unitOfWork,
+    IMapper mapper,
+    IIdentityService identityService,
+    UserManager<User> userManager)
+    : IQueryHandler<GetOrderDetailsQuery, OrderModel>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IMapper _mapper;
-    private readonly IIdentityService _identityService;
-    private readonly UserManager<User> _userManager;
-
-    public GetOrderDetailsHandler(
-        IUnitOfWork unitOfWork, 
-        IMapper mapper, 
-        IIdentityService identityService, 
-        UserManager<User> userManager)
-    {
-        _unitOfWork = unitOfWork;
-        _mapper = mapper;
-        _identityService = identityService;
-        _userManager = userManager;
-    }
-
     public async Task<Result<OrderModel>> Handle(GetOrderDetailsQuery request, CancellationToken cancellationToken)
     {
-        var userId = _identityService.GetUserIdentity();
-        var user = await _userManager.FindByIdAsync(userId.ToString());
+        var userId = identityService.GetUserIdentity();
+        var user = await userManager.FindByIdAsync(userId.ToString());
         
         if (user is null)
         {
             return UserErrors.NotFound(userId);
         }
 
-        var order = await _unitOfWork.OrderRepository.GetByIdAsync(request.OrderId, cancellationToken);
+        var order = await unitOfWork.OrderRepository.GetByIdAsync(request.OrderId, cancellationToken);
 
         if (order is null)
         {
@@ -52,6 +40,6 @@ internal sealed class GetOrderDetailsHandler : IQueryHandler<GetOrderDetailsQuer
             return OrderErrors.Prohibition();
         }
 
-        return _mapper.Map<OrderModel>(order);
+        return mapper.Map<OrderModel>(order);
     }
 }
