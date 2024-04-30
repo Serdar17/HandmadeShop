@@ -19,7 +19,7 @@ dotnet run --project ./src/Presentation/Identity/HandmadeShop.Identity
 Docker compose makes it easier to start multiple containers at one time and manage their configuration from one file (`docker-compose.yml`).  This project will run the application and a [Seq](https://datalust.co/seq) containter for application logging.  
 
 - Api - http://localhost:10000
-- Web - http://localhost:10002
+- Web - http://localhost:10002/login
 - Identity - http://localhost:10001/.well-known/openid-configuration
 - Seq - http://localhost:5341 - not working yet
 - RabbitMQ - http://localhost:15672
